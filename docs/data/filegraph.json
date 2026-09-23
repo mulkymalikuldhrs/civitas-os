@@ -1,0 +1,3960 @@
+{
+ "generatedAt": "2026-09-23T12:29:46.036Z",
+ "root": "civitas-os",
+ "counts": {
+  "files": 219,
+  "edges": 524,
+  "kernelEdges": 191
+ },
+ "groups": {
+  "api": 13,
+  "app": 3,
+  "ui-civitas": 16,
+  "ui": 63,
+  "misc": 10,
+  "kernel": 28,
+  "lib": 39,
+  "scripts": 24,
+  "db": 1,
+  "docs": 20,
+  "mc-server": 2
+ },
+ "nodes": [
+  {
+   "id": "src/app/api/civos/action/route.ts",
+   "size": 16778,
+   "group": "api",
+   "loc": 329
+  },
+  {
+   "id": "src/app/api/civos/chat/route.ts",
+   "size": 709,
+   "group": "api",
+   "loc": 17
+  },
+  {
+   "id": "src/app/api/civos/cron/route.ts",
+   "size": 1663,
+   "group": "api",
+   "loc": 46
+  },
+  {
+   "id": "src/app/api/civos/docs/route.ts",
+   "size": 1439,
+   "group": "api",
+   "loc": 38
+  },
+  {
+   "id": "src/app/api/civos/graph/route.ts",
+   "size": 577,
+   "group": "api",
+   "loc": 16
+  },
+  {
+   "id": "src/app/api/civos/heartbeat/route.ts",
+   "size": 1068,
+   "group": "api",
+   "loc": 28
+  },
+  {
+   "id": "src/app/api/civos/minecraft/route.ts",
+   "size": 887,
+   "group": "api",
+   "loc": 24
+  },
+  {
+   "id": "src/app/api/civos/state/route.ts",
+   "size": 399,
+   "group": "api",
+   "loc": 14
+  },
+  {
+   "id": "src/app/api/civos/sync/route.ts",
+   "size": 601,
+   "group": "api",
+   "loc": 19
+  },
+  {
+   "id": "src/app/api/mcp/route.ts",
+   "size": 20811,
+   "group": "api",
+   "loc": 468
+  },
+  {
+   "id": "src/app/api/organism/chat/route.ts",
+   "size": 2164,
+   "group": "api",
+   "loc": 71
+  },
+  {
+   "id": "src/app/api/organism/cron/route.ts",
+   "size": 1583,
+   "group": "api",
+   "loc": 34
+  },
+  {
+   "id": "src/app/api/organism/heartbeat/route.ts",
+   "size": 5018,
+   "group": "api",
+   "loc": 137
+  },
+  {
+   "id": "src/app/globals.css",
+   "size": 10175,
+   "group": "app",
+   "loc": 0
+  },
+  {
+   "id": "src/app/layout.tsx",
+   "size": 1833,
+   "group": "app",
+   "loc": 47
+  },
+  {
+   "id": "src/app/page.tsx",
+   "size": 114,
+   "group": "app",
+   "loc": 6
+  },
+  {
+   "id": "src/components/civitas/Dashboard.tsx",
+   "size": 32228,
+   "group": "ui-civitas",
+   "loc": 527
+  },
+  {
+   "id": "src/components/civitas/McShell.tsx",
+   "size": 11213,
+   "group": "ui-civitas",
+   "loc": 219
+  },
+  {
+   "id": "src/components/civitas/divmeta.ts",
+   "size": 1695,
+   "group": "ui-civitas",
+   "loc": 19
+  },
+  {
+   "id": "src/components/civitas/mcui.tsx",
+   "size": 5526,
+   "group": "ui-civitas",
+   "loc": 114
+  },
+  {
+   "id": "src/components/civitas/views/CitadelView.tsx",
+   "size": 5189,
+   "group": "ui-civitas",
+   "loc": 90
+  },
+  {
+   "id": "src/components/civitas/views/CitizensView.tsx",
+   "size": 6614,
+   "group": "ui-civitas",
+   "loc": 134
+  },
+  {
+   "id": "src/components/civitas/views/CompaniesView.tsx",
+   "size": 4116,
+   "group": "ui-civitas",
+   "loc": 76
+  },
+  {
+   "id": "src/components/civitas/views/ConfigView.tsx",
+   "size": 6930,
+   "group": "ui-civitas",
+   "loc": 127
+  },
+  {
+   "id": "src/components/civitas/views/DocsView.tsx",
+   "size": 2213,
+   "group": "ui-civitas",
+   "loc": 50
+  },
+  {
+   "id": "src/components/civitas/views/EconomyView.tsx",
+   "size": 3398,
+   "group": "ui-civitas",
+   "loc": 77
+  },
+  {
+   "id": "src/components/civitas/views/EventsView.tsx",
+   "size": 1310,
+   "group": "ui-civitas",
+   "loc": 37
+  },
+  {
+   "id": "src/components/civitas/views/GovView.tsx",
+   "size": 2629,
+   "group": "ui-civitas",
+   "loc": 59
+  },
+  {
+   "id": "src/components/civitas/views/GraphView.tsx",
+   "size": 5412,
+   "group": "ui-civitas",
+   "loc": 118
+  },
+  {
+   "id": "src/components/civitas/views/GuildView.tsx",
+   "size": 5032,
+   "group": "ui-civitas",
+   "loc": 98
+  },
+  {
+   "id": "src/components/civitas/views/MapView.tsx",
+   "size": 7220,
+   "group": "ui-civitas",
+   "loc": 160
+  },
+  {
+   "id": "src/components/civitas/views/WorldView.tsx",
+   "size": 4699,
+   "group": "ui-civitas",
+   "loc": 80
+  },
+  {
+   "id": "src/components/flybrain/AppShell.tsx",
+   "size": 7953,
+   "group": "ui",
+   "loc": 151
+  },
+  {
+   "id": "src/components/flybrain/AtlasCanvas.tsx",
+   "size": 5586,
+   "group": "ui",
+   "loc": 176
+  },
+  {
+   "id": "src/components/flybrain/BrainCanvas.tsx",
+   "size": 4395,
+   "group": "ui",
+   "loc": 147
+  },
+  {
+   "id": "src/components/flybrain/CivMapCanvas.tsx",
+   "size": 6869,
+   "group": "ui",
+   "loc": 197
+  },
+  {
+   "id": "src/components/flybrain/views/BiosferView.tsx",
+   "size": 23737,
+   "group": "ui",
+   "loc": 559
+  },
+  {
+   "id": "src/components/flybrain/views/DokumenView.tsx",
+   "size": 6922,
+   "group": "ui",
+   "loc": 137
+  },
+  {
+   "id": "src/components/flybrain/views/GerbangView.tsx",
+   "size": 12505,
+   "group": "ui",
+   "loc": 217
+  },
+  {
+   "id": "src/components/flybrain/views/KendaliView.tsx",
+   "size": 6903,
+   "group": "ui",
+   "loc": 138
+  },
+  {
+   "id": "src/components/flybrain/views/MinecraftView.tsx",
+   "size": 12088,
+   "group": "ui",
+   "loc": 213
+  },
+  {
+   "id": "src/components/flybrain/views/OtakView.tsx",
+   "size": 5793,
+   "group": "ui",
+   "loc": 113
+  },
+  {
+   "id": "src/components/flybrain/views/PeradabanView.tsx",
+   "size": 40358,
+   "group": "ui",
+   "loc": 625
+  },
+  {
+   "id": "src/components/flybrain/views/PlanetView.tsx",
+   "size": 52576,
+   "group": "ui",
+   "loc": 1182
+  },
+  {
+   "id": "src/components/flybrain/views/PrtView.tsx",
+   "size": 7466,
+   "group": "ui",
+   "loc": 159
+  },
+  {
+   "id": "src/components/flybrain/views/RuangKendaliView.tsx",
+   "size": 23999,
+   "group": "ui",
+   "loc": 506
+  },
+  {
+   "id": "src/components/flybrain/views/VaultView.tsx",
+   "size": 21553,
+   "group": "ui",
+   "loc": 377
+  },
+  {
+   "id": "src/components/ui/accordion.tsx",
+   "size": 2053,
+   "group": "ui",
+   "loc": 67
+  },
+  {
+   "id": "src/components/ui/alert-dialog.tsx",
+   "size": 3864,
+   "group": "ui",
+   "loc": 158
+  },
+  {
+   "id": "src/components/ui/alert.tsx",
+   "size": 1614,
+   "group": "ui",
+   "loc": 67
+  },
+  {
+   "id": "src/components/ui/aspect-ratio.tsx",
+   "size": 280,
+   "group": "ui",
+   "loc": 12
+  },
+  {
+   "id": "src/components/ui/avatar.tsx",
+   "size": 1097,
+   "group": "ui",
+   "loc": 54
+  },
+  {
+   "id": "src/components/ui/badge.tsx",
+   "size": 1631,
+   "group": "ui",
+   "loc": 47
+  },
+  {
+   "id": "src/components/ui/breadcrumb.tsx",
+   "size": 2357,
+   "group": "ui",
+   "loc": 110
+  },
+  {
+   "id": "src/components/ui/button.tsx",
+   "size": 2123,
+   "group": "ui",
+   "loc": 60
+  },
+  {
+   "id": "src/components/ui/calendar.tsx",
+   "size": 7660,
+   "group": "ui",
+   "loc": 214
+  },
+  {
+   "id": "src/components/ui/card.tsx",
+   "size": 1989,
+   "group": "ui",
+   "loc": 93
+  },
+  {
+   "id": "src/components/ui/carousel.tsx",
+   "size": 5556,
+   "group": "ui",
+   "loc": 242
+  },
+  {
+   "id": "src/components/ui/chart.tsx",
+   "size": 9781,
+   "group": "ui",
+   "loc": 354
+  },
+  {
+   "id": "src/components/ui/checkbox.tsx",
+   "size": 1226,
+   "group": "ui",
+   "loc": 33
+  },
+  {
+   "id": "src/components/ui/collapsible.tsx",
+   "size": 800,
+   "group": "ui",
+   "loc": 34
+  },
+  {
+   "id": "src/components/ui/command.tsx",
+   "size": 4818,
+   "group": "ui",
+   "loc": 185
+  },
+  {
+   "id": "src/components/ui/context-menu.tsx",
+   "size": 8222,
+   "group": "ui",
+   "loc": 253
+  },
+  {
+   "id": "src/components/ui/dialog.tsx",
+   "size": 3982,
+   "group": "ui",
+   "loc": 144
+  },
+  {
+   "id": "src/components/ui/drawer.tsx",
+   "size": 4255,
+   "group": "ui",
+   "loc": 136
+  },
+  {
+   "id": "src/components/ui/dropdown-menu.tsx",
+   "size": 8284,
+   "group": "ui",
+   "loc": 258
+  },
+  {
+   "id": "src/components/ui/form.tsx",
+   "size": 3759,
+   "group": "ui",
+   "loc": 168
+  },
+  {
+   "id": "src/components/ui/hover-card.tsx",
+   "size": 1532,
+   "group": "ui",
+   "loc": 45
+  },
+  {
+   "id": "src/components/ui/input-otp.tsx",
+   "size": 2254,
+   "group": "ui",
+   "loc": 78
+  },
+  {
+   "id": "src/components/ui/input.tsx",
+   "size": 967,
+   "group": "ui",
+   "loc": 22
+  },
+  {
+   "id": "src/components/ui/label.tsx",
+   "size": 611,
+   "group": "ui",
+   "loc": 25
+  },
+  {
+   "id": "src/components/ui/menubar.tsx",
+   "size": 8394,
+   "group": "ui",
+   "loc": 277
+  },
+  {
+   "id": "src/components/ui/navigation-menu.tsx",
+   "size": 6664,
+   "group": "ui",
+   "loc": 169
+  },
+  {
+   "id": "src/components/ui/pagination.tsx",
+   "size": 2712,
+   "group": "ui",
+   "loc": 128
+  },
+  {
+   "id": "src/components/ui/popover.tsx",
+   "size": 1635,
+   "group": "ui",
+   "loc": 49
+  },
+  {
+   "id": "src/components/ui/progress.tsx",
+   "size": 740,
+   "group": "ui",
+   "loc": 32
+  },
+  {
+   "id": "src/components/ui/radio-group.tsx",
+   "size": 1466,
+   "group": "ui",
+   "loc": 46
+  },
+  {
+   "id": "src/components/ui/resizable.tsx",
+   "size": 2028,
+   "group": "ui",
+   "loc": 57
+  },
+  {
+   "id": "src/components/ui/scroll-area.tsx",
+   "size": 1645,
+   "group": "ui",
+   "loc": 59
+  },
+  {
+   "id": "src/components/ui/select.tsx",
+   "size": 6253,
+   "group": "ui",
+   "loc": 186
+  },
+  {
+   "id": "src/components/ui/separator.tsx",
+   "size": 699,
+   "group": "ui",
+   "loc": 29
+  },
+  {
+   "id": "src/components/ui/sheet.tsx",
+   "size": 4090,
+   "group": "ui",
+   "loc": 140
+  },
+  {
+   "id": "src/components/ui/sidebar.tsx",
+   "size": 21633,
+   "group": "ui",
+   "loc": 727
+  },
+  {
+   "id": "src/components/ui/skeleton.tsx",
+   "size": 276,
+   "group": "ui",
+   "loc": 14
+  },
+  {
+   "id": "src/components/ui/slider.tsx",
+   "size": 2001,
+   "group": "ui",
+   "loc": 64
+  },
+  {
+   "id": "src/components/ui/sonner.tsx",
+   "size": 564,
+   "group": "ui",
+   "loc": 26
+  },
+  {
+   "id": "src/components/ui/switch.tsx",
+   "size": 1177,
+   "group": "ui",
+   "loc": 32
+  },
+  {
+   "id": "src/components/ui/table.tsx",
+   "size": 2448,
+   "group": "ui",
+   "loc": 117
+  },
+  {
+   "id": "src/components/ui/tabs.tsx",
+   "size": 1969,
+   "group": "ui",
+   "loc": 67
+  },
+  {
+   "id": "src/components/ui/textarea.tsx",
+   "size": 759,
+   "group": "ui",
+   "loc": 19
+  },
+  {
+   "id": "src/components/ui/toast.tsx",
+   "size": 4829,
+   "group": "ui",
+   "loc": 129
+  },
+  {
+   "id": "src/components/ui/toaster.tsx",
+   "size": 785,
+   "group": "ui",
+   "loc": 35
+  },
+  {
+   "id": "src/components/ui/toggle-group.tsx",
+   "size": 1925,
+   "group": "ui",
+   "loc": 74
+  },
+  {
+   "id": "src/components/ui/toggle.tsx",
+   "size": 1570,
+   "group": "ui",
+   "loc": 48
+  },
+  {
+   "id": "src/components/ui/tooltip.tsx",
+   "size": 1891,
+   "group": "ui",
+   "loc": 62
+  },
+  {
+   "id": "src/hooks/use-mobile.ts",
+   "size": 565,
+   "group": "misc",
+   "loc": 20
+  },
+  {
+   "id": "src/hooks/use-toast.ts",
+   "size": 3917,
+   "group": "misc",
+   "loc": 194
+  },
+  {
+   "id": "src/hooks/useOrganismEngine.ts",
+   "size": 2969,
+   "group": "misc",
+   "loc": 71
+  },
+  {
+   "id": "src/lib/civos/accounts.ts",
+   "size": 746,
+   "group": "kernel",
+   "loc": 21
+  },
+  {
+   "id": "src/lib/civos/chat.ts",
+   "size": 6333,
+   "group": "kernel",
+   "loc": 153
+  },
+  {
+   "id": "src/lib/civos/company.ts",
+   "size": 14919,
+   "group": "kernel",
+   "loc": 268
+  },
+  {
+   "id": "src/lib/civos/config.ts",
+   "size": 6896,
+   "group": "kernel",
+   "loc": 131
+  },
+  {
+   "id": "src/lib/civos/console.ts",
+   "size": 2940,
+   "group": "kernel",
+   "loc": 74
+  },
+  {
+   "id": "src/lib/civos/directives.ts",
+   "size": 15908,
+   "group": "kernel",
+   "loc": 334
+  },
+  {
+   "id": "src/lib/civos/economy.ts",
+   "size": 7113,
+   "group": "kernel",
+   "loc": 159
+  },
+  {
+   "id": "src/lib/civos/events.ts",
+   "size": 1374,
+   "group": "kernel",
+   "loc": 51
+  },
+  {
+   "id": "src/lib/civos/expand.ts",
+   "size": 7655,
+   "group": "kernel",
+   "loc": 138
+  },
+  {
+   "id": "src/lib/civos/government.ts",
+   "size": 14493,
+   "group": "kernel",
+   "loc": 244
+  },
+  {
+   "id": "src/lib/civos/ledger.ts",
+   "size": 10919,
+   "group": "kernel",
+   "loc": 263
+  },
+  {
+   "id": "src/lib/civos/market.ts",
+   "size": 8001,
+   "group": "kernel",
+   "loc": 200
+  },
+  {
+   "id": "src/lib/civos/mcbot.ts",
+   "size": 16390,
+   "group": "kernel",
+   "loc": 298
+  },
+  {
+   "id": "src/lib/civos/mcp.ts",
+   "size": 6666,
+   "group": "kernel",
+   "loc": 126
+  },
+  {
+   "id": "src/lib/civos/memory.ts",
+   "size": 2791,
+   "group": "kernel",
+   "loc": 79
+  },
+  {
+   "id": "src/lib/civos/minecraft.ts",
+   "size": 5536,
+   "group": "kernel",
+   "loc": 140
+  },
+  {
+   "id": "src/lib/civos/money.ts",
+   "size": 539,
+   "group": "kernel",
+   "loc": 15
+  },
+  {
+   "id": "src/lib/civos/policy.ts",
+   "size": 10644,
+   "group": "kernel",
+   "loc": 163
+  },
+  {
+   "id": "src/lib/civos/router.ts",
+   "size": 9123,
+   "group": "kernel",
+   "loc": 220
+  },
+  {
+   "id": "src/lib/civos/runtime.ts",
+   "size": 6787,
+   "group": "kernel",
+   "loc": 141
+  },
+  {
+   "id": "src/lib/civos/seed.ts",
+   "size": 9344,
+   "group": "kernel",
+   "loc": 171
+  },
+  {
+   "id": "src/lib/civos/settle.ts",
+   "size": 3842,
+   "group": "kernel",
+   "loc": 88
+  },
+  {
+   "id": "src/lib/civos/state.ts",
+   "size": 6976,
+   "group": "kernel",
+   "loc": 200
+  },
+  {
+   "id": "src/lib/civos/supabase.ts",
+   "size": 9342,
+   "group": "kernel",
+   "loc": 201
+  },
+  {
+   "id": "src/lib/civos/tools.ts",
+   "size": 31874,
+   "group": "kernel",
+   "loc": 517
+  },
+  {
+   "id": "src/lib/civos/types.ts",
+   "size": 8878,
+   "group": "kernel",
+   "loc": 225
+  },
+  {
+   "id": "src/lib/civos/village.ts",
+   "size": 24462,
+   "group": "kernel",
+   "loc": 441
+  },
+  {
+   "id": "src/lib/civos/villagers.ts",
+   "size": 14145,
+   "group": "kernel",
+   "loc": 310
+  },
+  {
+   "id": "src/lib/db.ts",
+   "size": 307,
+   "group": "lib",
+   "loc": 13
+  },
+  {
+   "id": "src/lib/flybrain/auth.ts",
+   "size": 1961,
+   "group": "lib",
+   "loc": 59
+  },
+  {
+   "id": "src/lib/flybrain/connectome.ts",
+   "size": 5215,
+   "group": "lib",
+   "loc": 131
+  },
+  {
+   "id": "src/lib/flybrain/crypto.ts",
+   "size": 350,
+   "group": "lib",
+   "loc": 10
+  },
+  {
+   "id": "src/lib/flybrain/ecosystem/climate.ts",
+   "size": 5312,
+   "group": "lib",
+   "loc": 134
+  },
+  {
+   "id": "src/lib/flybrain/ecosystem/motion.ts",
+   "size": 9655,
+   "group": "lib",
+   "loc": 231
+  },
+  {
+   "id": "src/lib/flybrain/ecosystem/types.ts",
+   "size": 6056,
+   "group": "lib",
+   "loc": 151
+  },
+  {
+   "id": "src/lib/flybrain/ecosystem/world.ts",
+   "size": 21243,
+   "group": "lib",
+   "loc": 551
+  },
+  {
+   "id": "src/lib/flybrain/idb.ts",
+   "size": 3734,
+   "group": "lib",
+   "loc": 114
+  },
+  {
+   "id": "src/lib/flybrain/llm-budget.ts",
+   "size": 2374,
+   "group": "lib",
+   "loc": 70
+  },
+  {
+   "id": "src/lib/flybrain/mcp-tools.ts",
+   "size": 5804,
+   "group": "lib",
+   "loc": 153
+  },
+  {
+   "id": "src/lib/flybrain/organism/brain.ts",
+   "size": 13768,
+   "group": "lib",
+   "loc": 277
+  },
+  {
+   "id": "src/lib/flybrain/organism/constitution.ts",
+   "size": 7128,
+   "group": "lib",
+   "loc": 188
+  },
+  {
+   "id": "src/lib/flybrain/organism/creature.ts",
+   "size": 15631,
+   "group": "lib",
+   "loc": 378
+  },
+  {
+   "id": "src/lib/flybrain/organism/creatures.ts",
+   "size": 4855,
+   "group": "lib",
+   "loc": 142
+  },
+  {
+   "id": "src/lib/flybrain/organism/engine.ts",
+   "size": 26682,
+   "group": "lib",
+   "loc": 584
+  },
+  {
+   "id": "src/lib/flybrain/organism/eventBus.ts",
+   "size": 3704,
+   "group": "lib",
+   "loc": 116
+  },
+  {
+   "id": "src/lib/flybrain/organism/loops.ts",
+   "size": 6239,
+   "group": "lib",
+   "loc": 169
+  },
+  {
+   "id": "src/lib/flybrain/organism/organs/decision.ts",
+   "size": 3130,
+   "group": "lib",
+   "loc": 93
+  },
+  {
+   "id": "src/lib/flybrain/organism/organs/factory.ts",
+   "size": 4993,
+   "group": "lib",
+   "loc": 164
+  },
+  {
+   "id": "src/lib/flybrain/organism/organs/immune.ts",
+   "size": 6727,
+   "group": "lib",
+   "loc": 193
+  },
+  {
+   "id": "src/lib/flybrain/organism/organs/memory.ts",
+   "size": 4993,
+   "group": "lib",
+   "loc": 113
+  },
+  {
+   "id": "src/lib/flybrain/organism/organs/scheduler.ts",
+   "size": 3140,
+   "group": "lib",
+   "loc": 73
+  },
+  {
+   "id": "src/lib/flybrain/organism/organs/sense.ts",
+   "size": 7266,
+   "group": "lib",
+   "loc": 152
+  },
+  {
+   "id": "src/lib/flybrain/organism/pnl.ts",
+   "size": 2635,
+   "group": "lib",
+   "loc": 65
+  },
+  {
+   "id": "src/lib/flybrain/organism/quant/index.ts",
+   "size": 1109,
+   "group": "lib",
+   "loc": 35
+  },
+  {
+   "id": "src/lib/flybrain/organism/quant/portfolio.ts",
+   "size": 5053,
+   "group": "lib",
+   "loc": 149
+  },
+  {
+   "id": "src/lib/flybrain/organism/quant/quant-tick.ts",
+   "size": 8070,
+   "group": "lib",
+   "loc": 187
+  },
+  {
+   "id": "src/lib/flybrain/organism/quant/risk-gate.ts",
+   "size": 6134,
+   "group": "lib",
+   "loc": 178
+  },
+  {
+   "id": "src/lib/flybrain/organism/quant/scoring.ts",
+   "size": 13686,
+   "group": "lib",
+   "loc": 295
+  },
+  {
+   "id": "src/lib/flybrain/organism/quant/types.ts",
+   "size": 3528,
+   "group": "lib",
+   "loc": 108
+  },
+  {
+   "id": "src/lib/flybrain/organism/selfReflect.ts",
+   "size": 4892,
+   "group": "lib",
+   "loc": 112
+  },
+  {
+   "id": "src/lib/flybrain/payment.ts",
+   "size": 3850,
+   "group": "lib",
+   "loc": 107
+  },
+  {
+   "id": "src/lib/flybrain/prt.ts",
+   "size": 20685,
+   "group": "lib",
+   "loc": 458
+  },
+  {
+   "id": "src/lib/flybrain/router.ts",
+   "size": 13887,
+   "group": "lib",
+   "loc": 359
+  },
+  {
+   "id": "src/lib/flybrain/store.ts",
+   "size": 27664,
+   "group": "lib",
+   "loc": 643
+  },
+  {
+   "id": "src/lib/flybrain/types.ts",
+   "size": 2671,
+   "group": "lib",
+   "loc": 135
+  },
+  {
+   "id": "src/lib/flybrain/vault.ts",
+   "size": 5475,
+   "group": "lib",
+   "loc": 193
+  },
+  {
+   "id": "src/lib/utils.ts",
+   "size": 166,
+   "group": "lib",
+   "loc": 7
+  },
+  {
+   "id": "scripts/bot_join_probe.mjs",
+   "size": 2113,
+   "group": "scripts",
+   "loc": 51
+  },
+  {
+   "id": "scripts/bot_join_probe.ts",
+   "size": 2991,
+   "group": "scripts",
+   "loc": 68
+  },
+  {
+   "id": "scripts/civ_e2e.sh",
+   "size": 2230,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/civ_verify.sh",
+   "size": 3234,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/civ_verify2.sh",
+   "size": 3560,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/civos_invariants.ts",
+   "size": 34085,
+   "group": "scripts",
+   "loc": 465
+  },
+  {
+   "id": "scripts/dl_pmmp.sh",
+   "size": 843,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/dl_pnx.sh",
+   "size": 748,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/filegraph.mjs",
+   "size": 5233,
+   "group": "scripts",
+   "loc": 123
+  },
+  {
+   "id": "scripts/generate_flybrain_docx.js",
+   "size": 46061,
+   "group": "scripts",
+   "loc": 689
+  },
+  {
+   "id": "scripts/guild_probe.ts",
+   "size": 4701,
+   "group": "scripts",
+   "loc": 85
+  },
+  {
+   "id": "scripts/mc_server.sh",
+   "size": 1856,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/package.json",
+   "size": 76,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/pmmp_server.sh",
+   "size": 1622,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/raknet_ping.ts",
+   "size": 2566,
+   "group": "scripts",
+   "loc": 58
+  },
+  {
+   "id": "scripts/research_search.sh",
+   "size": 1308,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/research_search2.sh",
+   "size": 732,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/slice8_probe.ts",
+   "size": 2770,
+   "group": "scripts",
+   "loc": 53
+  },
+  {
+   "id": "scripts/test_supabase_real.mjs",
+   "size": 2836,
+   "group": "scripts",
+   "loc": 38
+  },
+  {
+   "id": "scripts/verify_biosfer.sh",
+   "size": 3407,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/verify_biosfer2.sh",
+   "size": 3006,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/verify_biosfer3.sh",
+   "size": 2325,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/verify_biosfer4.sh",
+   "size": 1889,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/village_probe.ts",
+   "size": 2229,
+   "group": "scripts",
+   "loc": 45
+  },
+  {
+   "id": "prisma/schema.prisma",
+   "size": 16376,
+   "group": "db",
+   "loc": 0
+  },
+  {
+   "id": "docs/FILE_INDEX.md",
+   "size": 22934,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/OPERATIONS.md",
+   "size": 5158,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/README.md",
+   "size": 2683,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/adr/ADR-0001-kernel-otoritatif.md",
+   "size": 948,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/adr/ADR-0002-llm-router-reflex-first.md",
+   "size": 921,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/adr/ADR-0003-crypto-token-desain-saja.md",
+   "size": 788,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/adr/ADR-0004-birokrasi-deterministik.md",
+   "size": 1081,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/adr/ADR-0005-mirror-supabase.md",
+   "size": 1219,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/adr/ADR-0006-rail-settlement.md",
+   "size": 1268,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/adr/ADR-0007-villager-ascension.md",
+   "size": 4214,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/adr/ADR-0008-direktif-tubuh-pasar-cron.md",
+   "size": 3837,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/adr/ADR-0009-guild-toolforge.md",
+   "size": 3450,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/civitas-os/ARCHITECTURE.md",
+   "size": 3862,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/civitas-os/CANONICAL.md",
+   "size": 8963,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/civitas-os/ECONOMICS.md",
+   "size": 2534,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/civitas-os/PRD.md",
+   "size": 12514,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/civitas-os/ROADMAP.md",
+   "size": 1968,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/civitas-os/SECURITY.md",
+   "size": 2121,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/data/filegraph.json",
+   "size": 74359,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/legacy/upstream-map.md",
+   "size": 1908,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "mc-server/pmmp/plugins/CivitasBridge/plugin.yml",
+   "size": 350,
+   "group": "mc-server",
+   "loc": 0
+  },
+  {
+   "id": "mc-server/pmmp/plugins/CivitasBridge/src/civitas/bridge/Main.php",
+   "size": 6719,
+   "group": "mc-server",
+   "loc": 132
+  },
+  {
+   "id": "tests/database-runtime-build.sh",
+   "size": 2191,
+   "group": "misc",
+   "loc": 0
+  },
+  {
+   "id": "tests/e2e_master.mjs",
+   "size": 12423,
+   "group": "misc",
+   "loc": 199
+  },
+  {
+   "id": "tests/logic_master.mjs",
+   "size": 19502,
+   "group": "misc",
+   "loc": 380
+  },
+  {
+   "id": "tests/python-runtime-build.sh",
+   "size": 1843,
+   "group": "misc",
+   "loc": 0
+  },
+  {
+   "id": "tests/python-runtime-container.sh",
+   "size": 837,
+   "group": "misc",
+   "loc": 0
+  },
+  {
+   "id": "package.json",
+   "size": 3282,
+   "group": "misc",
+   "loc": 0
+  },
+  {
+   "id": "README.md",
+   "size": 8787,
+   "group": "misc",
+   "loc": 0
+  }
+ ],
+ "edges": [
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/runtime.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/minecraft.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/mcbot.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/settle.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/expand.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/expand.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/villagers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/village.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/villagers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/directives.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/market.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/chat.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/supabase.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/console.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/mcp.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/mcp.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/mcp.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/console.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/chat/route.ts",
+   "to": "src/lib/civos/chat.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/cron/route.ts",
+   "to": "src/lib/civos/runtime.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/heartbeat/route.ts",
+   "to": "src/lib/civos/runtime.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/heartbeat/route.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/heartbeat/route.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/heartbeat/route.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/minecraft/route.ts",
+   "to": "src/lib/civos/minecraft.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/minecraft/route.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/state/route.ts",
+   "to": "src/lib/civos/state.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/sync/route.ts",
+   "to": "src/lib/civos/supabase.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/mcp/route.ts",
+   "to": "src/lib/flybrain/connectome.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/mcp/route.ts",
+   "to": "src/lib/flybrain/payment.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/mcp/route.ts",
+   "to": "src/lib/flybrain/organism/brain.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/mcp/route.ts",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/mcp/route.ts",
+   "to": "src/lib/flybrain/auth.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/mcp/route.ts",
+   "to": "src/lib/flybrain/organism/constitution.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/mcp/route.ts",
+   "to": "src/lib/flybrain/ecosystem/world.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/mcp/route.ts",
+   "to": "src/lib/flybrain/llm-budget.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/mcp/route.ts",
+   "to": "src/lib/flybrain/mcp-tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/organism/chat/route.ts",
+   "to": "src/lib/flybrain/organism/brain.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/organism/chat/route.ts",
+   "to": "src/lib/flybrain/llm-budget.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/organism/cron/route.ts",
+   "to": "src/lib/flybrain/mcp-tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/organism/heartbeat/route.ts",
+   "to": "src/lib/flybrain/organism/brain.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/organism/heartbeat/route.ts",
+   "to": "src/lib/flybrain/organism/loops.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/organism/heartbeat/route.ts",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/page.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/Dashboard.tsx",
+   "to": "src/components/flybrain/CivMapCanvas.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/Dashboard.tsx",
+   "to": "src/lib/civos/money.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/CitadelView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/MapView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/CitizensView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/GuildView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/GovView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/CompaniesView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/EconomyView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/WorldView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/ConfigView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/GraphView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/DocsView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/EventsView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/mcui.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/CitadelView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/CitadelView.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/CitadelView.tsx",
+   "to": "src/components/civitas/divmeta.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/CitizensView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/CitizensView.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/CitizensView.tsx",
+   "to": "src/components/civitas/divmeta.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/CompaniesView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/CompaniesView.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/ConfigView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/ConfigView.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/DocsView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/EconomyView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/EconomyView.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/EventsView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/EventsView.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/GovView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/GovView.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/GraphView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/GuildView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/GuildView.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/GuildView.tsx",
+   "to": "src/components/civitas/divmeta.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/MapView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/MapView.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/WorldView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/WorldView.tsx",
+   "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/hooks/useOrganismEngine.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/civitas/Dashboard.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/KendaliView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/OtakView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/PrtView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/VaultView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/GerbangView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/DokumenView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/RuangKendaliView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/BiosferView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/PlanetView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/PeradabanView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AppShell.tsx",
+   "to": "src/components/flybrain/views/MinecraftView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AtlasCanvas.tsx",
+   "to": "src/lib/flybrain/connectome.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/AtlasCanvas.tsx",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/BrainCanvas.tsx",
+   "to": "src/lib/flybrain/connectome.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/BiosferView.tsx",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/BiosferView.tsx",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/BiosferView.tsx",
+   "to": "src/lib/flybrain/organism/eventBus.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/BiosferView.tsx",
+   "to": "src/lib/flybrain/organism/loops.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/BiosferView.tsx",
+   "to": "src/lib/flybrain/organism/creature.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/BiosferView.tsx",
+   "to": "src/lib/flybrain/prt.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/GerbangView.tsx",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/GerbangView.tsx",
+   "to": "src/lib/flybrain/auth.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/GerbangView.tsx",
+   "to": "src/lib/flybrain/mcp-tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/KendaliView.tsx",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/KendaliView.tsx",
+   "to": "src/lib/flybrain/connectome.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/KendaliView.tsx",
+   "to": "src/components/flybrain/BrainCanvas.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/OtakView.tsx",
+   "to": "src/components/flybrain/AtlasCanvas.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/OtakView.tsx",
+   "to": "src/lib/flybrain/connectome.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/OtakView.tsx",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PeradabanView.tsx",
+   "to": "src/components/flybrain/CivMapCanvas.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PeradabanView.tsx",
+   "to": "src/lib/civos/money.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PlanetView.tsx",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PlanetView.tsx",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PlanetView.tsx",
+   "to": "src/lib/flybrain/organism/creature.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PlanetView.tsx",
+   "to": "src/lib/flybrain/organism/organs/immune.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PlanetView.tsx",
+   "to": "src/lib/flybrain/organism/selfReflect.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PlanetView.tsx",
+   "to": "src/lib/flybrain/connectome.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PlanetView.tsx",
+   "to": "src/lib/flybrain/ecosystem/world.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PlanetView.tsx",
+   "to": "src/lib/flybrain/ecosystem/climate.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PlanetView.tsx",
+   "to": "src/lib/flybrain/ecosystem/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/PrtView.tsx",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/RuangKendaliView.tsx",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/RuangKendaliView.tsx",
+   "to": "src/lib/flybrain/organism/loops.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/RuangKendaliView.tsx",
+   "to": "src/lib/flybrain/prt.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/RuangKendaliView.tsx",
+   "to": "src/lib/flybrain/mcp-tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/RuangKendaliView.tsx",
+   "to": "src/components/ui/switch.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/VaultView.tsx",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/flybrain/views/VaultView.tsx",
+   "to": "src/lib/flybrain/auth.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/accordion.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/alert-dialog.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/alert-dialog.tsx",
+   "to": "src/components/ui/button.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/alert.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/avatar.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/badge.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/breadcrumb.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/button.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/calendar.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/calendar.tsx",
+   "to": "src/components/ui/button.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/card.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/carousel.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/carousel.tsx",
+   "to": "src/components/ui/button.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/chart.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/checkbox.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/command.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/command.tsx",
+   "to": "src/components/ui/dialog.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/context-menu.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/dialog.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/drawer.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/dropdown-menu.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/form.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/form.tsx",
+   "to": "src/components/ui/label.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/hover-card.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/input-otp.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/input.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/label.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/menubar.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/navigation-menu.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/pagination.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/pagination.tsx",
+   "to": "src/components/ui/button.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/popover.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/progress.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/radio-group.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/resizable.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/scroll-area.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/select.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/separator.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/sheet.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/sidebar.tsx",
+   "to": "src/hooks/use-mobile.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/sidebar.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/sidebar.tsx",
+   "to": "src/components/ui/button.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/sidebar.tsx",
+   "to": "src/components/ui/input.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/sidebar.tsx",
+   "to": "src/components/ui/separator.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/sidebar.tsx",
+   "to": "src/components/ui/sheet.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/sidebar.tsx",
+   "to": "src/components/ui/skeleton.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/sidebar.tsx",
+   "to": "src/components/ui/tooltip.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/skeleton.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/slider.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/switch.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/table.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/tabs.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/textarea.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/toast.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/toaster.tsx",
+   "to": "src/hooks/use-toast.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/toaster.tsx",
+   "to": "src/components/ui/toast.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/toggle-group.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/toggle-group.tsx",
+   "to": "src/components/ui/toggle.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/toggle.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/ui/tooltip.tsx",
+   "to": "src/lib/utils.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/hooks/use-toast.ts",
+   "to": "src/components/ui/toast.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/hooks/useOrganismEngine.ts",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/hooks/useOrganismEngine.ts",
+   "to": "src/lib/flybrain/organism/engine.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/hooks/useOrganismEngine.ts",
+   "to": "src/lib/flybrain/organism/organs/scheduler.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/accounts.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/accounts.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/chat.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/chat.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/chat.ts",
+   "to": "src/lib/civos/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/chat.ts",
+   "to": "src/lib/civos/directives.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/chat.ts",
+   "to": "src/lib/civos/router.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/chat.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/chat.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/company.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/company.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/company.ts",
+   "to": "src/lib/civos/accounts.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/company.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/company.ts",
+   "to": "src/lib/civos/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/company.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/company.ts",
+   "to": "src/lib/civos/router.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/company.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/company.ts",
+   "to": "src/lib/civos/money.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/company.ts",
+   "to": "src/lib/civos/market.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/config.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/config.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/console.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/console.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/directives.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/directives.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/directives.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/directives.ts",
+   "to": "src/lib/civos/minecraft.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/directives.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/economy.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/economy.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/economy.ts",
+   "to": "src/lib/civos/accounts.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/economy.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/economy.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/economy.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/economy.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/events.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/expand.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/expand.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/expand.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/expand.ts",
+   "to": "src/lib/civos/accounts.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/expand.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/expand.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/expand.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/expand.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/government.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/government.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/government.ts",
+   "to": "src/lib/civos/accounts.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/government.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/government.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/government.ts",
+   "to": "src/lib/civos/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/government.ts",
+   "to": "src/lib/civos/company.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/government.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/government.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/government.ts",
+   "to": "src/lib/civos/money.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/ledger.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/ledger.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/ledger.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/ledger.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/market.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/market.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/market.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/market.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/market.ts",
+   "to": "src/lib/civos/money.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/market.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/civos/minecraft.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/civos/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/civos/villagers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/civos/chat.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/civos/console.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcbot.ts",
+   "to": "src/lib/civos/directives.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/mcp.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/memory.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/memory.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/minecraft.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/minecraft.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/minecraft.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/minecraft.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/minecraft.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/policy.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/policy.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/policy.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/router.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/router.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/seed.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/company.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/government.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/economy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/minecraft.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/village.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/expand.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/supabase.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/mcbot.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/runtime.ts",
+   "to": "src/lib/civos/directives.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/seed.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/seed.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/seed.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/seed.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/seed.ts",
+   "to": "src/lib/civos/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/seed.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/seed.ts",
+   "to": "src/lib/civos/accounts.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/settle.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/settle.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/settle.ts",
+   "to": "src/lib/civos/accounts.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/settle.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/settle.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/seed.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/accounts.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/economy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/runtime.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/minecraft.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/villagers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/directives.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/market.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/chat.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/mcp.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/console.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/supabase.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/supabase.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/tools.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/tools.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/tools.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/tools.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/tools.ts",
+   "to": "src/lib/civos/directives.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/tools.ts",
+   "to": "src/lib/civos/market.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/tools.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/tools.ts",
+   "to": "src/lib/civos/mcp.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/tools.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/router.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/minecraft.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/money.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/villagers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/market.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/directives.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/village.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/villagers.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/villagers.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/villagers.ts",
+   "to": "src/lib/civos/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/villagers.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/villagers.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/auth.ts",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/auth.ts",
+   "to": "src/lib/flybrain/crypto.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/connectome.ts",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/climate.ts",
+   "to": "src/lib/flybrain/ecosystem/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/climate.ts",
+   "to": "src/lib/flybrain/organism/selfReflect.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/motion.ts",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/motion.ts",
+   "to": "src/lib/flybrain/ecosystem/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/motion.ts",
+   "to": "src/lib/flybrain/ecosystem/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/motion.ts",
+   "to": "src/lib/flybrain/ecosystem/climate.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/types.ts",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/types.ts",
+   "to": "src/lib/flybrain/organism/creature.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/types.ts",
+   "to": "src/lib/flybrain/organism/selfReflect.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/types.ts",
+   "to": "src/lib/flybrain/organism/eventBus.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/world.ts",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/world.ts",
+   "to": "src/lib/flybrain/organism/eventBus.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/world.ts",
+   "to": "src/lib/flybrain/ecosystem/climate.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/world.ts",
+   "to": "src/lib/flybrain/ecosystem/motion.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/world.ts",
+   "to": "src/lib/flybrain/ecosystem/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/ecosystem/world.ts",
+   "to": "src/lib/flybrain/ecosystem/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/idb.ts",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/brain.ts",
+   "to": "src/lib/flybrain/mcp-tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/creature.ts",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/creature.ts",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/creature.ts",
+   "to": "src/lib/flybrain/organism/quant/index.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/creatures.ts",
+   "to": "src/lib/flybrain/organism/loops.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/eventBus.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/organs/sense.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/organs/decision.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/organs/immune.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/organs/scheduler.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/constitution.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/selfReflect.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/quant/index.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/creature.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/organs/factory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/organs/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/organism/pnl.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/prt.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/prt.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/vault.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/ecosystem/world.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/ecosystem/climate.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/ecosystem/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/engine.ts",
+   "to": "src/lib/flybrain/vault.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/organs/decision.ts",
+   "to": "src/lib/flybrain/organism/creature.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/organs/decision.ts",
+   "to": "src/lib/flybrain/organism/creature.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/organs/decision.ts",
+   "to": "src/lib/flybrain/organism/loops.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/organs/immune.ts",
+   "to": "src/lib/flybrain/organism/eventBus.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/organs/memory.ts",
+   "to": "src/lib/flybrain/vault.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/organs/memory.ts",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/organs/memory.ts",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/organs/scheduler.ts",
+   "to": "src/lib/flybrain/organism/creature.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/organs/sense.ts",
+   "to": "src/lib/flybrain/organism/eventBus.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/organs/sense.ts",
+   "to": "src/lib/flybrain/organism/creature.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/pnl.ts",
+   "to": "src/lib/flybrain/organism/quant/risk-gate.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/index.ts",
+   "to": "src/lib/flybrain/organism/quant/scoring.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/index.ts",
+   "to": "src/lib/flybrain/organism/quant/portfolio.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/index.ts",
+   "to": "src/lib/flybrain/organism/quant/portfolio.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/index.ts",
+   "to": "src/lib/flybrain/organism/quant/risk-gate.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/index.ts",
+   "to": "src/lib/flybrain/organism/quant/risk-gate.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/index.ts",
+   "to": "src/lib/flybrain/organism/quant/quant-tick.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/index.ts",
+   "to": "src/lib/flybrain/organism/quant/quant-tick.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/index.ts",
+   "to": "src/lib/flybrain/organism/quant/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/portfolio.ts",
+   "to": "src/lib/flybrain/organism/quant/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/quant-tick.ts",
+   "to": "src/lib/flybrain/organism/quant/scoring.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/quant-tick.ts",
+   "to": "src/lib/flybrain/organism/quant/portfolio.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/quant-tick.ts",
+   "to": "src/lib/flybrain/organism/quant/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/risk-gate.ts",
+   "to": "src/lib/flybrain/organism/quant/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/quant/scoring.ts",
+   "to": "src/lib/flybrain/organism/quant/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/selfReflect.ts",
+   "to": "src/lib/flybrain/organism/creature.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/organism/selfReflect.ts",
+   "to": "src/lib/flybrain/organism/eventBus.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/payment.ts",
+   "to": "src/lib/flybrain/crypto.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/payment.ts",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/prt.ts",
+   "to": "src/lib/flybrain/vault.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/prt.ts",
+   "to": "src/lib/flybrain/connectome.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/prt.ts",
+   "to": "src/lib/flybrain/organism/loops.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/prt.ts",
+   "to": "src/lib/flybrain/organism/constitution.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/prt.ts",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/router.ts",
+   "to": "src/lib/flybrain/auth.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/router.ts",
+   "to": "src/lib/flybrain/connectome.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/router.ts",
+   "to": "src/lib/flybrain/payment.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/router.ts",
+   "to": "src/lib/flybrain/prt.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/router.ts",
+   "to": "src/lib/flybrain/vault.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/router.ts",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/auth.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/prt.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/router.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/organism/loops.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/organism/eventBus.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/organism/creature.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/ecosystem/world.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/ecosystem/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/organism/creatures.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/organism/organs/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/organism/organs/immune.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/organism/selfReflect.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/organism/engine.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/organism/quant/index.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/vault.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/payment.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/store.ts",
+   "to": "src/lib/flybrain/organism/engine.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/vault.ts",
+   "to": "src/lib/flybrain/idb.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/flybrain/vault.ts",
+   "to": "src/lib/flybrain/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/bot_join_probe.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/bot_join_probe.ts",
+   "to": "src/lib/civos/minecraft.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/seed.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/company.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/accounts.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/economy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/policy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/directives.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/market.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/villagers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/chat.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/mcp.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/chat.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/guild_probe.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/guild_probe.ts",
+   "to": "src/lib/civos/village.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/guild_probe.ts",
+   "to": "src/lib/civos/tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/guild_probe.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/guild_probe.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/slice8_probe.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/slice8_probe.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/slice8_probe.ts",
+   "to": "src/lib/civos/market.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/slice8_probe.ts",
+   "to": "src/lib/civos/directives.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/slice8_probe.ts",
+   "to": "src/lib/civos/money.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/village_probe.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/village_probe.ts",
+   "to": "src/lib/civos/village.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/village_probe.ts",
+   "to": "src/lib/civos/ledger.ts",
+   "kind": "import"
+  },
+  {
+   "from": "tests/logic_master.mjs",
+   "to": "src/lib/flybrain/ecosystem/climate.ts",
+   "kind": "import"
+  },
+  {
+   "from": "tests/logic_master.mjs",
+   "to": "src/lib/flybrain/ecosystem/motion.ts",
+   "kind": "import"
+  },
+  {
+   "from": "tests/logic_master.mjs",
+   "to": "src/lib/flybrain/ecosystem/world.ts",
+   "kind": "import"
+  },
+  {
+   "from": "tests/logic_master.mjs",
+   "to": "src/lib/flybrain/ecosystem/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "tests/logic_master.mjs",
+   "to": "src/lib/flybrain/organism/constitution.ts",
+   "kind": "import"
+  },
+  {
+   "from": "tests/logic_master.mjs",
+   "to": "src/lib/flybrain/organism/organs/immune.ts",
+   "kind": "import"
+  },
+  {
+   "from": "tests/logic_master.mjs",
+   "to": "src/lib/flybrain/organism/organs/scheduler.ts",
+   "kind": "import"
+  },
+  {
+   "from": "tests/logic_master.mjs",
+   "to": "src/lib/flybrain/organism/quant/index.ts",
+   "kind": "import"
+  },
+  {
+   "from": "tests/logic_master.mjs",
+   "to": "src/lib/flybrain/payment.ts",
+   "kind": "import"
+  },
+  {
+   "from": "tests/logic_master.mjs",
+   "to": "src/lib/flybrain/organism/pnl.ts",
+   "kind": "import"
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+name: CivitasBridge
+version: 1.0.0
+api: 5.0.0
+main: civitas\bridge\Main
+load: POSTWORLD
+description: Jembatan CIVITAS OS ke dunia - summon villager, setblock/fill, dan census entitas
+website: https://github.com/mulkymalikuldhr
+author: Mulky Malikul Dhaher
+permissions:
+  civitas.command:
+    default: op
+    description: Perintah jembatan CIVITAS OS

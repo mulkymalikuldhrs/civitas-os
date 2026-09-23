@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://flywire.ai",
+    "name": "FlyWire",
+    "snippet": "FlyWire paper, Neuronal wiring diagram of an adult brain, has been published in Nature, which includes 139,255 proofread neurons",
+    "host_name": "flywire.ai",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8903166",
+    "name": "FlyWire: Online community for whole-brain connectomics - PMC",
+    "snippet": "by S Dorkenwald · 2021 · Cited by 339 — FlyWire, an online community for proofreading neural circuits in a Drosophila melanogaster brain, FlyWire represents neurons as connected components in a graph ...",
+    "host_name": "pmc.ncbi.nlm.nih.gov",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://bossdb.org/project/flywire",
+    "name": "BossDB.org | FlyWire",
+    "snippet": "FlyWire is the first open, online community for connectomics of a whole brain (Dorkenwald et al. 2021), using a Drosophila brain imaged at ...",
+    "host_name": "bossdb.org",
+    "rank": 2,
+    "date": "Sep 3, 2020",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.princeton.edu/news/2024/10/02/mapping-entire-fly-brain-step-toward-understanding-diseases-human-brain",
+    "name": "Mapping an entire (fly) brain: A step toward understanding",
+    "snippet": "A Princeton-led team of researchers and gamers “FlyWire,” a ・ building a neuron-by-neuron ・ through the brain of an adult fruit fly",
+    "host_name": "www.princeton.edu",
+    "rank": 3,
+    "date": "Oct 2, 2024",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=nfNpraTEY5o",
+    "name": "FlyWire for Interactive Neuroscience Visualizations",
+    "snippet": "Demonstration of how to use FlyWire as an interactive visualization tool alongside Codex (Connectome Data Explorer).",
+    "host_name": "www.youtube.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  }
+]

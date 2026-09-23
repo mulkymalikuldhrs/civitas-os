@@ -1,0 +1,364 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-phos: var(--phos);
+  --color-amberx: var(--amberx);
+  --color-inkline: var(--inkline);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* FLYBRAIN OS — tema "laboratorium saraf malam" (bukan default generik) */
+:root {
+  --radius: 0.25rem;
+  --background: #060a08;
+  --foreground: #d9e6dd;
+  --card: #0a130e;
+  --card-foreground: #d9e6dd;
+  --popover: #0a130e;
+  --popover-foreground: #d9e6dd;
+  --primary: #4ade80;
+  --primary-foreground: #04130a;
+  --secondary: #0e1a13;
+  --secondary-foreground: #cfe6d5;
+  --muted: #0d1712;
+  --muted-foreground: #7f9a89;
+  --accent: #13241a;
+  --accent-foreground: #bfe8cc;
+  --destructive: #f87171;
+  --border: #1b2f24;
+  --input: #1b2f24;
+  --ring: #4ade80;
+  --chart-1: #4ade80;
+  --chart-2: #fbbf24;
+  --chart-3: #38bdf8;
+  --chart-4: #f87171;
+  --chart-5: #a78bfa;
+  --sidebar: #070d0a;
+  --sidebar-foreground: #d9e6dd;
+  --sidebar-primary: #4ade80;
+  --sidebar-primary-foreground: #04130a;
+  --sidebar-accent: #13241a;
+  --sidebar-accent-foreground: #bfe8cc;
+  --sidebar-border: #1b2f24;
+  --sidebar-ring: #4ade80;
+  --phos: #4ade80;
+  --amberx: #fbbf24;
+  --inkline: #1b2f24;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  font-feature-settings: "ss01", "cv01";
+}
+
+/* --- tekstur laboratorium --- */
+.grid-dots {
+  background-image: radial-gradient(rgba(74, 222, 128, 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(217, 230, 221, 0.025) 0px,
+    rgba(217, 230, 221, 0.025) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+.vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 60% at 50% 35%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* --- label katalog / spesimen --- */
+.catalog {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+.catalog-phos {
+  color: var(--phos);
+}
+.specimen-frame {
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(74, 222, 128, 0.03), transparent 60%),
+    var(--card);
+  position: relative;
+}
+.specimen-frame::before,
+.specimen-frame::after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(74, 222, 128, 0.45);
+}
+.specimen-frame::before {
+  top: -1px;
+  left: -1px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.specimen-frame::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: 0;
+  border-top: 0;
+}
+.glow-phos {
+  text-shadow: 0 0 12px rgba(74, 222, 128, 0.45);
+}
+
+/* --- ticker --- */
+@keyframes ticker-roll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker-roll 38s linear infinite;
+}
+
+/* --- pulsa hidup --- */
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.breathe {
+  animation: breathe 2.6s ease-in-out infinite;
+}
+
+/* --- biosfer: gerak halus creature (07) --- */
+@keyframes biosfer-float {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-9px);
+  }
+}
+.biosfer-float {
+  animation: biosfer-float 5.6s ease-in-out infinite;
+}
+
+/* --- scrollbar katalog --- */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: #070d0a;
+}
+*::-webkit-scrollbar-thumb {
+  background: #1b2f24;
+  border: 1px solid #274434;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #274434;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track,
+  .breathe,
+  .biosfer-float {
+    animation: none;
+  }
+  .biosfer-float {
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* ============================================================
+   CIVITAS OS — TEMA MINECRAFT (SLICE 10)
+   Panel bevel, pixel type, palet dunia nyata. Tanpa gradasi AI.
+   ============================================================ */
+
+:root {
+  --mc-stone: #7f7f7f;
+  --mc-stone-dark: #3f3f3f;
+  --mc-stone-darker: #2b2b2b;
+  --mc-panel: #c6c6c6;
+  --mc-panel-dark: #373737;
+  --mc-slot: #8b8b8b;
+  --mc-grass: #7cbd56;
+  --mc-dirt: #8a5a3b;
+  --mc-oak: #b8945f;
+  --mc-gold: #ffaa00;
+  --mc-redstone: #ff5555;
+  --mc-diamond: #4aedd9;
+  --mc-emerald: #17dd62;
+  --mc-xp: #7efc20;
+  --mc-ink: #2a2a2a;
+}
+
+.mc-bg {
+  background-color: #1c1c1e;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,.045) 0 2px, transparent 3px),
+    radial-gradient(circle at 75% 75%, rgba(255,255,255,.03) 0 2px, transparent 3px),
+    linear-gradient(180deg, #17171a 0%, #1c1c1e 60%, #141416 100%);
+  background-size: 48px 48px, 48px 48px, 100% 100%;
+}
+
+/* Panel bevel Minecraft (terang) & gelap */
+.mc-panel {
+  background: var(--mc-panel);
+  border: 3px solid;
+  border-color: #ffffff #555555 #555555 #ffffff;
+  box-shadow: inset -3px -3px 0 rgba(0,0,0,.25), inset 3px 3px 0 rgba(255,255,255,.5), 0 4px 0 rgba(0,0,0,.45);
+}
+.mc-panel-dark {
+  background: #2f2f33;
+  border: 3px solid;
+  border-color: #56565c #17171a #17171a #56565c;
+  box-shadow: inset -3px -3px 0 rgba(0,0,0,.5), inset 3px 3px 0 rgba(255,255,255,.08), 0 4px 0 rgba(0,0,0,.45);
+}
+.mc-inset {
+  background: var(--mc-slot);
+  border: 3px solid;
+  border-color: #373737 #ffffff #ffffff #373737;
+}
+.mc-inset-dark {
+  background: #232327;
+  border: 3px solid;
+  border-color: #141416 #56565c #56565c #141416;
+}
+
+/* Tombol Minecraft */
+.mc-btn {
+  font-family: var(--font-mc, monospace);
+  background: #6f6f74;
+  border: 3px solid;
+  border-color: #a8a8ad #2f2f33 #2f2f33 #a8a8ad;
+  color: #fff;
+  text-shadow: 2px 2px 0 #3f3f3f;
+  padding: .45rem .9rem;
+  image-rendering: pixelated;
+  transition: background .08s steps(2);
+  cursor: pointer;
+  user-select: none;
+}
+.mc-btn:hover:not(:disabled) { background: #7f8cab; border-color: #b5c0dd #33383f #33383f #b5c0dd; }
+.mc-btn:active:not(:disabled) { transform: translateY(2px); }
+.mc-btn:disabled { opacity: .55; cursor: not-allowed; }
+.mc-btn-gold { background: #b8860b; border-color: #ffd24d #5c4306 #5c4306 #ffd24d; }
+.mc-btn-gold:hover:not(:disabled) { background: #d09b10; border-color: #ffd24d #5c4306 #5c4306 #ffd24d; }
+.mc-btn-green { background: #3f8f3f; border-color: #7ee07e #1d421d #1d421d #7ee07e; }
+.mc-btn-green:hover:not(:disabled) { background: #4aa34a; border-color: #7ee07e #1d421d #1d421d #7ee07e; }
+.mc-btn-red { background: #a03b3b; border-color: #e08080 #4a1a1a #4a1a1a #e08080; }
+
+/* Tipografi pixel */
+.mc-font {
+  font-family: "Press Start 2P", "VT323", ui-monospace, monospace;
+  letter-spacing: .02em;
+  line-height: 1.55;
+}
+.mc-body { font-family: "VT323", ui-monospace, "Courier New", monospace; font-size: 1.12rem; letter-spacing: .01em; }
+
+/* Hotbar */
+.mc-hotbar-slot {
+  background: #8b8b8bcc;
+  border: 3px solid;
+  border-color: #373737 #ffffff #ffffff #373737;
+  min-width: 3.4rem;
+  height: 3.4rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: #fff; text-shadow: 2px 2px 0 #3f3f3f;
+}
+.mc-hotbar-slot[data-active="true"] {
+  outline: 4px solid #fff;
+  outline-offset: -1px;
+  background: #a5a5a5cc;
+}
+
+/* Bar kemajuan gaya XP */
+.mc-bar { position: relative; background: #191919; border: 2px solid #000; height: 14px; }
+.mc-bar > i {
+  position: absolute; inset: 0; width: var(--v, 0%);
+  background: repeating-linear-gradient(90deg, var(--mc-xp) 0 6px, #5fcf13 6px 8px);
+}
+
+/* Ticker */
+.mc-ticker { overflow: hidden; white-space: nowrap; }
+.mc-ticker > span { display: inline-block; padding-left: 100%; animation: mc-scroll 38s linear infinite; }
+@keyframes mc-scroll { to { transform: translateX(-200%); } }
+
+/* Judul animasi header (README & hero) */
+.mc-title-anim { animation: mc-bob 2.4s steps(8) infinite; text-shadow: 3px 3px 0 #3f3f3f, 6px 6px 0 rgba(0,0,0,.35); }
+@keyframes mc-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+.mc-scroll::-webkit-scrollbar { width: 12px; height: 12px; }
+.mc-scroll::-webkit-scrollbar-track { background: #232327; }
+.mc-scroll::-webkit-scrollbar-thumb { background: #8b8b8b; border: 2px solid #373737; }
+
+/* Peta kanvas */
+.mc-map-canvas { image-rendering: pixelated; border: 3px solid; border-color: #56565c #17171a #17171a #56565c; background: #101013; }

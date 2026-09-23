@@ -1,0 +1,622 @@
+     1→"use client";
+     2→
+     3→// 09 PERADABAN — CIVITAS OS dashboard (docs/civitas-os/PRD.md).
+     4→// Sub-tab: PETA · PEMERINTAH · PERUSAHAAN · EKONOMI · CONTROL PLANE · DESA · EVENT.
+     5→// Kejujuran: revenue eksternal = 0 ditampilkan apa adanya (PRE_REVENUE); mode LLM vs REFLEX dilabeli;
+     6→// warga desa berlabel SIMULASI vs CENSUS (sensus nyata dari dunia Minecraft).
+     7→
+     8→import { useCallback, useEffect, useRef, useState } from "react";
+     9→import { Activity, Building2, Coins, Home, Landmark, ScrollText, ShieldCheck, Skull, TreePine, Users } from "lucide-react";
+    10→import { CivMapCanvas, type MapEntity } from "../CivMapCanvas";
+    11→import { fmt } from "@/lib/civos/money";
+    12→
+    13→// ---------- Tipe payload API (minimal, client-side) ----------
+    14→
+    15→interface Acct { id: string; kind: string; name: string; balance: number }
+    16→interface Org { id: string; code: string; kind: string; name: string; lifecycle: string; specialization: string | null; accounts: Acct[] }
+    17→interface Agent { id: string; code: string; name: string; role: string; orgCode: string; orgKind: string; status: string; reputation: number; grants: number }
+    18→interface Proposal { id: string; kind: string; orgCode: string | null; institution: string; status: string; payload: Record<string, unknown>; policyCheck: Record<string, unknown>; reason: string; decidedBy: string | null; createdAt: string }
+    19→interface Task { id: string; agentCode: string; orgCode: string; type: string; status: string; route: Record<string, unknown>; result: Record<string, unknown>; createdAt: string }
+    20→interface EventRow { seq: number; type: string; subjectType: string; subjectId: string; payload: Record<string, unknown>; createdAt: string }
+    21→interface LedgerRow { id: string; txType: string; purpose: string; isExternal: boolean; counterparty: string | null; amount: number; legs: { side: string; amount: number; account: string; kind: string }[]; createdAt: string }
+    22→interface Metrics {
+    23→  moneySupply: number; treasury: number; reserveMin: number; govCash: number; taxCollected: number;
+    24→  internalTradeVolume: number; externalRevenue: number; externalRevenueReal: number; externalRevenueSandbox: number; expenses: number;
+    25→  companies: { code: string; name: string; lifecycle: string; operating: number; income: number; expense: number }[];
+    26→  runwayDays: number | null; concentrationTop: number; alerts: string[];
+    27→}
+    28→interface StatePayload {
+    29→  orgs: Org[]; agents: Agent[]; proposals: Proposal[]; tasks: Task[]; events: EventRow[]; ledger: LedgerRow[];
+    30→  policies: { key: string; category: string; value: unknown; note: string }[];
+    31→  metrics: Metrics;
+    32→  ticks: { tick: number; target: string; summary: string; mode: string; model?: string; at: string }[];
+    33→  entities: { mcType: string; mcName: string; civCode: string; mcCoords: Record<string, unknown> }[];
+    34→  grants: { agentCode: string; capability: string; budgetCap: number }[];
+    35→  memories: { id: string; ownerType: string; scope: string; visibility: string; content: string; createdAt: string }[];
+    36→  village: Village;
+    37→  lastTick: Record<string, unknown> | null;
+    38→  counts: { orgs: number; agents: number; events: number; txns: number; memories: number; tasks: number };
+    39→  serverTime: string;
+    40→}
+    41→
+    42→interface VillagerRow {
+    43→  code: string; name: string; profession: string; profKey: string; role: string;
+    44→  source: string; embodiment: string; village: string; mood: string;
+    45→  xp: number; socialScore: number; wallet: number; workOrg: string | null;
+    46→  lastAction: string | null; lastActionAt: string | null; coords: string | null;
+    47→}
+    48→interface Village {
+    49→  population: number;
+    50→  byProfession: Record<string, number>;
+    51→  bySource: { SIMULASI: number; CENSUS: number };
+    52→  byEmbodiment: { EMBODIED: number; DREAMING: number; MISSING: number };
+    53→  retired: number;
+    54→  villagers: VillagerRow[];
+    55→  wagesPaid: number;
+    56→  directives?: DirectiveBlock;
+    57→  market?: MarketBlock;
+    58→}
+    59→
+    60→// SLICE 8 — tubuh warga (direktif) + pasar desa
+    61→interface DirectiveRow { id: string; villagerCode: string; villagerName: string; kind: string; status: string; origin: string; payload: { to?: { x: number; y: number; z: number }; message?: string; orgCode?: string }; result: string | null; createdAt: string }
+    62→interface DirectiveBlock { queued: number; dispatched: number; applied: number; failed: number; expired: number; recent: DirectiveRow[] }
+    63→interface MarketOffer { id: string; seller: string; item: string; unitPrice: number; unitPriceLabel: string; qtyAvailable: number; qtySold: number; status: string; createdAt: string }
+    64→interface MarketBlock { open: number; closed: number; totalUnitsSold: number; offers: MarketOffer[] }
+    65→
+    66→const SUBTABS = [
+    67→  { key: "peta", label: "PETA", icon: TreePine },
+    68→  { key: "desa", label: "DESA", icon: Home },
+    69→  { key: "pemerintah", label: "PEMERINTAH", icon: Landmark },
+    70→  { key: "perusahaan", label: "PERUSAHAAN", icon: Building2 },
+    71→  { key: "ekonomi", label: "EKONOMI", icon: Coins },
+    72→  { key: "control", label: "CONTROL PLANE", icon: ShieldCheck },
+    73→  { key: "event", label: "EVENT", icon: ScrollText },
+    74→] as const;
+    75→
+    76→const LC_STYLE: Record<string, string> = {
+    77→  PROPOSED: "border-[#6b7f74] text-[#93a89c]",
+    78→  REGISTERED: "border-[#7fda9a] text-[#7fda9a]",
+    79→  CAPITALIZED: "border-[#4ade80] text-[#4ade80]",
+    80→  ACTIVE: "border-[#4ade80] text-[#4ade80]",
+    81→  GROWING: "border-[#34d399] text-[#34d399]",
+    82→  PROFITABLE: "border-[#fbbf24] text-[#fbbf24]",
+    83→  UNPROFITABLE: "border-[#fb923c] text-[#fb923c]",
+    84→  CAPITAL_CONSTRAINED: "border-[#f87171] text-[#f87171]",
+    85→  DORMANT: "border-[#94a3b8] text-[#94a3b8]",
+    86→  RESTRUCTURING: "border-[#fbbf24] text-[#fbbf24]",
+    87→  LIQUIDATING: "border-[#f87171] text-[#f87171]",
+    88→  BANKRUPT: "border-[#ef4444] text-[#ef4444]",
+    89→  DISSOLVED: "border-[#64748b] text-[#64748b]",
+    90→};
+    91→
+    92→export function PeradabanView() {
+    93→  const [state, setState] = useState<StatePayload | null>(null);
+    94→  const [tab, setTab] = useState<(typeof SUBTABS)[number]["key"]>("peta");
+    95→  const [busy, setBusy] = useState<string | null>(null);
+    96→  const [pulseAt, setPulseAt] = useState(0);
+    97→  const [newName, setNewName] = useState("");
+    98→  const [newSpec, setNewSpec] = useState("");
+    99→  const pulseRef = useRef(0);
+   100→
+   101→  const load = useCallback(async () => {
+   102→    try {
+   103→      const res = await fetch("/api/civos/state", { cache: "no-store" });
+   104→      const j = (await res.json()) as { ok: boolean; state?: StatePayload };
+   105→      if (j.ok && j.state) setState(j.state);
+   106→    } catch { /* biarkan polling berikutnya */ }
+   107→  }, []);
+   108→
+   109→  const beat = useCallback(async (target?: string) => {
+   110→    setBusy("denyut");
+   111→    try {
+   112→      const res = await fetch("/api/civos/heartbeat", {
+   113→        method: "POST",
+   114→        headers: { "Content-Type": "application/json" },
+   115→        body: JSON.stringify(target ? { target } : {}),
+   116→      });
+   117→      const j = (await res.json()) as { ok: boolean; summary?: { at: string } };
+   118→      if (j.ok) {
+   119→        pulseRef.current = Date.now();
+   120→        setPulseAt(pulseRef.current);
+   121→      }
+   122→      await load();
+   123→    } finally {
+   124→      setBusy(null);
+   125→    }
+   126→  }, [load]);
+   127→
+   128→  const action = useCallback(async (act: string, params?: Record<string, unknown>) => {
+   129→    setBusy(act);
+   130→    try {
+   131→      await fetch("/api/civos/action", {
+   132→        method: "POST",
+   133→        headers: { "Content-Type": "application/json" },
+   134→        body: JSON.stringify({ action: act, params }),
+   135→      });
+   136→      await load();
+   137→    } finally {
+   138→      setBusy(null);
+   139→    }
+   140→  }, [load]);
+   141→
+   142→  useEffect(() => { void load(); }, [load]);
+   143→  useEffect(() => {
+   144→    const t = setInterval(() => { void load(); }, 12_000);
+   145→    return () => clearInterval(t);
+   146→  }, [load]);
+   147→  useEffect(() => {
+   148→    const t = setInterval(() => { void beat(); }, 50_000);
+   149→    return () => clearInterval(t);
+   150→  }, [beat]);
+   151→
+   152→  if (!state) {
+   153→    return (
+   154→      <div className="p-6 space-y-3">
+   155→        <div className="catalog !text-[10px] text-[#fbbf24]">MENGHIDUPKAN PERADABAN…</div>
+   156→        <div className="h-40 rounded-md border border-border bg-[#070d0a] animate-pulse" />
+   157→      </div>
+   158→    );
+   159→  }
+   160→
+   161→  const m = state.metrics;
+   162→  const nation = state.orgs.find((o) => o.kind === "NATION");
+   163→  const gov = state.orgs.find((o) => o.kind === "GOVERNMENT");
+   164→  const companies = state.orgs.filter((o) => o.kind === "COMPANY");
+   165→  const city = state.orgs.find((o) => o.kind === "CITY");
+   166→  const mode = String(state.lastTick?.mode ?? "INSTITUSI");
+   167→  const model = String(state.lastTick?.model ?? "prosedur");
+   168→
+   169→  const mapEntities: MapEntity[] = state.entities.map((e) => ({
+   170→    mcType: e.mcType,
+   171→    mcName: e.mcName,
+   172→    civCode: e.civCode,
+   173→    coords: { x: Number(e.mcCoords.x ?? 0), z: Number(e.mcCoords.z ?? 0) },
+   174→  }));
+   175→
+   176→  return (
+   177→    <div className="p-4 md:p-6 space-y-4">
+   178→      {/* Kepala peradaban */}
+   179→      <header className="rounded-md border border-border bg-[#070d0a] p-4">
+   180→        <div className="flex flex-col lg:flex-row lg:items-start gap-4">
+   181→          <div className="flex-1 min-w-0">
+   182→            <div className="catalog !text-[9px] text-[#fbbf24]">CIVITAS OS — AUTONOMOUS CIVILIZATION OPERATING SYSTEM</div>
+   183→            <h1 className="text-xl md:text-2xl font-mono text-[#bfe8cc] mt-1 glow-phos">{nation?.name ?? "Nusantara Digital"}</h1>
+   184→            <p className="catalog mt-1 leading-relaxed">
+   185→              1 bangsa · 1 pemerintah (4 institusi) · 1 kota · {companies.length} perusahaan · {state.village.population} warga desa (villager otonom) · {state.counts.agents} agen institusi · kernel SQLite otoritatif · dunia Minecraft: mulkymalikuldhr.aternos.me:19132
+   186→            </p>
+   187→            <div className="flex flex-wrap gap-2 mt-3">
+   188→              <span className="catalog border border-[#4ade80]/40 px-2 py-0.5 rounded">UANG BEREDAR {fmt(m.moneySupply)}</span>
+   189→              <span className="catalog border border-[#4ade80]/40 px-2 py-0.5 rounded">KAS BANGSA {fmt(m.treasury)}</span>
+   190→              <span className="catalog border border-[#fbbf24]/40 px-2 py-0.5 rounded">PAJAK {fmt(m.taxCollected)}</span>
+   191→              <span className={`catalog border px-2 py-0.5 rounded ${m.externalRevenueReal === 0 ? "border-[#f87171]/50 text-[#f87171]" : "border-[#4ade80]/50 text-[#4ade80]"}`}>
+   192→                REVENUE EKSTERNAL RIIL {fmt(m.externalRevenueReal)} — {m.externalRevenueReal === 0 ? "PRE_REVENUE (JUJUR)" : "AKTIF"}
+   193→              </span>
+   194→              {m.externalRevenueSandbox > 0 && (
+   195→                <span className="catalog border border-[#fbbf24]/40 text-[#fbbf24] px-2 py-0.5 rounded">RAIL SANDBOX TERUJI {fmt(m.externalRevenueSandbox)}</span>
+   196→              )}
+   197→            </div>
+   198→          </div>
+   199→          <div className="shrink-0 lg:w-72 space-y-2">
+   200→            <div className="rounded border border-border p-3">
+   201→              <div className="catalog !text-[9px] text-[#7f9a89]">DENYUT TERAKHIR</div>
+   202→              <div className="font-mono text-sm text-[#bfe8cc] mt-1">
+   203→                {String(state.lastTick?.target ?? "-")} <span className={`catalog ${mode === "LLM" ? "text-[#4ade80]" : mode === "REFLEX" ? "text-[#fbbf24]" : "text-[#38bdf8]"}`}>[{mode}{mode !== "INSTITUSI" ? `·${model}` : ""}]</span>
+   204→              </div>
+   205→              <p className="catalog mt-1 leading-snug">{String(state.lastTick?.summary ?? "belum ada")}</p>
+   206→              {state.lastTick?.village ? (
+   207→                <p className="catalog mt-1 leading-snug text-[#7fdabf]">DESA ▸ {String(state.lastTick.village)}</p>
+   208→              ) : null}
+   209→            </div>
+   210→            <div className="flex gap-2">
+   211→              <button
+   212→                onClick={() => void beat()}
+   213→                disabled={busy !== null}
+   214→                className="flex-1 h-11 rounded border border-[#4ade80]/60 bg-[#0d1a12] text-[#4ade80] font-mono text-xs hover:bg-[#12281b] disabled:opacity-40"
+   215→              >
+   216→                {busy === "denyut" ? "MENDENYUT…" : "♥ DENYUT SEKARANG"}
+   217→              </button>
+   218→              <button
+   219→                onClick={() => void action("ping_minecraft")}
+   220→                disabled={busy !== null}
+   221→                className="h-11 px-3 rounded border border-border text-[#7f9a89] font-mono text-xs hover:text-[#bfe8cc] disabled:opacity-40"
+   222→              >
+   223→                PING MC
+   224→              </button>
+   225→            </div>
+   226→          </div>
+   227→        </div>
+   228→      </header>
+   229→
+   230→      {/* Sub-tab nav */}
+   231→      <nav className="flex overflow-x-auto gap-1 border-b border-border" aria-label="Sub-tab peradaban">
+   232→        {SUBTABS.map((s) => (
+   233→          <button
+   234→            key={s.key}
+   235→            onClick={() => setTab(s.key)}
+   236→            aria-current={tab === s.key ? "page" : undefined}
+   237→            className={`flex items-center gap-2 px-3 py-2 font-mono text-[11px] whitespace-nowrap border-b-2 -mb-px transition-colors ${
+   238→              tab === s.key ? "border-[#4ade80] text-[#4ade80]" : "border-transparent text-[#7f9a89] hover:text-[#bfe8cc]"
+   239→            }`}
+   240→          >
+   241→            <s.icon className="w-3.5 h-3.5" /> {s.label}
+   242→          </button>
+   243→        ))}
+   244→      </nav>
+   245→
+   246→      {/* PETA */}
+   247→      {tab === "peta" && (
+   248→        <section className="space-y-3">
+   249→          <CivMapCanvas entities={mapEntities} orgs={state.orgs.map((o) => ({ code: o.code, lifecycle: o.lifecycle }))} pulseAt={pulseAt} agentCount={state.counts.agents} />
+   250→          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+   251→            {state.orgs.map((o) => (
+   252→              <div key={o.id} className="rounded border border-border bg-[#070d0a] p-3">
+   253→                <div className="flex items-center justify-between gap-2">
+   254→                  <span className="catalog !text-[9px]">{o.code}</span>
+   255→                  <span className={`catalog border px-1.5 rounded ${LC_STYLE[o.lifecycle] ?? ""}`}>{o.lifecycle}</span>
+   256→                </div>
+   257→                <div className="font-mono text-xs text-[#bfe8cc] mt-1 truncate">{o.name}</div>
+   258→                <div className="catalog mt-1">{o.specialization ?? o.kind}</div>
+   259→              </div>
+   260→            ))}
+   261→          </div>
+   262→        </section>
+   263→      )}
+   264→
+   265→      {/* DESA — VILLAGER ASCENSION (Slice 7) */}
+   266→      {tab === "desa" && (
+   267→        <section className="space-y-3">
+   268→          {/* Banner kejujuran sumber populasi */}
+   269→          <div className={`rounded border p-3 ${state.village.bySource.CENSUS > 0 ? "border-[#4ade80]/50 text-[#4ade80]" : "border-[#fbbf24]/50 text-[#fbbf24]"}`}>
+   270→            <div className="catalog leading-relaxed">
+   271→              {state.village.bySource.CENSUS > 0
+   272→                ? `SENSUS NYATA AKTIF — ${state.village.bySource.CENSUS} warga terikat entitas dunia Minecraft. Warga SIMULASI tersisa: ${state.village.bySource.SIMULASI}.`
+   273→                : "POPULASI SIMULASI (JUJUR) — server Minecraft sedang tidur, jadi populasi uji berlabel SIMULASI menghidupkan pipeline desa. Begitu bot masuk dunia & mengobservasi villager nyata, sensus CENSUS otomatis menggantikan populasi simulasi (warga SIM mundur, sejarah tetap auditable)."}
+   274→            </div>
+   275→          </div>
+   276→
+   277→          {/* Statistik desa + aksi */}
+   278→          <div className="rounded border border-border bg-[#070d0a] p-4 flex flex-col md:flex-row md:items-center gap-3">
+   279→            <div className="flex-1 grid grid-cols-2 md:grid-cols-5 gap-2">
+   280→              <div><div className="catalog !text-[9px]">POPULASI</div><div className="font-mono text-sm text-[#bfe8cc]">{state.village.population}</div></div>
+   281→              <div><div className="catalog !text-[9px]">UPAH DIBAYAR</div><div className="font-mono text-sm text-[#4ade80]">{state.village.wagesPaid}×</div></div>
+   282→              <div><div className="catalog !text-[9px]">EMBODIED / MIMPI</div><div className="font-mono text-sm text-[#38bdf8]">{state.village.byEmbodiment.EMBODIED} / {state.village.byEmbodiment.DREAMING + state.village.byEmbodiment.MISSING}</div></div>
+   283→              <div><div className="catalog !text-[9px]">DOMPET WARGA</div><div className="font-mono text-sm text-[#4ade80]">{fmt(state.village.villagers.reduce((s, v) => s + v.wallet, 0))}</div></div>
+   284→              <div><div className="catalog !text-[9px]">MUNDUR (SIM)</div><div className="font-mono text-sm text-[#7f9a89]">{state.village.retired}</div></div>
+   285→            </div>
+   286→            <div className="flex gap-2 shrink-0">
+   287→              <button onClick={() => void action("village_tick")} disabled={busy !== null} className="h-10 px-3 rounded border border-[#4ade80]/60 bg-[#0d1a12] text-[#4ade80] font-mono text-xs hover:bg-[#12281b] disabled:opacity-40">
+   288→                {busy === "village_tick" ? "…" : "DENYUT WARGA"}
+   289→              </button>
+   290→              <button onClick={() => void action("village_census", { count: 8 })} disabled={busy !== null} className="h-10 px-3 rounded border border-border text-[#7f9a89] font-mono text-xs hover:text-[#bfe8cc] disabled:opacity-40" title="Tambah 8 warga SIMULASI berlabel">
+   291→                {busy === "village_census" ? "…" : "SENSUS SIM +8"}
+   292→              </button>
+   293→              <button onClick={() => void action("village_retire_sim")} disabled={busy !== null} className="h-10 px-3 rounded border border-border text-[#7f9a89] font-mono text-xs hover:text-[#bfe8cc] disabled:opacity-40" title="Warga SIMULASI mundur — menunggu sensus nyata">
+   294→                {busy === "village_retire_sim" ? "…" : "MUNDURKAN SIM"}
+   295→              </button>
+   296→            </div>
+   297→          </div>
+   298→
+   299→          {/* Kartu warga */}
+   300→          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
+   301→            {state.village.villagers.length === 0 && (
+   302→              <p className="catalog">Desa kosong. Denyut berikutnya akan menjalankan sensus SIMULASI berlabel — atau hidupkan server Minecraft untuk sensus nyata.</p>
+   303→            )}
+   304→            {state.village.villagers.map((v) => (
+   305→              <div key={v.code} className="rounded border border-border bg-[#070d0a] p-3">
+   306→                <div className="flex items-center justify-between gap-2">
+   307→                  <span className="catalog !text-[9px]">{v.code} · <Users className="inline w-3 h-3 -mt-0.5" /> {v.xp}xp</span>
+   308→                  <div className="flex gap-1">
+   309→                    <span className={`catalog !text-[9px] border px-1.5 rounded ${v.source === "CENSUS" ? "border-[#4ade80]/60 text-[#4ade80]" : "border-[#fbbf24]/60 text-[#fbbf24]"}`}>{v.source}</span>
+   310→                    <span className={`catalog !text-[9px] border px-1.5 rounded ${v.embodiment === "EMBODIED" ? "border-[#38bdf8]/60 text-[#38bdf8]" : v.embodiment === "MISSING" ? "border-[#f87171]/50 text-[#f87171]" : "border-[#6b7f74] text-[#93a89c]"}`}>{v.embodiment}</span>
+   311→                  </div>
+   312→                </div>
+   313→                <div className="font-mono text-sm text-[#bfe8cc] mt-1">{v.name} <span className="text-[#7f9a89]">· {v.profession}</span></div>
+   314→                <div className="catalog mt-0.5 !text-[9px]">peran {v.role} · mood {v.mood} · sosial {v.socialScore} · kerja {v.workOrg ?? "—"}</div>
+   315→                <div className="flex items-center justify-between gap-2 mt-1.5">
+   316→                  <span className="font-mono text-[11px] text-[#4ade80]">{fmt(v.wallet)}</span>
+   317→                  <span className="catalog !text-[9px]">{v.lastActionAt ? new Date(v.lastActionAt).toLocaleTimeString("id-ID") : "belum bertindak"}</span>
+   318→                </div>
+   319→                {v.lastAction && <p className="catalog mt-1 leading-snug !text-[9px] text-[#93a89c]">{v.lastAction}</p>}
+   320→                {v.coords && <div className="catalog !text-[9px] mt-0.5 text-[#6b7f74]">pos {v.coords}</div>}
+   321→              </div>
+   322→            ))}
+   323→          </div>
+   324→
+   325→          {/* SLICE 8 — TUBUH WARGA: antrean direktif (otak → tubuh) */}
+   326→          <div className="rounded border border-border bg-[#070d0a] p-4">
+   327→            <div className="flex items-center justify-between gap-2 mb-2">
+   328→              <h2 className="font-mono text-sm text-[#38bdf8]">TUBUH WARGA — ANTREAN DIREKTIF (SLICE 8)</h2>
+   329→              <button onClick={() => void action("village_directive_run_sim")} disabled={busy !== null} className="h-8 px-3 rounded border border-[#38bdf8]/60 bg-[#0a1218] text-[#38bdf8] font-mono text-xs hover:bg-[#0e1c26] disabled:opacity-40" title="Jalankan antrean di kernel saat dunia tidur (mimpi jaga, berlabel SIM)">
+   330→                {busy === "village_directive_run_sim" ? "…" : "JALANKAN SIM TUBUH"}
+   331→              </button>
+   332→            </div>
+   333→            <p className="catalog mb-2 leading-snug">Otak warga (LLM) memutuskan; tubuh dieksekusi dunia: saat server ONLINE bot mengirim tp/relay-chat; saat OFFLINE kernel menjalankan mimpi jaga berlabel SIM. Tak pernah mengaku EMBODIED tanpa dunia nyata.</p>
+   334→            <div className="grid grid-cols-5 gap-2 mb-3">
+   335→              <div><div className="catalog !text-[9px]">ANTRE</div><div className="font-mono text-sm text-[#fbbf24]">{state.village.directives?.queued ?? 0}</div></div>
+   336→              <div><div className="catalog !text-[9px]">DIKIRIM</div><div className="font-mono text-sm text-[#38bdf8]">{state.village.directives?.dispatched ?? 0}</div></div>
+   337→              <div><div className="catalog !text-[9px]">DIJALANKAN</div><div className="font-mono text-sm text-[#4ade80]">{state.village.directives?.applied ?? 0}</div></div>
+   338→              <div><div className="catalog !text-[9px]">GAGAL</div><div className="font-mono text-sm text-[#f87171]">{state.village.directives?.failed ?? 0}</div></div>
+   339→              <div><div className="catalog !text-[9px]">KEDALUWARSA</div><div className="font-mono text-sm text-[#7f9a89]">{state.village.directives?.expired ?? 0}</div></div>
+   340→            </div>
+   341→            <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
+   342→              {(state.village.directives?.recent ?? []).length === 0 && <p className="catalog">Belum ada direktif — jalankan DENYUT WARGA untuk melihat otak → tubuh.</p>}
+   343→              {(state.village.directives?.recent ?? []).map((d) => (
+   344→                <div key={d.id} className="rounded border border-border p-2 flex items-start justify-between gap-2">
+   345→                  <div className="min-w-0">
+   346→                    <div className="catalog !text-[9px]">{d.villagerCode} · {d.kind} · {d.origin}</div>
+   347→                    <div className="font-mono text-[11px] text-[#bfe8cc] truncate">{d.payload?.message ?? (d.payload?.to ? `→ ${d.payload.to.x},${d.payload.to.y},${d.payload.to.z}` : (d.payload?.orgCode ?? ""))}</div>
+   348→                    {d.result && <div className="catalog !text-[9px] text-[#93a89c] mt-0.5">{d.result}</div>}
+   349→                  </div>
+   350→                  <span className={`catalog !text-[9px] border px-1.5 rounded shrink-0 ${d.status === "APPLIED" ? "border-[#4ade80]/60 text-[#4ade80]" : d.status === "FAILED" ? "border-[#f87171]/60 text-[#f87171]" : d.status === "EXPIRED" ? "border-[#6b7f74] text-[#93a89c]" : "border-[#fbbf24]/60 text-[#fbbf24]"}`}>{d.status}</span>
+   351→                </div>
+   352→              ))}
+   353→            </div>
+   354→          </div>
+   355→
+   356→          {/* SLICE 8 — PASAR DESA: listing × warga, matching deterministik */}
+   357→          <div className="rounded border border-border bg-[#070d0a] p-4">
+   358→            <h2 className="font-mono text-sm text-[#fbbf24] mb-2">PASAR DESA (SLICE 8) — LISTING × WARGA, MATCHING TERMURAH DETERMINISTIK</h2>
+   359→            <div className="grid grid-cols-3 gap-2 mb-3">
+   360→              <div><div className="catalog !text-[9px]">LISTING OPEN</div><div className="font-mono text-sm text-[#4ade80]">{state.village.market?.open ?? 0}</div></div>
+   361→              <div><div className="catalog !text-[9px]">LISTING SELESAI</div><div className="font-mono text-sm text-[#7f9a89]">{state.village.market?.closed ?? 0}</div></div>
+   362→              <div><div className="catalog !text-[9px]">UNIT TERJUAL</div><div className="font-mono text-sm text-[#4ade80]">{state.village.market?.totalUnitsSold ?? 0}</div></div>
+   363→            </div>
+   364→            <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1">
+   365→              {(state.village.market?.offers ?? []).length === 0 && <p className="catalog">Pasar kosong — perusahaan akan listing otomatis saat aksi PRODUCE, atau tambah manual via API market_list.</p>}
+   366→              {(state.village.market?.offers ?? []).map((o) => (
+   367→                <div key={o.id} className="rounded border border-border p-2 flex items-center justify-between gap-2">
+   368→                  <div className="min-w-0">
+   369→                    <div className="font-mono text-[11px] text-[#bfe8cc] truncate">{o.item}</div>
+   370→                    <div className="catalog !text-[9px]">{o.seller} · sisa {o.qtyAvailable} · terjual {o.qtySold}</div>
+   371→                  </div>
+   372→                  <span className="font-mono text-[11px] text-[#4ade80] shrink-0">{o.unitPriceLabel}</span>
+   373→                </div>
+   374→              ))}
+   375→            </div>
+   376→          </div>
+   377→        </section>
+   378→      )}
+   379→
+   380→      {/* PEMERINTAH */}
+   381→      {tab === "pemerintah" && (
+   382→        <section className="grid md:grid-cols-2 gap-3">
+   383→          <div className="rounded border border-border bg-[#070d0a] p-4">
+   384→            <h2 className="font-mono text-sm text-[#fbbf24] mb-2">PIPELINE PROPOSAL INSTITUSIONAL</h2>
+   385→            <div className="space-y-2 max-h-96 overflow-y-auto pr-1">
+   386→              {state.proposals.length === 0 && <p className="catalog">Belum ada proposal. Perusahaan akan mengajukan saat kasnya nol.</p>}
+   387→              {state.proposals.map((p) => (
+   388→                <div key={p.id} className="rounded border border-border p-2">
+   389→                  <div className="flex items-center justify-between gap-2">
+   390→                    <span className="catalog !text-[9px]">{p.kind} · {p.institution}</span>
+   391→                    <span className={`catalog !text-[9px] ${p.status === "APPROVED" || p.status === "EXECUTED" ? "text-[#4ade80]" : p.status === "REJECTED" ? "text-[#f87171]" : "text-[#fbbf24]"}`}>{p.status}</span>
+   392→                  </div>
+   393→                  <div className="font-mono text-[11px] text-[#bfe8cc] mt-1">{p.orgCode ?? "-"} · ask {fmt(Number((p.payload.capitalAsk as number) ?? 0))}</div>
+   394→                  {p.policyCheck.skor !== undefined && (
+   395→                    <div className="catalog mt-1">skor {String(p.policyCheck.skor)} · headroom {fmt(Number(p.policyCheck.headroom ?? 0))}</div>
+   396→                  )}
+   397→                  {p.reason && <div className="catalog mt-1 text-[#93a89c]">{p.reason}</div>}
+   398→                  <div className="catalog !text-[9px] mt-1">{p.decidedBy ? `diputuskan ${p.decidedBy}` : "menunggu institusi"} · {new Date(p.createdAt).toLocaleTimeString("id-ID")}</div>
+   399→                </div>
+   400→              ))}
+   401→            </div>
+   402→          </div>
+   403→          <div className="space-y-3">
+   404→            <div className="rounded border border-border bg-[#070d0a] p-4">
+   405→              <h2 className="font-mono text-sm text-[#fbbf24] mb-2">KEBIJAKAN (DI LUAR JANGKAUAN LLM)</h2>
+   406→              <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1">
+   407→                {state.policies.map((pol) => (
+   408→                  <div key={pol.key} className="flex items-start justify-between gap-2">
+   409→                    <span className="catalog">{pol.key}</span>
+   410→                    <span className="font-mono text-[11px] text-[#bfe8cc]">{JSON.stringify(pol.value)}</span>
+   411→                  </div>
+   412→                ))}
+   413→              </div>
+   414→            </div>
+   415→            <div className="rounded border border-border bg-[#070d0a] p-4">
+   416→              <h2 className="font-mono text-sm text-[#fbbf24] mb-2">KAS INSTITUSI</h2>
+   417→              <div className="grid grid-cols-2 gap-2">
+   418→                {gov?.accounts.map((a) => (
+   419→                  <div key={a.id} className="rounded border border-border p-2">
+   420→                    <div className="catalog !text-[9px]">{a.name}</div>
+   421→                    <div className="font-mono text-sm text-[#4ade80]">{fmt(a.balance)}</div>
+   422→                  </div>
+   423→                ))}
+   424→                {city?.accounts.map((a) => (
+   425→                  <div key={a.id} className="rounded border border-border p-2">
+   426→                    <div className="catalog !text-[9px]">{a.name}</div>
+   427→                    <div className="font-mono text-sm text-[#38bdf8]">{fmt(a.balance)}</div>
+   428→                  </div>
+   429→                ))}
+   430→              </div>
+   431→            </div>
+   432→          </div>
+   433→        </section>
+   434→      )}
+   435→
+   436→      {/* PERUSAHAAN */}
+   437→      {tab === "perusahaan" && (
+   438→        <section className="space-y-3">
+   439→          <div className="rounded border border-border bg-[#070d0a] p-4">
+   440→            <h2 className="font-mono text-sm text-[#4ade80] mb-2">DAFTAR PERUSAHAAN BARU (memerintah mencipta, REGULATORY meregistrasi)</h2>
+   441→            <div className="flex flex-col sm:flex-row gap-2">
+   442→              <input value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="Nama perusahaan" className="h-11 flex-1 rounded border border-border bg-[#050b08] px-3 font-mono text-xs text-[#bfe8cc] placeholder:text-[#4a5f54]" />
+   443→              <input value={newSpec} onChange={(e) => setNewSpec(e.target.value)} placeholder="Spesialisasi" className="h-11 flex-1 rounded border border-border bg-[#050b08] px-3 font-mono text-xs text-[#bfe8cc] placeholder:text-[#4a5f54]" />
+   444→              <button
+   445→                onClick={() => { void action("register_company", { name: newName, specialization: newSpec }); setNewName(""); setNewSpec(""); }}
+   446→                disabled={busy !== null || !newName.trim()}
+   447→                className="h-11 px-4 rounded border border-[#4ade80]/60 bg-[#0d1a12] text-[#4ade80] font-mono text-xs hover:bg-[#12281b] disabled:opacity-40"
+   448→              >
+   449→                USULKAN
+   450→              </button>
+   451→            </div>
+   452→          </div>
+   453→          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
+   454→            {companies.map((c) => {
+   455→              const met = m.companies.find((x) => x.code === c.code);
+   456→              return (
+   457→                <div key={c.id} className="rounded border border-border bg-[#070d0a] p-4 space-y-2">
+   458→                  <div className="flex items-center justify-between gap-2">
+   459→                    <span className="catalog !text-[9px]">{c.code}</span>
+   460→                    <span className={`catalog border px-1.5 rounded ${LC_STYLE[c.lifecycle] ?? ""}`}>{c.lifecycle}</span>
+   461→                  </div>
+   462→                  <h3 className="font-mono text-sm text-[#bfe8cc]">{c.name}</h3>
+   463→                  <p className="catalog">{c.specialization}</p>
+   464→                  <div className="grid grid-cols-3 gap-1.5 font-mono text-[11px]">
+   465→                    <div className="rounded border border-border p-1.5"><div className="catalog !text-[8px]">KAS</div><span className="text-[#4ade80]">{fmt(met?.operating ?? 0, false)}</span></div>
+   466→                    <div className="rounded border border-border p-1.5"><div className="catalog !text-[8px]">PENDAPATAN</div><span className="text-[#fbbf24]">{fmt(met?.income ?? 0, false)}</span></div>
+   467→                    <div className="rounded border border-border p-1.5"><div className="catalog !text-[8px]">BEBAN</div><span className="text-[#f87171]">{fmt(met?.expense ?? 0, false)}</span></div>
+   468→                  </div>
+   469→                  <div className="flex flex-wrap gap-1 pt-1">
+   470→                    <span className="catalog !text-[9px] text-[#7f9a89]">AGEN:</span>
+   471→                    {state.agents.filter((a) => a.orgCode === c.code).map((a) => (
+   472→                      <span key={a.id} className="catalog !text-[9px] border border-border rounded px-1">{a.code}</span>
+   473→                    ))}
+   474→                  </div>
+   475→                </div>
+   476→              );
+   477→            })}
+   478→          </div>
+   479→        </section>
+   480→      )}
+   481→
+   482→      {/* EKONOMI */}
+   483→      {tab === "ekonomi" && (
+   484→        <section className="space-y-3">
+   485→          <div className="rounded border border-[#f87171]/40 bg-[#170d0d] p-3 flex items-start gap-2">
+   486→            <Skull className="w-4 h-4 text-[#f87171] shrink-0 mt-0.5" />
+   487→            <p className="catalog text-[#f8c9c9] leading-relaxed">
+   488→              KEBENARAN EKONOMI: seluruh angka di sini adalah peradaban internal. Perdagangan antar organ <b>bukan</b> revenue eksternal. Revenue eksternal membutuhkan customer nyata di luar sistem — belum ada, maka angkanya NOL. Klik aksi &quot;declare_external_customer&quot; di API akan DITOLAK oleh honesty gate.
+   489→            </p>
+   490→          </div>
+   491→          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+   492→            {[
+   493→              { l: "UANG BEREDAR", v: fmt(m.moneySupply, false) },
+   494→              { l: "KAS BANGSA", v: fmt(m.treasury, false) },
+   495→              { l: "KAS PEMERINTAH", v: fmt(m.govCash, false) },
+   496→              { l: "PERDAGANGAN INTERNAL", v: fmt(m.internalTradeVolume, false) },
+   497→              { l: "BEBAN TOTAL", v: fmt(m.expenses, false) },
+   498→              { l: "RUNWAY (HR)", v: m.runwayDays === null ? "-" : String(m.runwayDays) },
+   499→            ].map((k) => (
+   500→              <div key={k.l} className="rounded border border-border bg-[#070d0a] p-3">
+   501→                <div className="catalog !text-[8px]">{k.l}</div>
+   502→                <div className="font-mono text-sm text-[#4ade80] mt-1">{k.v}</div>
+   503→              </div>
+   504→            ))}
+   505→          </div>
+   506→          {m.alerts.length > 0 && (
+   507→            <div className="rounded border border-[#fbbf24]/40 bg-[#171207] p-3">
+   508→              <div className="catalog !text-[9px] text-[#fbbf24] mb-1">SUSTAINABILITY MONITOR</div>
+   509→              {m.alerts.map((a, i) => <p key={i} className="catalog text-[#fde9b0]">{a}</p>)}
+   510→            </div>
+   511→          )}
+   512→          <div className="rounded border border-border bg-[#070d0a] p-4">
+   513→            <h2 className="font-mono text-sm text-[#fbbf24] mb-2">LEDGER DOUBLE-ENTRY (30 TERAKHIR)</h2>
+   514→            <div className="overflow-x-auto max-h-96 overflow-y-auto">
+   515→              <table className="w-full text-left font-mono text-[11px]">
+   516→                <thead className="catalog !text-[9px] text-[#7f9a89]">
+   517→                  <tr><th className="py-1 pr-3">WAKTU</th><th className="py-1 pr-3">TIPE</th><th className="py-1 pr-3">NILAI</th><th className="py-1 pr-3">TUJUAN</th><th className="py-1">LEG</th></tr>
+   518→                </thead>
+   519→                <tbody>
+   520→                  {state.ledger.map((r) => (
+   521→                    <tr key={r.id} className="border-t border-border/60 align-top">
+   522→                      <td className="py-1.5 pr-3 text-[#7f9a89] whitespace-nowrap">{new Date(r.createdAt).toLocaleTimeString("id-ID")}</td>
+   523→                      <td className="py-1.5 pr-3"><span className={r.isExternal ? "text-[#4ade80]" : "text-[#bfe8cc]"}>{r.txType}</span></td>
+   524→                      <td className="py-1.5 pr-3 text-[#4ade80] whitespace-nowrap">{fmt(r.amount, false)}</td>
+   525→                      <td className="py-1.5 pr-3 text-[#93a89c] max-w-[220px]">{r.purpose}</td>
+   526→                      <td className="py-1.5 text-[10px] text-[#7f9a89]">{r.legs.map((l) => `${l.side[0]}:${l.account}(${(l.amount / 100).toFixed(2)})`).join(" · ")}</td>
+   527→                    </tr>
+   528→                  ))}
+   529→                </tbody>
+   530→              </table>
+   531→            </div>
+   532→          </div>
+   533→        </section>
+   534→      )}
+   535→
+   536→      {/* CONTROL PLANE */}
+   537→      {tab === "control" && (
+   538→        <section className="grid md:grid-cols-2 gap-3">
+   539→          <div className="rounded border border-border bg-[#070d0a] p-4">
+   540→            <h2 className="font-mono text-sm text-[#4ade80] mb-2">AGEN REGISTRY ({state.agents.length})</h2>
+   541→            <div className="max-h-80 overflow-y-auto pr-1 space-y-1.5">
+   542→              {state.agents.map((a) => (
+   543→                <div key={a.id} className="flex items-center justify-between gap-2 rounded border border-border px-2 py-1.5">
+   544→                  <div className="min-w-0">
+   545→                    <div className="font-mono text-[11px] text-[#bfe8cc]">{a.code} <span className="text-[#7f9a89]">· {a.role}</span></div>
+   546→                    <div className="catalog !text-[9px]">{a.orgCode} · rep {a.reputation} · {a.grants} grant</div>
+   547→                  </div>
+   548→                  <span className={`catalog !text-[9px] ${a.status === "ACTIVE" ? "text-[#4ade80]" : "text-[#fbbf24]"}`}>{a.status}</span>
+   549→                </div>
+   550→              ))}
+   551→            </div>
+   552→          </div>
+   553→          <div className="space-y-3">
+   554→            <div className="rounded border border-border bg-[#070d0a] p-4">
+   555→              <h2 className="font-mono text-sm text-[#4ade80] mb-2">LLM ROUTER — TUGAS TERAKHIR</h2>
+   556→              <div className="max-h-48 overflow-y-auto pr-1 space-y-1.5">
+   557→                {state.tasks.map((t) => {
+   558→                  const route = t.route as { mode?: string; model?: string; reason?: string; latencyMs?: number };
+   559→                  return (
+   560→                    <div key={t.id} className="rounded border border-border p-2">
+   561→                      <div className="flex items-center justify-between gap-2">
+   562→                        <span className="font-mono text-[11px] text-[#bfe8cc]">{t.agentCode} @ {t.orgCode}</span>
+   563→                        <span className={`catalog !text-[9px] ${route.mode === "LLM" ? "text-[#4ade80]" : route.mode === "REFLEX" ? "text-[#fbbf24]" : "text-[#7f9a89]"}`}>[{route.mode ?? "-"}{route.model ? `·${route.model}` : ""}]</span>
+   564→                      </div>
+   565→                      {route.reason && <div className="catalog !text-[9px] mt-0.5">{route.reason} · {route.latencyMs ?? 0}ms</div>}
+   566→                      <div className={`catalog !text-[9px] mt-0.5 ${t.status === "DONE" ? "text-[#4ade80]" : t.status === "REJECTED" ? "text-[#f87171]" : "text-[#fbbf24]"}`}>{t.status}</div>
+   567→                    </div>
+   568→                  );
+   569→                })}
+   570→              </div>
+   571→            </div>
+   572→            <div className="rounded border border-border bg-[#070d0a] p-4">
+   573→              <h2 className="font-mono text-sm text-[#4ade80] mb-2">GRANT CAPABILITY (SHORT-LIVED, SCOPED)</h2>
+   574→              <div className="max-h-40 overflow-y-auto pr-1 space-y-1">
+   575→                {state.grants.map((g, i) => (
+   576→                  <div key={i} className="flex items-center justify-between gap-2">
+   577→                    <span className="catalog">{g.agentCode}</span>
+   578→                    <span className="font-mono text-[11px] text-[#bfe8cc]">{g.capability}{g.budgetCap > 0 ? ` ≤${fmt(g.budgetCap, false)}` : ""}</span>
+   579→                  </div>
+   580→                ))}
+   581→              </div>
+   582→            </div>
+   583→            <div className="rounded border border-border bg-[#070d0a] p-4">
+   584→              <h2 className="font-mono text-sm text-[#4ade80] mb-2">MEMORI TERBARU (SCOPED + ACL)</h2>
+   585→              <div className="max-h-40 overflow-y-auto pr-1 space-y-1">
+   586→                {state.memories.slice(0, 8).map((mem) => (
+   587→                  <div key={mem.id} className="rounded border border-border/60 p-2">
+   588→                    <div className="catalog !text-[9px]">{mem.ownerType}·{mem.scope}·{mem.visibility}</div>
+   589→                    <p className="catalog mt-0.5">{mem.content}</p>
+   590→                  </div>
+   591→                ))}
+   592→              </div>
+   593→            </div>
+   594→          </div>
+   595→        </section>
+   596→      )}
+   597→
+   598→      {/* EVENT */}
+   599→      {tab === "event" && (
+   600→        <section className="rounded border border-border bg-[#070d0a] p-4">
+   601→          <h2 className="font-mono text-sm text-[#fbbf24] mb-2">EVENT BUS IMMUTABLE ({state.counts.events} TOTAL — TULIS SEKALI, TAK PERNAH DIUBAH)</h2>
+   602→          <div className="max-h-[460px] overflow-y-auto pr-1 space-y-1">
+   603→            {state.events.map((e) => (
+   604→              <div key={e.seq} className="flex items-start gap-3 border-b border-border/40 pb-1">
+   605→                <span className="catalog !text-[9px] text-[#4a5f54] shrink-0 w-14">{String(e.seq).padStart(5, "0")}</span>
+   606→                <span className="catalog !text-[9px] text-[#4ade80] shrink-0 w-40 truncate">{e.type}</span>
+   607→                <span className="catalog !text-[9px] flex-1">{e.subjectType}:{e.subjectId.slice(0, 14)} {JSON.stringify(e.payload).slice(0, 110)}</span>
+   608→                <span className="catalog !text-[9px] text-[#4a5f54] shrink-0">{new Date(e.createdAt).toLocaleTimeString("id-ID")}</span>
+   609→              </div>
+   610→            ))}
+   611→          </div>
+   612→        </section>
+   613→      )}
+   614→
+   615→      <div className="flex items-center gap-2 pt-1">
+   616→        <Activity className="w-3.5 h-3.5 text-[#4ade80]" />
+   617→        <span className="catalog !text-[9px]">denyut otomatis tiap ±50 dtk · state refresh 12 dtk · denyut BIOSFER prt tetap jalan terpisah</span>
+   618→      </div>
+   619→    </div>
+   620→  );
+   621→}
+   622→

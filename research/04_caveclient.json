@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://www.youtube.com/watch?v=B5EeqVlOqjk",
+    "name": "CAVE Client / Programmatic Access to the FlyWire Connectome",
+    "snippet": "Walk through CAVE (Connectome Annotation and Versioning Engine), the powerful python tool for programmatic access to the FlyWire Connectome ...",
+    "host_name": "www.youtube.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://natverse.org/fafbseg/reference/flywire_cave_query.html",
+    "name": "Query the FlyWire CAVE annotation system - fafbseg",
+    "snippet": "CAVE (Connectome Annotation Versioning Engine) provides a shared infrastructure for a number of connectomics projects involving Sebastian Seung's group at ...",
+    "host_name": "natverse.org",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://flywire.ai/apps",
+    "name": "APPS",
+    "snippet": "Codex · The Connectome Data Explorer provides access to the FlyWire connectome, including over 120K+ proofread neurons, 150K+ annotations, and 30M+ synapses.",
+    "host_name": "flywire.ai",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10402030",
+    "name": "CAVE: Connectome Annotation Versioning Engine - PMC",
+    "snippet": "by S Dorkenwald · 2023 · Cited by 86 — CAVE services can be accessed through authenticated APIs. We developed a Python client (CAVEclient) for programmatic access and adapted the popular viewer ...",
+    "host_name": "pmc.ncbi.nlm.nih.gov",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/CAVEconnectome/CAVEclient",
+    "name": "CAVEconnectome/CAVEclient: This is the python client for",
+    "snippet": "CAVE is short for Connectome Annotation Versioning Engine. CAVE is a set of microservices that provide a framework for storing and versioning connectomics ...",
+    "host_name": "github.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.nature.com/articles/s41592-024-02426-z",
+    "name": "CAVE: Connectome Annotation Versioning Engine",
+    "snippet": "by S Dorkenwald · 2025 · Cited by 89 — The Materialization service also provides a query API for users to query both materialized versions of the database as well as an end point ...",
+    "host_name": "www.nature.com",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  }
+]

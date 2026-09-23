@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://www.virtualflybrain.org",
+    "name": "Introducing the VFB Model Context Protocol (MCP) Tool",
+    "snippet": "Jun 22, 2026 — The VFB MCP tool integrates Virtual Fly Brain's rich neuroanatomical data with LLM capabilities, allowing researchers to: Query VFB data ...",
+    "host_name": "www.virtualflybrain.org",
+    "rank": 0,
+    "date": "Jun 22, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.nature.com",
+    "name": "Whole-brain annotation and multi-connectome cell typing",
+    "snippet": "by P Schlegel · 2024 · Cited by 480 — The availability of a complete adult fly brain connectome now allows brain -spanning circuits to be mapped and linked to circuit dynamics and ...",
+    "host_name": "www.nature.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.hhmi.org",
+    "name": "Scientists Complete Full Map of the Fruit Fly Central",
+    "snippet": "Sep 3, 2026 — With 25,000 neurons, the map of half of the fly brain was the biggest and most detailed connectome ever created, proving the feasibility and ...",
+    "host_name": "www.hhmi.org",
+    "rank": 2,
+    "date": "Sep 3, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.nimh.nih.gov",
+    "name": "Researchers Fully Map Neural Connections of the Fruit Fly Brain",
+    "snippet": "Oct 2, 2024 — The map provides a wiring diagram, known as a connectome , and is the largest and most complete connectome of an adult animal ever created.",
+    "host_name": "www.nimh.nih.gov",
+    "rank": 3,
+    "date": "Oct 2, 2024",
+    "favicon": ""
+  },
+  {
+    "url": "https://arxiv.org",
+    "name": "Whole-Brain Connectomic Graph Model Enables",
+    "snippet": "Jun 14, 2026 — Here, we introduce the Fly -connectomic Graph Model , which directly instantiates the whole- brain connectome of an adult Drosophila as a graph- ...",
+    "host_name": "arxiv.org",
+    "rank": 4,
+    "date": "Jun 14, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.mindstudio.ai",
+    "name": "Fruit Fly Brain Uploaded to AI: How the Connectome",
+    "snippet": "7 days ago — The fruit fly connectome is a publicly released map of a Drosophila brain and nerve cord, produced by researchers connected to Google DeepMind.",
+    "host_name": "www.mindstudio.ai",
+    "rank": 5,
+    "date": "Sep 14, 2026",
+    "favicon": ""
+  }
+]

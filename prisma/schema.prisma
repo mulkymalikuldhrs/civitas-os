@@ -1,0 +1,406 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================================================
+// CIVITAS OS — CIVILIZATION KERNEL (server-authoritative state; ADR-0001)
+// Uang = integer minor unit (FLR). Semua mutasi lewat ledger double-entry.
+// ============================================================================
+
+/// Organisasi: NATION | GOVERNMENT | COMPANY | CITY
+model CivOrg {
+  id             String   @id @default(cuid())
+  code           String   @unique // NUSANTARA, GOV, KOTA-01, COMP-001..
+  kind           String // NATION | GOVERNMENT | COMPANY | CITY
+  name           String
+  parentOrgId    String?
+  lifecycle      String   @default("ACTIVE") // COMPANY: PROPOSED..DISSOLVED (13 state)
+  specialization String? // city/company domain
+  capitalCached  Int      @default(0) // cache; sumber kebenaran = ledger
+  meta           String   @default("{}")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  agents         CivAgent[]
+  accounts       CivAccount[]
+  proposals      CivProposal[]
+  worldEntities  CivWorldEntity[]
+  tasks          CivTask[]
+  villagers      CivVillager[]
+  marketOffers   CivMarketOffer[]
+}
+
+// SLICE 7 — VILLAGER ASCENSION: warga desa Minecraft naik derajat menjadi agen otonom.
+// identity ≠ embodiment: identitas persisten di kernel; entitas dunia hanya "tubuh".
+model CivVillager {
+  id           String    @id @default(cuid())
+  code         String    @unique // VIL-0001
+  name         String // nama pribadi (genom identitas, bukan model)
+  profession   String // farmer|librarian|cleric|smith|butcher|nitwit|unemployed|unknown
+  profLabel    String // Petani, Pustakawan, ... (label Nusantara)
+  role         String // peran ekonomi: PRODUCER|SCHOLAR|SPIRIT|CRAFT|TRADE|PHILOSOPHER|SEEKER
+  division     String    @default("GENERAL") // SLICE 9 guild: GENERAL|CODER|DEV|BUILDER|MILITARY|ENGINEER|MINER|NETRUNNER|TOOLSMITH
+  source       String    @default("SIMULASI") // SIMULASI | CENSUS (observasi dunia nyata)
+  mcEntityUid  String?   @unique // uniqueId entitas dunia (null saat belum embodi)
+  mcCoords     String    @default("{}")
+  embodiment   String    @default("DREAMING") // DREAMING|EMBODIED|MISSING
+  village      String    @default("Desa Nusantara")
+  mood         String    @default("tenang")
+  walletId     String?   @unique // CivAccount kind=WALLET (orgId=null — dompet pribadi)
+  workOrgId    String? // perusahaan tempat bekerja (dipegang kernel, bukan LLM)
+  workOrg      CivOrg?   @relation(fields: [workOrgId], references: [id])
+  lastAction   String?
+  lastActionAt DateTime?
+  socialScore  Int       @default(50)
+  xp           Int       @default(0)
+  status       String    @default("ACTIVE") // ACTIVE | RETIRED (diganti sensus nyata)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  directives   CivVillagerDirective[]
+}
+
+/// SLICE 8 — DIREKTIF TUBUH WARGA: jembatan keputusan otak (LLM/kernel) → aksi fisik
+/// tubuh villager di dunia. "Autonomously autonomous": otak memutuskan, tubuh dieksekusi
+/// oleh dunia (bot → command saat ONLINE) atau oleh mimpi jaga kernel (SIM saat OFFLINE,
+/// berlabel jujur). Status machine: QUEUED → DISPATCHED → APPLIED | FAILED | EXPIRED.
+model CivVillagerDirective {
+  id           String   @id @default(cuid())
+  villagerId   String
+  villager     CivVillager @relation(fields: [villagerId], references: [id])
+  kind         String // MOVE | SPEAK | WORK_ANIM | LOOK
+  payload      String   @default("{}") // {to:{x,y,z}} | {message} | {orgCode}
+  status       String   @default("QUEUED") // QUEUED | DISPATCHED | APPLIED | FAILED | EXPIRED
+  origin       String   @default("KERNEL") // KERNEL (denyut warga) | SIM (mimpi jaga) | BOT
+  mcCommand    String? // perintah exact yang dikirim ke dunia (audit penuh)
+  result       String? // hasil eksekusi dunia/kernel (truncated)
+  dispatchedAt DateTime?
+  appliedAt    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([status])
+  @@index([villagerId, status])
+}
+
+/// SLICE 8 — PASAR DESA: listing barang/layanan perusahaan yang dikonsumsi warga.
+/// Matching deterministik (termurah dulu, FIFO) di kernel — bukan keputusan LLM.
+model CivMarketOffer {
+  id           String   @id @default(cuid())
+  sellerOrgId  String
+  seller       CivOrg   @relation(fields: [sellerOrgId], references: [id])
+  item         String // nama barang/layanan
+  unitPrice    Int // minor unit FLR, wajib > 0
+  qtyInitial   Int
+  qtyAvailable Int
+  qtySold      Int      @default(0)
+  status       String   @default("OPEN") // OPEN | CLOSED
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([status])
+}
+
+/// Identitas agen persisten — LEBIH TUA dari model apa pun (router-independent).
+model CivAgent {
+  id            String   @id @default(cuid())
+  code          String   @unique // GOV-GUB-001, CEO-001..
+  name          String
+  role          String
+  orgId         String
+  org           CivOrg   @relation(fields: [orgId], references: [id])
+  parentAgentId String?
+  status        String   @default("ACTIVE") // ACTIVE | SUSPENDED | RETIRED
+  authority     String   @default("{}") // JSON authority scope
+  budgetCap     Int      @default(0) // minor unit / denyut
+  reputation    Int      @default(50)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  tasks         CivTask[]
+  grants        CivGrant[]
+}
+
+/// Akun ledger. kind: TREASURY|OPERATING|TAX|RESERVE|EQUITY|INCOME|EXPENSE|LIABILITY
+model CivAccount {
+  id        String     @id @default(cuid())
+  orgId     String?
+  org       CivOrg?    @relation(fields: [orgId], references: [id])
+  kind      String
+  name      String
+  currency  String     @default("FLR")
+  createdAt DateTime   @default(now())
+  entries   CivEntry[]
+}
+
+/// Leg ledger: satu baris per sisi (DEBIT/CREDIT). Invariant: sum(DEBIT)==sum(CREDIT).
+model CivEntry {
+  id        String     @id @default(cuid())
+  side      String // DEBIT | CREDIT
+  amount    Int
+  txId      String
+  tx        CivTxn     @relation(fields: [txId], references: [id])
+  accountId String
+  account   CivAccount @relation(fields: [accountId], references: [id])
+  createdAt DateTime   @default(now())
+
+  @@index([accountId])
+  @@index([txId])
+}
+
+/// Transaksi. txType: MINT|ALLOCATION|TAX|TRADE_INTERNAL|REVENUE_EXTERNAL|EXPENSE|TRANSFER|DIVIDEND|BURN
+model CivTxn {
+  id             String     @id @default(cuid())
+  idempotencyKey String     @unique
+  txType         String
+  purpose        String
+  actorAgentId   String?
+  isExternal     Boolean    @default(false)
+  counterparty   String? // "EXTERNAL:<nama>" hanya bila isExternal
+  eventId        String?
+  meta           String     @default("{}")
+  createdAt      DateTime   @default(now())
+  entries        CivEntry[]
+}
+
+/// Event immutable — tulis sekali, tidak pernah update/delete.
+model CivEvent {
+  seq         Int      @id @default(autoincrement())
+  type        String // NATION_FOUNDED, MINT, COMPANY_CREATED, CAPITAL_ALLOCATED, ...
+  subjectType String
+  subjectId   String
+  payload     String   @default("{}")
+  createdAt   DateTime @default(now())
+
+  @@index([type])
+}
+
+/// Tugas runtime agen + metadata LLM Router.
+model CivTask {
+  id         String    @id @default(cuid())
+  agentId    String
+  agent      CivAgent  @relation(fields: [agentId], references: [id])
+  orgId      String
+  org        CivOrg    @relation(fields: [orgId], references: [id])
+  type       String // CYCLE|PRODUCTION|ANALYSIS|DECISION
+  status     String    @default("RUNNING") // RUNNING|DONE|FAILED|REJECTED
+  route      String    @default("{}") // JSON: {provider,model,reason,mode,latencyMs,tokens}
+  input      String    @default("{}")
+  result     String    @default("{}")
+  costTokens Int       @default(0)
+  latencyMs  Int       @default(0)
+  steps      Int       @default(0)
+  createdAt  DateTime  @default(now())
+  finishedAt DateTime?
+}
+
+/// Memori scoped + ACL. scope: WORKING|EPISODIC|SEMANTIC|ORGANIZATIONAL|INSTITUTIONAL
+model CivMemory {
+  id          String   @id @default(cuid())
+  ownerId     String
+  ownerType   String // ORG | AGENT
+  scope       String
+  visibility  String   @default("PRIVATE") // PRIVATE|ORG|PUBLIC
+  content     String
+  provenance  String   @default("{}") // {source,taskId,eventSeq,confidence}
+  createdAt   DateTime @default(now())
+
+  @@index([ownerId])
+}
+
+/// Kebijakan/limit DI LUAR LLM. category: LIMIT|RATE|RULE|ALLOWLIST
+model CivPolicy {
+  key       String   @id // MAX_TRANSACTION, MAX_DAILY_SPEND, TAX_RATE_EXTERNAL..
+  value     String // JSON
+  category  String
+  note      String   @default("")
+  updatedAt DateTime @updatedAt
+}
+
+/// Registry capability. risk: LOW|MEDIUM|HIGH|CRITICAL
+model CivCapability {
+  key              String  @id // ledger.post, company.register, minecraft.read, memory.write..
+  risk             String
+  requiresApproval Boolean @default(false)
+  note             String  @default("")
+}
+
+/// Grant capability short-lived per agen (scoped, revocable).
+model CivGrant {
+  id            String    @id @default(cuid())
+  agentId       String
+  agent         CivAgent  @relation(fields: [agentId], references: [id])
+  capabilityKey String
+  budgetCap     Int       @default(0)
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+
+  @@unique([agentId, capabilityKey])
+}
+
+/// Proposal institusional: pipeline Proposal→Analysis→Policy→Budget→Authority→Risk→Decision→Event.
+model CivProposal {
+  id              String   @id @default(cuid())
+  kind            String // CAPITAL_ALLOCATION|COMPANY_REGISTRATION|GOVERNMENT_DECISION|TAX_ASSESSMENT|INFRASTRUCTURE
+  orgId           String?
+  org             CivOrg?  @relation(fields: [orgId], references: [id])
+  proposerAgentId String?
+  institution     String // EXECUTIVE|TREASURY|REGULATORY
+  payload         String   @default("{}")
+  analysis        String   @default("")
+  policyCheck     String   @default("{}")
+  status          String   @default("SUBMITTED") // SUBMITTED|ANALYZED|APPROVED|REJECTED|EXECUTED
+  decidedBy       String?
+  reason          String   @default("")
+  eventId         String?
+  createdAt       DateTime @default(now())
+}
+
+/// Pemetaan entitas Minecraft ↔ entitas peradaban (Minecraft = world layer, bukan source of truth).
+model CivWorldEntity {
+  id         String    @id @default(cuid())
+  mcType     String // AVATAR|BUILDING|STRUCTURE|DISTRICT
+  mcName     String
+  mcCoords   String    @default("{}")
+  civType    String // AGENT|COMPANY|GOVERNMENT|CITY
+  civId      String
+  civCode    String
+  status     String    @default("PLANNED") // PLANNED|SYNCED|STALE
+  lastSyncAt DateTime?
+  org        CivOrg?   @relation(fields: [civId], references: [id])
+  updatedAt  DateTime  @updatedAt
+}
+
+/// KV state runtime (cursor denyut, cache ping, config).
+model CivKV {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================================================
+// SLICE 9 — GUILD KERJA & TOOLFORGE: villager spesialis dengan pekerjaan NYATA
+// (coding, development, pembangunan, militer, engineering, mining, sambungan
+// internet nyata) via TOOL CALLING yang diaudit penuh.
+// ============================================================================
+
+/// Artefak hasil kerja nyata warga/agen: kode, blueprint, laporan patroli,
+/// hasil tambang, riset internet, spesifikasi produk. Bukti kerja — bukan klaim.
+model CivArtifact {
+  id          String   @id @default(cuid())
+  kind        String // CODE | SPEC | BLUEPRINT | PATROL | MINE_YIELD | RESEARCH | REPORT
+  title       String
+  content     String // isi artefak (dipotong ARTIFACT_MAX_CHARS — di luar LLM)
+  authorType  String   @default("VILLAGER") // VILLAGER | AGENT | KERNEL
+  authorId    String? // id warga/agen (loose ref — sejarah tetap hidup)
+  authorCode  String // VIL-0001 / GOV-GUB-001
+  authorName  String
+  division    String   @default("GENERAL")
+  orgId       String? // perusahaan/kota terkait (opsional)
+  tool        String? // toolforge key yang menghasilkan (web_search, code_write, ...)
+  toolCallId  String? // audit trail ke CivToolCall
+  meta        String   @default("{}") // {sumber:[url...], blok:[...], unit:{...}}
+  createdAt   DateTime @default(now())
+
+  @@index([kind])
+  @@index([division])
+}
+
+/// Audit panggilan tool (tool calling): SEMUA invokasi tercatat — OK, DENIED
+/// (tanpa charter/grant), FAILED (dunia nyata menolak/mati). Tidak ada tool
+/// hantu: yang tidak tercatat di sini tidak pernah terjadi.
+model CivToolCall {
+  id         String   @id @default(cuid())
+  tool       String // web_search | page_reader | code_write | build_plan | mine_route | patrol_report
+  callerType String // VILLAGER | AGENT | KERNEL
+  callerId   String?
+  callerCode String
+  callerName String
+  input      String   @default("{}") // JSON argumen
+  output     String? // JSON ringkasan hasil (truncated)
+  status     String   @default("OK") // OK | DENIED | FAILED | TIMEOUT
+  error      String? // alasan kegagalan (jujur)
+  latencyMs  Int      @default(0)
+  artifactId String? // artefak yang dihasilkan
+  seq        Int      @default(0) // urutan toolforge
+  createdAt  DateTime @default(now())
+
+  @@index([tool])
+  @@index([status])
+}
+
+// ============================================================================
+// SLICE 10 — REALITY BRIDGE: chat 2 arah (dashboard ↔ warga ↔ dunia), config
+// runtime via UI, integrasi MCP nyata, dan konsol server Minecraft.
+// ============================================================================
+
+/// Pesan chat warga. channel: DASHBOARD (UI) | WORLD (chat in-game).
+/// from: HUMAN (pemilik) | CITIZEN (warga, via otak LLM) | SYSTEM (kernel/bot).
+/// Balasan warga juga diantrekan sebagai direktif SPEAK agar diucapkan in-world.
+model CivChatMessage {
+  id         String   @id @default(cuid())
+  channel    String   @default("DASHBOARD") // DASHBOARD | WORLD
+  from       String // HUMAN | CITIZEN | SYSTEM
+  villagerId String? // warga yang dituju (HUMAN→) atau pengirim (CITIZEN→)
+  villagerCode String? // denormalisasi untuk feed cepat
+  senderName String   @default("Pemilik")
+  body       String // isi pesan (dipotong CHAT_MAX_LEN)
+  route      String   @default("{}") // JSON meta LLM {model,mode,latencyMs}
+  directiveId String? // direktif SPEAK yang dihasilkan (relay in-world)
+  createdAt  DateTime @default(now())
+
+  @@index([channel])
+  @@index([createdAt])
+}
+
+/// Registry server MCP nyata (Model Context Protocol) yang dapat dipanggil warga.
+/// transport: STDIO (spawn proses) | HTTP (JSON-RPC POST). Semua call teraudit di CivToolCall.
+model CivMcpServer {
+  id         String   @id @default(cuid())
+  name       String   @unique // nama singkat, mis. "weather"
+  transport  String   @default("HTTP") // STDIO | HTTP
+  endpoint   String // URL (HTTP) atau command (STDIO, mis. "node server.js")
+  envJson    String   @default("{}") // env tambahan proses STDIO (tanpa secret di log)
+  enabled    Boolean  @default(true)
+  lastStatus String   @default("UNKNOWN") // OK | FAILED | UNKNOWN
+  lastError  String?
+  toolCount  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+/// Audit konsol server Minecraft (RCON): perintah dikirim + balasan server. Jujur penuh.
+model CivConsoleLog {
+  id        String   @id @default(cuid())
+  command   String
+  response  String   @default("")
+  ok        Boolean  @default(false)
+  source    String   @default("UI") // UI | KERNEL | BOT
+  createdAt DateTime @default(now())
+}

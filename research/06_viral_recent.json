@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://hms.harvard.edu",
+    "name": "Researchers Publish First Complete Connectome of Fruit Fly",
+    "snippet": "Jun 8, 2026 — The work reveals that many fruit fly behaviors are controlled by local circuits of neurons rather than by a central hub in the brain . The team ... Read more",
+    "host_name": "hms.harvard.edu",
+    "rank": 0,
+    "date": "Jun 8, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.wired.com",
+    "name": "I Trained a Fly's Brain to Generate WIRED Story Ideas",
+    "snippet": "5 days ago — I used an open-source map of a fruit fly's brain to vibe code a website called PitchFly. Its headline suggestions were delightfully bananas.",
+    "host_name": "www.wired.com",
+    "rank": 1,
+    "date": "Sep 16, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.mindstudio.ai",
+    "name": "Fruit Fly Brain Uploaded to AI: How the Connectome",
+    "snippet": "7 days ago — Google DeepMind mapped a fruit fly's brain into a downloadable dataset . Here's how hobbyists are training it to sort email and play games.",
+    "host_name": "www.mindstudio.ai",
+    "rank": 2,
+    "date": "Sep 14, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://news.stanford.edu",
+    "name": "Scientists successfully rewire a fruit fly brain | Stanford Report",
+    "snippet": "Nov 26, 2025 — Scientists reprogrammed fruit fly brains to understand neuron wiring and behavior modification using attractive and repulsive molecules.",
+    "host_name": "news.stanford.edu",
+    "rank": 3,
+    "date": "Nov 26, 2025",
+    "favicon": ""
+  },
+  {
+    "url": "https://sachinai.com",
+    "name": "A Fruit Fly's Brain Already Solved AI Agent Memory - Sachin Rai",
+    "snippet": "Aug 8, 2026 — In plain English: A study of fruit fly brains found the same trick that makes the best AI \" memory \" systems work, even though neither field knows ... Read more",
+    "host_name": "sachinai.com",
+    "rank": 4,
+    "date": "Aug 8, 2026",
+    "favicon": ""
+  }
+]

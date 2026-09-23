@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://mcpservers.org",
+    "name": "Memnode MCP Server",
+    "snippet": "Persistent memory for AI agents, without inventing your own stack. memnode gives agents long-term memory through a hosted API or a local MCP server.",
+    "host_name": "mcpservers.org",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://mem0.ai",
+    "name": "The Easiest Way to Add Persistent Memory to Any AI Agent",
+    "snippet": "May 22, 2026 — Drop the mcp_url into the MCP server configuration. The agent gets memory as a native tool without any SDK code. On first run, mem0 init ...",
+    "host_name": "mem0.ai",
+    "rank": 1,
+    "date": "May 22, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.anothercodingblog.com",
+    "name": "Persistent Memory for Claude Agents: What I Found After",
+    "snippet": "May 7, 2026 — A hands-on review of Anthropic's persistent memory for Claude Managed Agents , including three sessions, one real failure, and the audit ...",
+    "host_name": "www.anothercodingblog.com",
+    "rank": 2,
+    "date": "May 7, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://pixeltable.com",
+    "name": "AI Agents & MCP: Persistent Multimodal Memory",
+    "snippet": "Build AI agents with durable memory and tool-calling capabilities using Pixeltable and Model Context Protocol ( MCP ). Store conversations, images, and documents ...",
+    "host_name": "pixeltable.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://glama.ai",
+    "name": "Knowledge & Memory MCP Servers & Connectors",
+    "snippet": "Self-hosted knowledge base that gives AI agents persistent memory over MCP . 18 tools covering notes, folders, tags and trash; hybrid search combining ...",
+    "host_name": "glama.ai",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.newamerica.org",
+    "name": "AI Agents and Memory: Privacy and Power in the Model",
+    "snippet": "Nov 5, 2025 — Because MCP enables persistent memory across tools and time, even small vulnerabilities can have system-wide consequences. A weak point in one ...",
+    "host_name": "www.newamerica.org",
+    "rank": 5,
+    "date": "Nov 5, 2025",
+    "favicon": ""
+  }
+]

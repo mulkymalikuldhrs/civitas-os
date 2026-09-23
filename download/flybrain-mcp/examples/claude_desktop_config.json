@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "flybrain": {
+      "command": "python",
+      "args": ["-m", "flybrain_mcp.server"],
+      "env": {
+        "FLYWIRE_TOKEN": "<opsional: token dari globalv1.flywire-daf.com/auth/get_token/>"
+      }
+    }
+  }
+}

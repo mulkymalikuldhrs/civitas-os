@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://www.nature.com",
+    "name": "Whole-brain annotation and multi-connectome cell typing",
+    "snippet": "by P Schlegel · 2024 · Cited by 480 — The adult fruit fly represents the current frontier for whole - brain connectomics. With 139,255 neurons , the newly completed full adult female ... Read more",
+    "host_name": "www.nature.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.nimh.nih.gov",
+    "name": "Researchers Fully Map Neural Connections of the Fruit Fly Brain",
+    "snippet": "Oct 2, 2024 — The adult fly brain comprises 139,000 neurons and more than 50 million synapses . The connectome map details the full set of cell classes in the ...",
+    "host_name": "www.nimh.nih.gov",
+    "rank": 1,
+    "date": "Oct 2, 2024",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.dongascience.com",
+    "name": "Flywire maps full adult fruit fly brain connectome with",
+    "snippet": "Jun 13, 2026 — The first complete brain map of an adult fruit fly, identifying 140,000 neurons and over 50 million connections (synapses) between them,",
+    "host_name": "www.dongascience.com",
+    "rank": 2,
+    "date": "Jun 13, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://flyconnecto.me",
+    "name": "We mapped the full adult fly brain!",
+    "snippet": "Oct 18, 2023 — This connectome is made up of ~ 130,000 neurons, and ~50 million synapses . The main paper from our group, Schlegel et al. 2023, reports the ... Read more",
+    "host_name": "flyconnecto.me",
+    "rank": 3,
+    "date": "Oct 18, 2023",
+    "favicon": ""
+  },
+  {
+    "url": "https://bossdb.org",
+    "name": "BossDB.org | FlyWire",
+    "snippet": "Sep 3, 2020 — FlyWire is the first open, online community for connectomics of a whole brain (Dorkenwald et al. 2021), using a Drosophila brain imaged at ... Read more",
+    "host_name": "bossdb.org",
+    "rank": 4,
+    "date": "Sep 3, 2020",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.hhmi.org",
+    "name": "Scientists Complete Full Map of the Fruit Fly Central",
+    "snippet": "Sep 3, 2026 — The newly completed connectome is the first map of an entire male fruit fly central nervous system, comprising all the neurons in the brain , ... Read more",
+    "host_name": "www.hhmi.org",
+    "rank": 5,
+    "date": "Sep 3, 2026",
+    "favicon": ""
+  }
+]

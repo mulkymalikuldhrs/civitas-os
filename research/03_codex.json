@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://flywire.ai/apps",
+    "name": "APPS",
+    "snippet": "Codex · The Connectome Data Explorer provides access to the FlyWire connectome, including over 120K+ proofread neurons, 150K+ annotations, and 30M+ synapses.",
+    "host_name": "flywire.ai",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://flywire.ai",
+    "name": "FlyWire AI",
+    "snippet": "The Murthy and Seung labs created cell type annotations for all intrinsic neurons of the optic lobes. The Murthy and Seung labs developed Codex (Connectome Data ...",
+    "host_name": "flywire.ai",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/murthylab/codex",
+    "name": "murthylab/codex: Explore the FlyWire Connectome",
+    "snippet": "Codex is a web application for exploring and analyzing neurons and annotations from the FlyWire Whole Brain Connectome.",
+    "host_name": "github.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://blog.flywire.ai/2025/01/13/how-to-use-flywire",
+    "name": "How to Use FlyWire",
+    "snippet": "Codex (the Connectome Data Explorer) provides access to the FlyWire connectome allowing you to search and explore 139K+ proofread neurons, 100K+ ...",
+    "host_name": "blog.flywire.ai",
+    "rank": 3,
+    "date": "Jan 13, 2025",
+    "favicon": ""
+  },
+  {
+    "url": "https://edit.flywire.ai",
+    "name": "FlyWire",
+    "snippet": "Players search for the right pieces and put together beautiful 3D neurons that advance science's understanding of brain circuits. I have read and agree to ...",
+    "host_name": "edit.flywire.ai",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.researchgate.net/publication/372464040_Codex_Connectome_Data_Explorer",
+    "name": "(PDF) Codex: Connectome Data Explorer",
+    "snippet": "Here we present Codex (codex.flywire.ai) , a new platform for exploring and analyzing large connectomics datasets. Compared to similar web-based ...",
+    "host_name": "www.researchgate.net",
+    "rank": 5,
+    "date": "Jul 19, 2023",
+    "favicon": ""
+  }
+]

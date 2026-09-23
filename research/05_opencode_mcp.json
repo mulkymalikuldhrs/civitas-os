@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://opencode.ai/docs/mcp-servers",
+    "name": "MCP servers - OpenCode",
+    "snippet": "You can add external tools to OpenCode using the Model Context Protocol, or MCP. ... In your agent config, enable the MCP server as a tool. opencode.json.",
+    "host_name": "opencode.ai",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.youtube.com/watch?v=uZGDO0L-Dr4",
+    "name": "OpenCode Tutorial for Beginners: Setup, Agents, Skills & MCP",
+    "snippet": "May 5, 2026 · 72% OFF Sintra AI employees with code LEONVANZYL: https://sintra.ai/leonvanzyl Agentic Labs — exclusive AI coding courses, live Q&As, ...",
+    "host_name": "www.youtube.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.anthropic.com/news/model-context-protocol",
+    "name": "Introducing the Model Context Protocol - Anthropic",
+    "snippet": "Nov 25, 2024 · The Model Context Protocol (MCP) is an open standard for connecting AI assistants to the systems where data lives, including content ...",
+    "host_name": "www.anthropic.com",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com/JoshuaC215/agent-service-toolkit/discussions/148",
+    "name": "Model Context Protocol (MCP) Integration Proposal #148 - GitHub",
+    "snippet": "MCP (Model Context Protocol) is essentially a \"USB for AI tools\" - a standardized way for AI agents to discover and use different capabilities. Created by ...",
+    "host_name": "github.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://opencode.ai/docs/config",
+    "name": "Config | OpenCode",
+    "snippet": "Specify a custom config directory using the OPENCODE_CONFIG_DIR environment variable. This directory will be searched for agents, commands, modes, and plugins ...",
+    "host_name": "opencode.ai",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://cloud.google.com/discover/what-is-model-context-protocol",
+    "name": "What is Model Context Protocol (MCP)? A guide | Google Cloud",
+    "snippet": "Learn how the Model Context Protocol (MCP) standard allows LLMs to safely access external data and use tools, making AI more powerful and reliable.",
+    "host_name": "cloud.google.com",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  }
+]

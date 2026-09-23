@@ -1,0 +1,65 @@
+[
+  {
+    "url": "https://www.virtualflybrain.org",
+    "name": "Introducing the VFB Model Context Protocol (MCP) Tool",
+    "snippet": "Jun 22, 2026 — The VFB MCP tool integrates Virtual Fly Brain's rich neuroanatomical data with LLM capabilities, allowing researchers to: Query VFB data ... Read more",
+    "host_name": "www.virtualflybrain.org",
+    "rank": 0,
+    "date": "Jun 22, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://mcpmarket.com",
+    "name": "Virtual Fly Brain - Drosophila Neurobiology for LLMs",
+    "snippet": "Aug 19, 2026 — The Virtual Fly Brain (VFB) Model Context Protocol ( MCP ) tool allows users to seamlessly explore the extensive Virtual Fly Brain knowledge base ...",
+    "host_name": "mcpmarket.com",
+    "rank": 1,
+    "date": "Aug 19, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://research.google",
+    "name": "Mapping the complete male fruit fly brain",
+    "snippet": "Sep 3, 2026 — This new brain map complements the female fruit fly brain map and recently released complete female fruit fly brain and nerve cord map . Read more",
+    "host_name": "research.google",
+    "rank": 2,
+    "date": "Sep 3, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://neurosnap.ai",
+    "name": "Neurosnap Model Context Protocol (MCP) Tutorial",
+    "snippet": "May 26, 2026 — With the Neurosnap MCP server, bots can browse your jobs, inspect job data and files , submit new jobs, review pipelines, and access team and ... Read more",
+    "host_name": "neurosnap.ai",
+    "rank": 3,
+    "date": "May 26, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://blog.google",
+    "name": "See a map of the male fruit fly brain",
+    "snippet": "Sep 3, 2026 — HHMI Janelia, Google and partners mapped the brain and central nervous system of a male fruit fly , a key model organism in science.",
+    "host_name": "blog.google",
+    "rank": 4,
+    "date": "Sep 3, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://zuplo.com",
+    "name": "Model Context Protocol (MCP)",
+    "snippet": "May 27, 2026 — The MCP Server Handler transforms your existing Zuplo API gateway into a powerful toolset that AI systems can discover, understand, and invoke - ... Read more",
+    "host_name": "zuplo.com",
+    "rank": 5,
+    "date": "May 27, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://skyvia.com",
+    "name": "AI MCP Server: A Guide to the Model Context Protocol",
+    "snippet": "Oct 31, 2025 — Learn about MCP Server AI , the open-source standard connecting AI to real-world data. Explore the Model Context Protocol and its use cases.",
+    "host_name": "skyvia.com",
+    "rank": 6,
+    "date": "Oct 31, 2025",
+    "favicon": ""
+  }
+]

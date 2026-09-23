@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://flywire.ai",
+    "name": "About",
+    "snippet": "FlyWire is a human-AI collaboration for reconstructing the full brain connectome of Drosophila. complete adult fly brain (FAFB). segmented using AI and other ...",
+    "host_name": "flywire.ai",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://discuss.flywire.ai",
+    "name": "Whole-brain functional model built on the",
+    "snippet": "6 days ago — It supports associative learning, sleep homeostasis, a circadian clock, vision and spiking LIF dynamics through a single Python API .",
+    "host_name": "discuss.flywire.ai",
+    "rank": 1,
+    "date": "Sep 15, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://codex.flywire.ai",
+    "name": "What's a connectome?",
+    "snippet": "Explore and analyze large-scale connectomes . A connectome is a wiring diagram of a brain or nervous system ・ fruit fly's entire brain ・ learn, form memories, ...",
+    "host_name": "codex.flywire.ai",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://bossdb.org",
+    "name": "BossDB.org | FlyWire",
+    "snippet": "Sep 3, 2020 — A human-AI collaboration to map the fly connectome. FlyWire is the first open, online community for connectomics of a whole brain. Female adult ...",
+    "host_name": "bossdb.org",
+    "rank": 3,
+    "date": "Sep 3, 2020",
+    "favicon": ""
+  }
+]

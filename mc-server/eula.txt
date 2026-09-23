@@ -1,0 +1,2 @@
+# eula disetujui untuk server peradaban lokal
+eula=true

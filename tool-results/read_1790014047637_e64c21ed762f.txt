@@ -1,0 +1,614 @@
+     1→     1→// FLYBRAIN KERNEL — store.ts
+     2→     2→// Zustand store: jembatan kernel ↔ React (satu sumber state UI).
+     3→     3→
+     4→     4→"use client";
+     5→     5→
+     6→     6→import { create } from "zustand";
+     7→     7→import { clearSession, deriveKey, getSession, hashKey, setSession } from "./auth";
+     8→     8→import { prt, runHeartbeat, llmChat, type OrganismTrace } from "./prt";
+     9→     9→import { handleKorteks } from "./router";
+    10→    10→import { ORGAN_IDS, type OrganContext, type OrganId } from "./organism/loops";
+    11→    11→import { eventBus, type BiosferEvent } from "./organism/eventBus";
+    12→    12→import { initialCreatures, type CreatureState, type CreatureStatus } from "./organism/creature";
+    13→    13→import { initialWorld, isWorldState, type WorldState } from "./ecosystem/world";
+    14→    14→import { roleOrgan } from "./organism/creatures";
+    15→    15→import { rememberEpisode } from "./organism/organs/memory";
+    16→    16→import { immune } from "./organism/organs/immune";
+    17→    17→import type { ReflectReport } from "./organism/selfReflect";
+    18→    18→import type { PulseApply } from "./organism/engine";
+    19→    19→import type { QuantTickResult, QuantScore, QuantRisk, PortfolioAllocation, RiskGateState } from "./organism/quant";
+    20→    20→import {
+    21→    21→  addDecision,
+    22→    22→  addLog,
+    23→    23→  addMemory,
+    24→    24→  exportVault,
+    25→    25→  getIdentity,
+    26→    26→  getSetting,
+    27→    27→  importVault,
+    28→    28→  listRecords,
+    29→    29→  putIdentity,
+    30→    30→  removeRecord,
+    31→    31→  vaultStats,
+    32→    32→  saveReceipt,
+    33→    33→  setSetting,
+    34→    34→  wipeVault,
+    35→    35→} from "./vault";
+    36→    36→import { demoReceipt } from "./payment";
+    37→    37→import type { DecisionPayload, Envelope, GatewayLogPayload, KernelResponse, LogPayload, MemoryPayload, Receipt, Session, Tier, VaultStats } from "./types";
+    38→    38→
+    39→    39→export type ViewKey = "kendali" | "otak" | "prt" | "vault" | "gerbang" | "dokumen" | "ruang" | "biosfer" | "planet";
+    40→    40→
+    41→    41→export interface ChatMsg { role: "user" | "prt"; text: string; at: string; mode?: "llm" | "refleks" }
+    42→    42→
+    43→    43→/** Titik riwayat denyut (bar sparkline di Ruang Kendali). */
+    44→    44→export interface PulsePoint { at: string; organ: OrganId; ok: boolean; mode: "llm" | "refleks"; latencyMs: number }
+    45→    45→
+    46→    46→/** Snapshot quant tick terakhir (v1.1) — hasil murni simulasi lokal. */
+    47→    47→export interface QuantSnapshot {
+    48→    48→  at: string;
+    49→    49→  allocations: PortfolioAllocation[];
+    50→    50→  gates: RiskGateState[];
+    51→    51→  recommendations: string[];
+    52→    52→  scores: Record<string, QuantScore>;
+    53→    53→  risks: Record<string, QuantRisk>;
+    54→    54→}
+    55→    55→
+    56→    56→export const AUTONOMY_LEVELS: { level: number; code: string; name: string; desc: string }[] = [
+    57→    57→  { level: 0, code: "L0", name: "Manual", desc: "UI saja — prt tidur." },
+    58→    58→  { level: 1, code: "L1", name: "Refleks", desc: "Patroli aturan tetap; tidak menalar." },
+    59→    59→  { level: 2, code: "L2", name: "Koordinasi", desc: "prt menalar via LLM saat ditanya (chat)." },
+    60→    60→  { level: 3, code: "L3", name: "Loop Otonom", desc: "4 loop bisnis berjalan berkala dengan penalaran LLM." },
+    61→    61→  { level: 4, code: "L4", name: "Organisme", desc: "L3 + aksi eksternal penuh (Fase berikut — scope-grant)." },
+    62→    62→];
+    63→    63→
+    64→    64→// Kursor round-robin organ (di luar state agar re-render tak menggeser giliran).
+    65→    65→let organCursor = 0;
+    66→    66→
+    67→    67→// v1.2 PLANET: debounce persist dunia ke settings vault lokal "organism.world"
+    68→    68→// (pola persistCreatures — server tetap amnesia, posisi dunia hidup di klien).
+    69→    69→let worldPersistTimer: ReturnType<typeof setTimeout> | null = null;
+    70→    70→function scheduleWorldPersist(world: WorldState): void {
+    71→    71→  if (worldPersistTimer !== null) clearTimeout(worldPersistTimer);
+    72→    72→  worldPersistTimer = setTimeout(() => {
+    73→    73→    worldPersistTimer = null;
+    74→    74→    void setSetting("organism.world", world);
+    75→    75→  }, 1500);
+    76→    76→}
+    77→    77→
+    78→    78→export interface FlybrainState {
+    79→    79→  ready: boolean;
+    80→    80→  view: ViewKey;
+    81→    81→  session: Session | null;
+    82→    82→  tier: Tier;
+    83→    83→  tierUntil: string | null;
+    84→    84→  stats: VaultStats | null;
+    85→    85→  vitals: PrtVitals;
+    86→    86→  prtFeed: PrtFeedItem[];
+    87→    87→  prtBeat: number;
+    88→    88→  ticker: string;
+    89→    89→  chat: ChatMsg[];
+    90→    90→  lastKernel: KernelResponse | null;
+    91→    91→  receipts: Envelope<Receipt>[];
+    92→    92→  memories: Envelope<MemoryPayload>[];
+    93→    93→  logs: Envelope<LogPayload>[];
+    94→    94→  decisions: Envelope<DecisionPayload>[];
+    95→    95→  swActive: boolean;
+    96→    96→  // --- v1.0 ORGANISME ---
+    97→    97→  autonomyLevel: number; // 0..4 (default L3)
+    98→    98→  organGrants: Record<OrganId, boolean>; // mandat per organ
+    99→    99→  decisionStream: OrganismTrace[]; // jejak keputusan terbaru (maks 50)
+   100→   100→  pulseLog: PulsePoint[]; // riwayat denyut untuk sparkline (maks 40)
+   101→   101→  pending: boolean; // heartbeat sedang menalar
+   102→   102→  lastPulseAt: string | null;
+   103→   103→  // --- v1.1 BIOSFER ---
+   104→   104→  creatures: CreatureState[]; // 6 creature (persist settings "organism.creatures")
+   105→   105→  eventLog: BiosferEvent[]; // mirror bus kejadian (maks 200)
+   106→   106→  reflectVerdict: ReflectReport | null; // hasil self-reflect terakhir
+   107→   107→  lastQuant: QuantSnapshot | null; // snapshot quant terakhir (simulasi)
+   108→   108→  biosferBusy: boolean; // denyut creature sedang jalan
+   109→   109→  // --- v1.2 PLANET ---
+   110→   110→  world: WorldState | null; // state dunia hidup (persist "organism.world")
+   111→   111→  lastWorldTickAt: string | null; // denyut dunia terakhir
+   112→   112→  // actions
+   113→   113→  init: () => Promise<void>;
+   114→   114→  setView: (v: ViewKey) => void;
+   115→   115→  setAutonomyLevel: (level: number) => void;
+   116→   116→  toggleOrgan: (organ: OrganId) => void;
+   117→   117→  triggerHeartbeat: (organ?: OrganId) => Promise<void>;
+   118→   118→  // v1.1 BIOSFER
+   119→   119→  tickCreature: (creatureId?: string) => Promise<void>;
+   120→   120→  applyDecision: (apply: PulseApply) => Promise<void>;
+   121→   121→  setCreatureStatus: (creatureId: string, status: CreatureStatus) => Promise<void>;
+   122→   122→  recordQuant: (tick: QuantTickResult) => void;
+   123→   123→  setReflectVerdict: (r: ReflectReport) => void;
+   124→   124→  // v1.2 PLANET
+   125→   125→  recordWorldTick: (next: WorldState) => void;
+   126→   126→  createIdentity: (username: string, password: string) => Promise<string>;
+   127→   127→  logout: () => void;
+   128→   128→  refresh: () => Promise<void>;
+   129→   129→  addMemoryUI: (title: string, content: string, kind: MemoryPayload["kind"], tags: string[]) => Promise<void>;
+   130→   130→  removeMemoryUI: (id: string) => Promise<void>;
+   131→   131→  addLogUI: (message: string, level: "info" | "warn" | "alert") => Promise<void>;
+   132→   132→  addDecisionUI: (context: string, choice: string, rationale: string) => Promise<void>;
+   133→   133→  pasteReceipt: (raw: string) => Promise<{ ok: boolean; message: string }>;
+   134→   134→  saveDemoReceipt: () => Promise<{ ok: boolean; message: string }>;
+   135→   135→  verifyReceipts: () => Promise<{ ok: boolean; message: string }>;
+   136→   136→  wipe: () => Promise<void>;
+   137→   137→  doExport: () => Promise<void>;
+   138→   138→  doImport: (file: File) => Promise<{ ok: boolean; message: string }>;
+   139→   139→  runKernel: (method: string, path: string, body: string) => Promise<void>;
+   140→   140→  sendChat: (text: string) => Promise<void>;
+   141→   141→  enableSW: () => Promise<boolean>;
+   142→   142→}
+   143→   143→
+   144→   144→export const useFlybrain = create<FlybrainState>((set, get) => ({
+   145→   145→  ready: false,
+   146→   146→  view: "kendali",
+   147→   147→  session: null,
+   148→   148→  tier: "FREE",
+   149→   149→  tierUntil: null,
+   150→   150→  stats: null,
+   151→   151→  vitals: prt.vitals,
+   152→   152→  prtFeed: [],
+   153→   153→  prtBeat: 0,
+   154→   154→  ticker: "SPESIMEN 001 — Drosophila melanogaster — sistem saraf digital berjalan tanpa server. Selamat datang di sarang.",
+   155→   155→  chat: [],
+   156→   156→  lastKernel: null,
+   157→   157→  receipts: [],
+   158→   158→  memories: [],
+   159→   159→  logs: [],
+   160→   160→  decisions: [],
+   161→   161→  swActive: false,
+   162→   162→  autonomyLevel: 3,
+   163→   163→  organGrants: { guardian: true, merchant: true, envoy: true, scout: true },
+   164→   164→  decisionStream: [],
+   165→   165→  pulseLog: [],
+   166→   166→  pending: false,
+   167→   167→  lastPulseAt: null,
+   168→   168→  creatures: [],
+   169→   169→  eventLog: [],
+   170→   170→  reflectVerdict: null,
+   171→   171→  lastQuant: null,
+   172→   172→  biosferBusy: false,
+   173→   173→  world: null,
+   174→   174→  lastWorldTickAt: null,
+   175→   175→
+   176→   176→  init: async () => {
+   177→   177→    try {
+   178→   178→      const session = getSession();
+   179→   179→      if (session) set({ session });
+   180→   180→      const idEnv = await getIdentity();
+   181→   181→      const idp = (idEnv?.payload ?? {}) as { tier?: Tier; tierUntil?: string | null };
+   182→   182→      set({
+   183→   183→        tier: idp.tier === "PRO" && idp.tierUntil && new Date(idp.tierUntil).getTime() > Date.now() ? "PRO" : "FREE",
+   184→   184→        tierUntil: idp.tierUntil ?? null,
+   185→   185→      });
+   186→   186→      await get().refresh();
+   187→   187→      // Muat mandat organisme yang disimpan lokal (settings store).
+   188→   188→      const mandate = await getSetting<{ level?: number; grants?: Record<OrganId, boolean> }>("organism.mandate", {});
+   189→   189→      set({
+   190→   190→        autonomyLevel: typeof mandate.level === "number" ? Math.max(0, Math.min(4, Math.round(mandate.level))) : 3,
+   191→   191→        organGrants: mandate.grants ?? { guardian: true, merchant: true, envoy: true, scout: true },
+   192→   192→      });
+   193→   193→      // v1.1 BIOSFER: muat creature dari settings lokal — atau lahirkan 6 creature awal.
+   194→   194→      let biosferCreatures = await getSetting<CreatureState[] | null>("organism.creatures", null);
+   195→   195→      if (!Array.isArray(biosferCreatures) || biosferCreatures.length === 0) {
+   196→   196→        biosferCreatures = initialCreatures();
+   197→   197→        await setSetting("organism.creatures", biosferCreatures);
+   198→   198→        set({ creatures: biosferCreatures });
+   199→   199→        for (const c of biosferCreatures) {
+   200→   200→          eventBus.emit("spawn", `${c.name} (${c.species}) lahir di biosfer — energi ${c.energy}.`, { creatureId: c.id });
+   201→   201→        }
+   202→   202→      } else {
+   203→   203→        // Validasi ulang terhadap katalog (creature baru di katalog ikut lahir).
+   204→   204→        const base = initialCreatures();
+   205→   205→        const merged = base.map((b) => {
+   206→   206→          const found = biosferCreatures!.find((c) => c.id === b.id);
+   207→   207→          return found ? { ...b, ...found, id: b.id, name: b.name, species: b.species, role: b.role } : b;
+   208→   208→        });
+   209→   209→        set({ creatures: merged });
+   210→   210→        for (const c of merged) {
+   211→   211→          if (!biosferCreatures!.some((old) => old.id === c.id)) {
+   212→   212→            eventBus.emit("spawn", `${c.name} (${c.species}) lahir di biosfer.`, { creatureId: c.id });
+   213→   213→          }
+   214→   214→        }
+   215→   215→      }
+   216→   216→      // Mirror bus biosfer → eventLog UI (maks 200, konstitusi hukum 6).
+   217→   217→      eventBus.subscribe("*", (ev) => {
+   218→   218→        useFlybrain.setState((s) => ({ eventLog: [ev, ...s.eventLog].slice(0, 200) }));
+   219→   219→      });
+   220→   220→      // v1.2 PLANET: muat dunia dari settings lokal — atau lahirkan dunia baru.
+   221→   221→      const savedWorld = await getSetting<unknown>("organism.world", null);
+   222→   222→      if (isWorldState(savedWorld)) {
+   223→   223→        set({ world: savedWorld, lastWorldTickAt: savedWorld.lastTickAt });
+   224→   224→      } else {
+   225→   225→        const fresh = initialWorld(0, Date.now());
+   226→   226→        await setSetting("organism.world", fresh);
+   227→   227→        set({ world: fresh, lastWorldTickAt: fresh.lastTickAt });
+   228→   228→      }
+   229→   229→      prt.on((s) => {
+   230→   230→        set((st) => ({
+   231→   231→          vitals: s.vitals,
+   232→   232→          prtBeat: s.beat,
+   233→   233→          prtFeed: [...s.feed, ...st.prtFeed].slice(0, 40),
+   234→   234→          ticker: s.feed[0]?.note ?? st.ticker,
+   235→   235→        }));
+   236→   236→      });
+   237→   237→      prt.start(6000);
+   238→   238→      set({ ready: true });
+   239→   239→    } catch {
+   240→   240→      set({ ready: true }); // tetap render; PRT akan melaporkan
+   241→   241→    }
+   242→   242→  },
+   243→   243→
+   244→   244→  setView: (v) => set({ view: v }),
+   245→   245→
+   246→   246→  setAutonomyLevel: (level) => {
+   247→   247→    const autonomyLevel = Math.max(0, Math.min(4, Math.round(level)));
+   248→   248→    set({ autonomyLevel });
+   249→   249→    void setSetting("organism.mandate", { level: autonomyLevel, grants: get().organGrants });
+   250→   250→    void addLog({ channel: "organism", level: "info", message: `Mandat otonomi diubah ke L${autonomyLevel} oleh pemilik.` }, "ui");
+   251→   251→  },
+   252→   252→
+   253→   253→  toggleOrgan: (organ) => {
+   254→   254→    const grants = { ...get().organGrants, [organ]: !get().organGrants[organ] };
+   255→   255→    set({ organGrants: grants });
+   256→   256→    void setSetting("organism.mandate", { level: get().autonomyLevel, grants });
+   257→   257→    void addLog({ channel: "organism", level: "info", message: `Organ ${organ} ${grants[organ] ? "diberi" : "dicabut"} mandat oleh pemilik.` }, "ui");
+   258→   258→  },
+   259→   259→
+   260→   260→  triggerHeartbeat: async (organ) => {
+   261→   261→    if (get().pending) return;
+   262→   262→    const st = get();
+   263→   263→    const organPilih: OrganId = organ ?? ORGAN_IDS[organCursor++ % ORGAN_IDS.length];
+   264→   264→    // Kumpulkan konteks AGREGAT dari vault lokal (tanpa isi memori — konstitusi poin 2).
+   265→   265→    const newestReceipt = st.receipts[0]?.payload;
+   266→   266→    const receiptDaysLeft = newestReceipt
+   267→   267→      ? Math.round((new Date(newestReceipt.issued_at).getTime() + newestReceipt.period_months * 30 * 86400000 - Date.now()) / 86400000)
+   268→   268→      : null;
+   269→   269→    const offers = st.decisions.filter(
+   270→   270→      (d) => d.source === "prt" && (String((d.payload as DecisionPayload).choice ?? "").startsWith("OFFER") || (d.payload as { organ?: string }).organ === "merchant"),
+   271→   271→    ).length;
+   272→   272→    const lastUser = [...st.chat].reverse().find((m) => m.role === "user")?.text ?? null;
+   273→   273→    const ctx: OrganContext = {
+   274→   274→      username: st.session?.username,
+   275→   275→      tier: st.tier,
+   276→   276→      tierUntil: st.tierUntil,
+   277→   277→      beat: prt.beat,
+   278→   278→      vitals: prt.vitals,
+   279→   279→      stats: st.stats ? { totalRecords: st.stats.totalRecords, totalBytes: st.stats.totalBytes, counts: st.stats.counts } : null,
+   280→   280→      gatewayCalls: st.stats?.counts.gateway_log ?? 0,
+   281→   281→      receipts: st.receipts.length,
+   282→   282→      receiptDaysLeft,
+   283→   283→      offers,
+   284→   284→      lastMessage: lastUser,
+   285→   285→      featureUsage: {
+   286→   286→        memories: st.stats?.counts.memories ?? 0,
+   287→   287→        decisions: st.stats?.counts.decisions ?? 0,
+   288→   288→        prtEvents: st.stats?.counts.prt_events ?? 0,
+   289→   289→        topView: st.view,
+   290→   290→      },
+   291→   291→      ts: new Date().toISOString(),
+   292→   292→    };
+   293→   293→    set({ pending: true });
+   294→   294→    const run = await runHeartbeat(ctx, { organ: organPilih, autonomyLevel: st.autonomyLevel, grants: st.organGrants, tier: st.tier });
+   295→   295→    const point: PulsePoint = { at: run.trace.at, organ: run.trace.organ, ok: !run.degraded, mode: run.trace.mode, latencyMs: run.trace.latencyMs };
+   296→   296→    set((s) => ({
+   297→   297→      pending: false,
+   298→   298→      lastPulseAt: run.trace.at,
+   299→   299→      decisionStream: [run.trace, ...s.decisionStream].slice(0, 50),
+   300→   300→      pulseLog: [point, ...s.pulseLog].slice(0, 40),
+   301→   301→    }));
+   302→   302→    await get().refresh();
+   303→   303→  },
+   304→   304→
+   305→   305→  // ---------- v1.1 BIOSFER ----------
+   306→   306→
+   307→   307→  tickCreature: async (creatureId) => {
+   308→   308→    if (get().biosferBusy) return;
+   309→   309→    const engine = await import("./organism/engine");
+   310→   310→    await engine.pulseOnce("manual", creatureId);
+   311→   311→  },
+   312→   312→
+   313→   313→  applyDecision: async (apply) => {
+   314→   314→    const at = new Date().toISOString();
+   315→   315→    const creatures = get().creatures;
+   316→   316→    const c = creatures.find((x) => x.id === apply.creatureId);
+   317→   317→    if (!c) return;
+   318→   318→
+   319→   319→    const energy = Math.max(0, Math.min(100, c.energy + apply.energyDelta));
+   320→   320→    const wealth = Math.max(0, Math.round((c.wealth + apply.wealthDelta) * 100) / 100);
+   321→   321→    const skills = apply.skillGain && !c.skills.includes(apply.skillGain) ? [...c.skills, apply.skillGain].slice(-12) : c.skills;
+   322→   322→    const fails = apply.error ? c.fails + 1 : 0;
+   323→   323→    const tidur = energy <= 0 && c.status !== "mati";
+   324→   324→    const updated: CreatureState = {
+   325→   325→      ...c,
+   326→   326→      energy,
+   327→   327→      wealth,
+   328→   328→      skills,
+   329→   329→      fails,
+   330→   330→      pulseCount: c.pulseCount + 1,
+   331→   331→      lastTrace: apply.phases.putuskan.slice(0, 300),
+   332→   332→      lastAt: at,
+   333→   333→      lastMode: apply.mode,
+   334→   334→      status: tidur ? "tidur" : c.status,
+   335→   335→    };
+   336→   336→    const nextCreatures = creatures.map((x) => (x.id === c.id ? updated : x));
+   337→   337→
+   338→   338→    const organ = roleOrgan(c.role);
+   339→   339→    const trace: OrganismTrace = {
+   340→   340→      id: `org_${Date.now().toString(36)}${Math.floor(Math.random() * 0xffff).toString(36)}`,
+   341→   341→      at,
+   342→   342→      organ,
+   343→   343→      mode: apply.mode === "menalar" ? "llm" : "refleks",
+   344→   344→      phases: apply.phases,
+   345→   345→      action: apply.action,
+   346→   346→      latencyMs: apply.latencyMs,
+   347→   347→      model: apply.model,
+   348→   348→      creatureId: c.id,
+   349→   349→      creatureRole: c.role,
+   350→   350→      pickReason: apply.pickReason,
+   351→   351→      ...(apply.error ? { error: apply.error } : {}),
+   352→   352→    };
+   353→   353→
+   354→   354→    set((s) => ({
+   355→   355→      creatures: nextCreatures,
+   356→   356→      decisionStream: [trace, ...s.decisionStream].slice(0, 50),
+   357→   357→      pulseLog: [
+   358→   358→        { at, organ, ok: !apply.error, mode: trace.mode, latencyMs: apply.latencyMs },
+   359→   359→        ...s.pulseLog,
+   360→   360→      ].slice(0, 40),
+   361→   361→    }));
+   362→   362→
+   363→   363→    // Bus: aksi + ledger (transparansi radikal, hukum 5).
+   364→   364→    eventBus.emit("act", `${c.name} bertindak: ${apply.action.type} — ${apply.action.executed}`, { creatureId: c.id, mode: apply.mode });
+   365→   365→    eventBus.emit("ledger", `ledger [${c.name}]: ${apply.remember}`, { creatureId: c.id, mode: apply.mode });
+   366→   366→    if (tidur) eventBus.emit("sleep", `${c.name} tidur — energi habis.`, { creatureId: c.id });
+   367→   367→    if (apply.veto) eventBus.emit("reflect", `VETO konstitusi atas ${c.name}: ${apply.veto}`, { creatureId: c.id, mode: apply.mode });
+   368→   368→
+   369→   369→    // INGAT: ledger keputusan LOKAL (server tetap amnesia). Kontrak koleksi "decisions"
+   370→   370→    // = DecisionPayload {context, choice, rationale}; jejak penuh (OrganismTrace) hidup di
+   371→   371→    // decisionStream — keputusan publish_offer dipetakan berawalan "OFFER" agar
+   372→   372→    // penghitung merchant lama tetap berfungsi (audit F-02).
+   373→   373→    try {
+   374→   374→      await addDecision(
+   375→   375→        {
+   376→   376→          context: `${c.name} · ${organ} · ${apply.mode} · ${apply.model}`,
+   377→   377→          choice:
+   378→   378→            apply.action.type === "publish_offer"
+   379→   379→              ? `OFFER ${apply.action.target ?? ""} — ${apply.phases.putuskan}`.trim()
+   380→   380→              : `${apply.action.type}${apply.action.target ? ` → ${apply.action.target}` : ""}`,
+   381→   381→          rationale: `${apply.phases.putuskan}${apply.remember && apply.remember !== "—" ? ` · ingat: ${apply.remember}` : ""}${apply.error ? ` · degradasi: ${apply.error}` : ""}`.slice(0, 600),
+   382→   382→        },
+   383→   383→        "prt",
+   384→   384→      );
+   385→   385→      await get().refresh();
+   386→   386→    } catch {
+   387→   387→      /* penyimpanan lokal tak tersedia — tetap tampil di stream */
+   388→   388→    }
+   389→   389→    // Episode berlabel untuk review memori (organs/memory).
+   390→   390→    try {
+   391→   391→      await rememberEpisode(c.id, `[${apply.error ? "FAILED" : "SUCCESS"}:${c.role}] ${apply.phases.putuskan}`.slice(0, 500), apply.error ? "warn" : "info");
+   392→   392→    } catch {
+   393→   393→      /* abaikan — ledger episode opsional */
+   394→   394→    }
+   395→   395→    await setSetting("organism.creatures", nextCreatures);
+   396→   396→  },
+   397→   397→
+   398→   398→  setCreatureStatus: async (creatureId, status) => {
+   399→   399→    const c = get().creatures.find((x) => x.id === creatureId);
+   400→   400→    if (!c || c.status === status) return;
+   401→   401→    const updated: CreatureState =
+   402→   402→      status === "aktif" ? { ...c, status, energy: Math.max(c.energy, 45), fails: 0 } : { ...c, status };
+   403→   403→    set((s) => ({ creatures: s.creatures.map((x) => (x.id === creatureId ? updated : x)) }));
+   404→   404→    if (status === "aktif") immune.reset(creatureId);
+   405→   405→    await setSetting("organism.creatures", get().creatures);
+   406→   406→    const pesan =
+   407→   407→      status === "aktif"
+   408→   408→        ? `${c.name} dibangunkan — energi disuntik ke ${updated.energy}.`
+   409→   409→        : status === "tidur"
+   410→   410→          ? `${c.name} tidur.`
+   411→   411→          : `${c.name} dinyatakan mati oleh sistem imun (dapat dibangkitkan — data lokal tidak dihapus).`;
+   412→   412→    eventBus.emit(status === "aktif" ? "wake" : status === "tidur" ? "sleep" : "death", pesan, { creatureId });
+   413→   413→  },
+   414→   414→
+   415→   415→  recordQuant: (tick) => {
+   416→   416→    const snap: QuantSnapshot = {
+   417→   417→      at: new Date().toISOString(),
+   418→   418→      allocations: tick.allocations,
+   419→   419→      gates: tick.gates,
+   420→   420→      recommendations: tick.recommendations,
+   421→   421→      scores: Object.fromEntries(tick.scores),
+   422→   422→      risks: Object.fromEntries(tick.risks),
+   423→   423→    };
+   424→   424→    set({ lastQuant: snap });
+   425→   425→  },
+   426→   426→
+   427→   427→  setReflectVerdict: (r) => set({ reflectVerdict: r }),
+   428→   428→
+   429→   429→  // ---------- v1.2 PLANET ----------
+   430→   430→
+   431→   431→  recordWorldTick: (next) => {
+   432→   432→    set({ world: next, lastWorldTickAt: next.lastTickAt });
+   433→   433→    scheduleWorldPersist(next);
+   434→   434→  },
+   435→   435→
+   436→   436→  createIdentity: async (username, password) => {
+   437→   437→    const key = await deriveKey(username, password);
+   438→   438→    const keyHash = await hashKey(key);
+   439→   439→    const session: Session = { username: username.trim(), key, keyHash, createdAt: new Date().toISOString() };
+   440→   440→    setSession(session);
+   441→   441→    await putIdentity({ username: session.username, keyHash, tier: get().tier, tierUntil: get().tierUntil, createdAt: new Date().toISOString() });
+   442→   442→    await addLog({ channel: "identity", level: "info", message: `Identitas lokal dibuat untuk ${session.username}. Kunci diturunkan di perangkat.` }, "ui");
+   443→   443→    await addLog({ channel: "prt", level: "info", message: "Sarang baru. Aku menjaga mulai sekarang." }, "prt");
+   444→   444→    set({ session });
+   445→   445→    await get().refresh();
+   446→   446→    return key;
+   447→   447→  },
+   448→   448→
+   449→   449→  logout: () => {
+   450→   450→    clearSession();
+   451→   451→    set({ session: null });
+   452→   452→  },
+   453→   453→
+   454→   454→  refresh: async () => {
+   455→   455→    const stats = await vaultStats();
+   456→   456→    const receipts = await listRecords<Receipt>("receipts", { limit: 50 });
+   457→   457→    const memories = await listRecords<MemoryPayload>("memories", { limit: 100 });
+   458→   458→    const logs = await listRecords<LogPayload>("logs", { limit: 60 });
+   459→   459→    const decisions = await listRecords<DecisionPayload>("decisions", { limit: 60 });
+   460→   460→    set({ stats, receipts, memories, logs, decisions });
+   461→   461→  },
+   462→   462→
+   463→   463→  addMemoryUI: async (title, content, kind, tags) => {
+   464→   464→    await addMemory({ title, content, kind }, "ui", tags.length ? tags : undefined);
+   465→   465→    await get().refresh();
+   466→   466→  },
+   467→   467→
+   468→   468→  removeMemoryUI: async (id: string) => {
+   469→   469→    await removeRecord("memories", id);
+   470→   470→    await get().refresh();
+   471→   471→  },
+   472→   472→
+   473→   473→  addLogUI: async (message, level) => {
+   474→   474→    await addLog({ channel: "ui", level, message }, "ui");
+   475→   475→    await get().refresh();
+   476→   476→  },
+   477→   477→
+   478→   478→  addDecisionUI: async (context, choice, rationale) => {
+   479→   479→    await addDecision({ context, choice, rationale }, "ui");
+   480→   480→    await get().refresh();
+   481→   481→  },
+   482→   482→
+   483→   483→  pasteReceipt: async (raw) => {
+   484→   484→    const session = get().session;
+   485→   485→    if (!session) return { ok: false, message: "Buat identitas dulu — kwitansi terikat username." };
+   486→   486→    const verdict = await (async () => {
+   487→   487→      const r = await handleKorteks({ method: "POST", path: "/v1/payment/verify", body: { receipt: raw }, bearer: session.key, agent: "vault-ui" });
+   488→   488→      return r;
+   489→   489→    })();
+   490→   490→    if (verdict.status !== 200) {
+   491→   491→      const msg = (verdict.json as { error?: { message?: string } })?.error?.message ?? "Kwitansi ditolak.";
+   492→   492→      return { ok: false, message: msg };
+   493→   493→    }
+   494→   494→    const jp = verdict.json as { tier?: Tier; until?: string };
+   495→   495→    set({ tier: (jp.tier as Tier) ?? "PRO", tierUntil: jp.until ?? null });
+   496→   496→    await get().refresh();
+   497→   497→    return { ok: true, message: `Tier ${(jp.tier as Tier) ?? "PRO"} aktif sampai ${jp.until?.slice(0, 10) ?? "?"} — terkunci lokal.` };
+   498→   498→  },
+   499→   499→
+   500→   500→  saveDemoReceipt: async () => {
+   501→   501→    const session = get().session;
+   502→   502→    if (!session) return { ok: false, message: "Buat identitas dulu." };
+   503→   503→    const rec = await demoReceipt(session.username);
+   504→   504→    await saveReceipt(rec);
+   505→   505→    await get().refresh();
+   506→   506→    return { ok: true, message: `Kwitansi demo ${rec.receipt_id} disimpan ke vault kamu. Klik "Validasi kwitansi" untuk mengaktifkan tier.` };
+   507→   507→  },
+   508→   508→
+   509→   509→  verifyReceipts: async () => {
+   510→   510→    const session = get().session;
+   511→   511→    if (!session) return { ok: false, message: "Buat identitas dulu." };
+   512→   512→    const rs = get().receipts;
+   513→   513→    if (rs.length === 0) return { ok: false, message: "Belum ada kwitansi di vault." };
+   514→   514→    const r = await handleKorteks({ method: "POST", path: "/v1/payment/verify", body: { receipt: rs[0].payload }, bearer: session.key, agent: "vault-ui" });
+   515→   515→    if (r.status !== 200) {
+   516→   516→      const msg = (r.json as { error?: { message?: string } })?.error?.message ?? "Ditolak.";
+   517→   517→      return { ok: false, message: msg };
+   518→   518→    }
+   519→   519→    const jp = r.json as { tier?: Tier; until?: string };
+   520→   520→    set({ tier: (jp.tier as Tier) ?? "PRO", tierUntil: jp.until ?? null });
+   521→   521→    await get().refresh();
+   522→   522→    return { ok: true, message: `Valid — tier ${(jp.tier as Tier) ?? "PRO"} sampai ${jp.until?.slice(0, 10) ?? "?"}.` };
+   523→   523→  },
+   524→   524→
+   525→   525→  wipe: async () => {
+   526→   526→    prt.stop();
+   527→   527→    await wipeVault();
+   528→   528→    clearSession();
+   529→   529→    set({ session: null, tier: "FREE", tierUntil: null, stats: null, receipts: [], memories: [], logs: [], decisions: [], prtFeed: [], chat: [] });
+   530→   530→    set({ autonomyLevel: 3, organGrants: { guardian: true, merchant: true, envoy: true, scout: true }, decisionStream: [], pulseLog: [], lastPulseAt: null, pending: false });
+   531→   531→    prt.vitals = { energy: 88, focus: 76, mood: 70 };
+   532→   532→    // v1.1: biosfer ikut lahir kembali (state creature di-reset, data user tetap wipe penuh).
+   533→   533→    const fresh = initialCreatures();
+   534→   534→    void setSetting("organism.creatures", fresh);
+   535→   535→    eventBus.clear();
+   536→   536→    set({ creatures: fresh, eventLog: [], reflectVerdict: null, lastQuant: null, biosferBusy: false });
+   537→   537→    // v1.2: dunia PLANET ikut lahir kembali (tetap nol-penyimpanan).
+   538→   538→    const freshWorld = initialWorld(0, Date.now());
+   539→   539→    void setSetting("organism.world", freshWorld);
+   540→   540→    set({ world: freshWorld, lastWorldTickAt: freshWorld.lastTickAt });
+   541→   541→    prt.start(6000);
+   542→   542→  },
+   543→   543→
+   544→   544→  doExport: async () => {
+   545→   545→    const data = await exportVault();
+   546→   546→    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+   547→   547→    const url = URL.createObjectURL(blob);
+   548→   548→    const a = document.createElement("a");
+   549→   549→    a.href = url;
+   550→   550→    a.download = `flybrain-vault-${new Date().toISOString().slice(0, 10)}.json`;
+   551→   551→    a.click();
+   552→   552→    URL.revokeObjectURL(url);
+   553→   553→  },
+   554→   554→
+   555→   555→  doImport: async (file) => {
+   556→   556→    try {
+   557→   557→      const text = await file.text();
+   558→   558→      const data = JSON.parse(text);
+   559→   559→      const { imported } = await importVault(data);
+   560→   560→      await get().refresh();
+   561→   561→      return { ok: true, message: `${imported} rekaman baru diimpor (duplikat dilewati).` };
+   562→   562→    } catch (e) {
+   563→   563→      return { ok: false, message: e instanceof Error ? e.message : "Impor gagal." };
+   564→   564→    }
+   565→   565→  },
+   566→   566→
+   567→   567→  runKernel: async (method, path, body) => {
+   568→   568→    const session = get().session;
+   569→   569→    let parsed: unknown = undefined;
+   570→   570→    if (body.trim()) {
+   571→   571→      try {
+   572→   572→        parsed = JSON.parse(body);
+   573→   573→      } catch {
+   574→   574→        set({ lastKernel: { status: 400, ok: false, ms: 0, json: { ok: false, error: { code: "BAD_JSON", message: "Body bukan JSON sah." } } } });
+   575→   575→        return;
+   576→   576→      }
+   577→   577→    }
+   578→   578→    const r = await handleKorteks({ method, path, body: parsed, bearer: session?.key ?? null, agent: "konsol-uji" });
+   579→   579→    set({ lastKernel: r });
+   580→   580→    await get().refresh();
+   581→   581→  },
+   582→   582→
+   583→   583→  sendChat: async (text) => {
+   584→   584→    const at = new Date().toISOString();
+   585→   585→    set((st) => ({ chat: [...st.chat, { role: "user", text, at }] }));
+   586→   586→    const st = get();
+   587→   587→    // L2+: prt menalar via LLM saat ditanya (10_AUTONOMY §1). Di bawah itu: refleks rule-based.
+   588→   588→    const stats = st.stats;
+   589→   589→    const ans =
+   590→   590→      st.autonomyLevel >= 2
+   591→   591→        ? await llmChat(text, {
+   592→   592→            tier: st.tier,
+   593→   593→            tierUntil: st.tierUntil,
+   594→   594→            beat: prt.beat,
+   595→   595→            vitals: prt.vitals,
+   596→   596→            stats: stats ? { totalRecords: stats.totalRecords, totalBytes: stats.totalBytes, counts: stats.counts } : null,
+   597→   597→          })
+   598→   598→        : { reply: (await prt.chat(text)).reply, mode: "refleks" as const };
+   599→   599→    set((s) => ({ chat: [...s.chat, { role: "prt", text: ans.reply, at: new Date().toISOString(), mode: ans.mode }] }));
+   600→   600→  },
+   601→   601→
+   602→   602→  enableSW: async () => {
+   603→   603→    if (typeof navigator === "undefined" || !("serviceWorker" in navigator)) return false;
+   604→   604→    try {
+   605→   605→      const reg = await navigator.serviceWorker.register("/sw-korteks.js", { scope: "/" });
+   606→   606→      await navigator.serviceWorker.ready;
+   607→   607→      set({ swActive: Boolean(reg.active || navigator.serviceWorker.controller) });
+   608→   608→      return true;
+   609→   609→    } catch {
+   610→   610→      return false;
+   611→   611→    }
+   612→   612→  },
+   613→   613→}));
+   614→   614→
