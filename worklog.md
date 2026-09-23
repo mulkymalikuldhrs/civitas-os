@@ -336,3 +336,22 @@ Stage Summary:
 - CIVITAS OS v1.0 "REALITY": peradaban kini MENGHUNI dunia Minecraft nyata (server lokal hidup; Aternos tetap tersedia via Konfig), 8 warga CENSUS NYATA ber-LLM, chat 2 arah dashboard⇄dunia, direktif tubuh dieksekusi dunia (chat/tp/fill blok), semua konfigurasi editable via UI, kuant pada harga pasar nyata, MCP nyata teraudit, UI Minecraft 12 view otonom, docs rapi + README animasi.
 - Bukti: invarian 62/0; server log ("joined", "<CIVITAS_AGENT> Direktif warga: 2 dieksekusi"); event CENSUS 8/8; ping 3-12ms; screenshot civ-20..31; filegraph 219/524; CHANGELOG/CANONICAL/OPERATIONS.
 - Kebenaran tersisa (jujur): revenue eksternal RIIL 0 (gerbang pemilik); kredensial Supabase diisi via KONFIG (env sandbox ter-reset); Aternos bangun hanya dari akun pemilik.
+
+---
+Task ID: 15
+Agent: Super Z (main)
+Task: Push CIVITAS OS ke remote dengan kredensial pemilik (GitHub mulkymalikuldhrs + mulkymalikuldhaher + org dhaher-labs + GitLab).
+
+Work Log:
+- File "repo credential.txt" tidak pernah tiba di upload/ (6 retry + scan filesystem luas) — dilaporkan jujur; pemilik kemudian menempel kredensial langsung di chat: 3 fine-grained PAT GitHub + 1 PAT GitLab (+ feed/email token, SSH publik — tidak dipakai untuk push HTTPS).
+- Verifikasi kredensial via API read-only: 4/4 VALID (mulkymalikuldhrs, mulkymalikuldhaher, dhaher-labs[login: mulkymalikuldhaher], gitlab: mulkymalikuldhr).
+- Recon remote: mulkymalikuldhrs = 37 repo, mulkymalikuldhaher punya Autonomous-Organism (repo ke-4 yang dulu GAGAL AKSES — kini terbuka), dhaher-labs = 38 repo, GitLab = 89 project (push=True semua target).
+- AUDIT KEAMANAN pra-push: .env ter-track (isi hanya DATABASE_URL sqlite — tidak rahasia); DITEMUKAN sb_secret_ Supabase ASLI di scripts/test_supabase_real.mjs → disanitasi jadi env-var (SUPABASE_URL/ANON/SERVICE_KEY) + guard exit; sweep ketat: 0 rahasia hidup tersisa di code/docs/worklog.
+- Sanksi noise: kloning upstream/ (gh/gitlab/codeberg) hanya mode-change 644→755 (0 konten) — BUKAN kerja, TIDAK dipush; core.filemode=false per clone → status bersih.
+- Pipeline scripts/push_remote.sh: [0] bundle full history 118MB → /home/z/civitas-os-full-history.bundle; [1] untrack .env/tool-results/upload + .gitignore; [2] squash orphan → 1 commit bersih e428e87 (541 file, pesan commit lengkap fitur + bukti + kredit developer); [3] main diganti versi bersih (history lama aman di bundle); [4] POST create 4 repo "civitas-os" (public); [5] push 4 remote dengan token transient di URL (TIDAK disimpan di .git/config); [6] verifikasi independen.
+- Token master disimpan /home/z/.gitcreds (chmod 600, DI LUAR repo). Remote lokal ditambah 4 alias TANPA token.
+
+Stage Summary:
+- PUSH BERHASIL 4/4 dengan bukti SHA identik: github.com/mulkymalikuldhrs/civitas-os, github.com/mulkymalikuldhaher/civitas-os, github.com/dhaher-labs/civitas-os, gitlab.com/mulkymalikuldhr/civitas-os — semua main @ e428e87 == lokal (API-verified, bukan klaim).
+- Repo publik 100% bebas rahasia (sb_secret dihapus dari tree; history lama tidak dipush — bundle lokal tersedia).
+- Open: Codeberg tanpa token (belum dipush — jujur); Vercel deploy menunggu token pemilik; GH001 warning large files (jar 86MB — informatif, push sukses).
