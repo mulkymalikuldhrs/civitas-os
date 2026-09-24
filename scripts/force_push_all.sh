@@ -29,7 +29,7 @@ push_one dhaher-labs            "https://mulkymalikuldhaher:${GH_DHAHERLABS}@git
 
 # GitLab: lewat SSH altssh:443 (HTTP edge anti-abuse tidak andal dari IP sandbox)
 echo "--- gitlab via SSH altssh:443 ---"
-gout=$(GIT_SSH=/home/z/.ssh-tools/sshx.ts git push --force "ssh://git@altssh.gitlab.com:443/mulkymalikuldhr/civitas-os.git" main:main 2>&1)
+gout=$(GIT_SSH=/home/z/.ssh-tools/sshx.ts git -c ssh.variant=openssh push --force "ssh://git@altssh.gitlab.com:443/mulkymalikuldhr/civitas-os.git" main:main 2>&1)
 grc=$?
 echo "$gout" | grep -vE "^remote:|^Resolving|^Enumerating|^Counting|^Compressing|^Writing" | tail -3
 [ $grc -eq 0 ] && echo "gitlab: OK_FORCE" || echo "gitlab: FAIL"

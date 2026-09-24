@@ -22,3 +22,7 @@
 {"at":"2026-09-24T21:30:42.168Z","type":"RECONNECT_WAIT","waitSec":55,"attempt":8}
 {"at":"2026-09-24T21:31:43.192Z","type":"PING_FAIL","error":"timeout","mode":"siaga-menunggu-server-bangun"}
 {"at":"2026-09-24T21:31:43.192Z","type":"RECONNECT_WAIT","waitSec":60,"attempt":9}
+{"at":"2026-09-24T21:32:49.218Z","type":"PING_FAIL","error":"timeout","mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T21:32:49.218Z","type":"RECONNECT_WAIT","waitSec":60,"attempt":10}
+{"at":"2026-09-24T21:33:55.247Z","type":"PING_FAIL","error":"timeout","mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T21:33:55.247Z","type":"RECONNECT_WAIT","waitSec":60,"attempt":11}

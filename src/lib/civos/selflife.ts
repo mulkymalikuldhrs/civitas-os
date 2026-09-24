@@ -169,7 +169,9 @@ export async function gitSync(): Promise<SyncResult> {
     const tok = tokens[r.tokenKey];
     if (!tok) { remotes.push({ name: r.name, pushed: false, detail: "token tidak ada di .gitcreds — lewati (jujur)" }); continue; }
     const authed = r.ssh ? r.url : r.url.replace("https://", `https://oauth2:${tok}@`);
-    const p = await sh("git", ["push", authed, "main:main"], 180_000, ROOT, r.ssh ? { GIT_SSH: "/home/z/.ssh-tools/sshx.ts" } : undefined);
+    // ssh.variant=openssh eksplisit — deteksi otomatis git bisa jatuh ke 'simple' yang menolak port
+    const args = r.ssh ? ["-c", "ssh.variant=openssh", "push", authed, "main:main"] : ["push", authed, "main:main"];
+    const p = await sh("git", args, 180_000, ROOT, r.ssh ? { GIT_SSH: "/home/z/.ssh-tools/sshx.ts" } : undefined);
     remotes.push({ name: r.name, pushed: p.code === 0, detail: p.code === 0 ? "pushed" : (p.err || p.out).split("\n").filter(Boolean).slice(-1)[0]?.slice(0, 160) ?? "gagal" });
   }
   const ok = remotes.some((r) => r.pushed) || (!st.out.trim()); // tanpa perubahan & tanpa push = sinkron
