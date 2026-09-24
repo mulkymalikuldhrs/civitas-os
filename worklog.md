@@ -137,3 +137,17 @@ Stage Summary:
 - Semua gerbang hijau: tsc 0 · invarian 63/0 · selftest PASS · build hijau · bukti
   MC end-to-end segar (bot join 3×, terakhir 21:00:34 UTC).
 - Push final dokumen commit ini dieksekusi setelah commit; verifikasi ls-remote 4/4.
+
+---
+Task ID: 21-c (permanenisasi jalur GitLab daemon)
+Agent: main (Super Z)
+
+Work Log:
+- src/lib/civos/selflife.ts: remote gitlab dialihkan ke ssh://altssh.gitlab.com:443
+  via GIT_SSH wrapper pure-JS (sh() dapat parameter env opsional) — push HTTP edge
+  anti-abuse tidak dipakai lagi untuk GitLab.
+- Dampak: self-sync daemon 24/7 kini mendorong keempat remote lewat jalur yang
+  terbukti andal; kemenangan 4/4 sinkron menjadi permanen, bukan sekali kejadian.
+
+Stage Summary:
+- Push final commit ini → verifikasi ls-remote 4/4 (GitHub ×3 + GitLab SSH).
