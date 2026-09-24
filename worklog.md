@@ -355,3 +355,24 @@ Stage Summary:
 - PUSH BERHASIL 4/4 dengan bukti SHA identik: github.com/mulkymalikuldhrs/civitas-os, github.com/mulkymalikuldhaher/civitas-os, github.com/dhaher-labs/civitas-os, gitlab.com/mulkymalikuldhr/civitas-os — semua main @ e428e87 == lokal (API-verified, bukan klaim).
 - Repo publik 100% bebas rahasia (sb_secret dihapus dari tree; history lama tidak dipush — bundle lokal tersedia).
 - Open: Codeberg tanpa token (belum dipush — jujur); Vercel deploy menunggu token pemilik; GH001 warning large files (jar 86MB — informatif, push sukses).
+
+---
+Task ID: 16
+Agent: Super Z (main)
+Task: Mandat pemilik — upgrade ekosistem: self server/backup/sync/life, docs digabung satu, MCP + CLI, endpoints + host + daemon, testing real Minecraft, final everything + review, multi-server (Bedrock + Java + all-in-one).
+
+Work Log:
+- Audit: kernel src/lib/civos (29 modul), 13 API route, Java 21 TERSEDIA di sandbox, PMMP mati (pid stale).
+- SLICE 11a MULTI-SERVER: `servers.ts` registry CivKV (local-bedrock PMMP managed, local-java Purpur managed, aternos remote) + ping NYATA per edisi (Bedrock RakNet UDP; Java legacy TCP SLP 0xFE/0xFF, format modern+§); lifecycle start/stop/restart dgn verifikasi ping pasca-aksi; watchdog autoStart; upsert/remove registry; `scripts/java_server.sh` (unduh fallback 3 sumber: PaperMC BLOCKED sandbox → Purpur OK 53MB → Mojang vanilla); endpoint /api/civos/servers + action server_action/server_add/server_remove; UI WorldView: panel REGISTRY SERVER + SELF-LIFE.
+- SLICE 11b SELF-LIFE: `selflife.ts` — backupAll (tar.gz db+2 world+env, manifest sha256, retensi config backup.keep=7, jadwal 6 jam), gitSync (add/commit retry 3x anti-race index.lock + push 4 remote token transient dari /home/z/.gitcreds — DI LUAR repo), doctor (9 cek incl. secret-scan sb_secret/github_pat), selfLifeTick (watchdog + denyut + jadwal backup/sync + cache status server untuk UI); daemon `civitas_daemon.sh` loop 30 dtk via bun — hidup TANPA web app; tick runner TS terpisah.
+- SLICE 11c MCP+CLI: `civitas_mcp_stdio.mjs` — server MCP JSON-RPC 2.0 stdio 13 tools, HTTP-first (15 dtk timeout) + fallback bun subprocess (alat inti hidup saat app mati); BUG DITEMUKAN & DIPERBAIKI: stdin "end" langsung exit membunuh request in-flight → pending-counter; BUG Caddy-proxy hang → timeout pendek + catch; `bin/civitas.mjs` CLI 17 perintah (status/pulse/selflife/doctor/census/chat/server/backup/sync/tool/config/events/daemon/mcp/...); package.json bin civitas + script daemon/mcp/backup/sync/doctor; chat_send villagerCode kini opsional (auto-pick).
+- SLICE 11d DOCS SATU: `docs/CIVITAS_OS_MASTER.md` (17 bagian: visi, arsitektur, kanonik, ekonomi, keamanan, multi-server, self-life, endpoints 14+27 aksi, CLI, MCP, konfig 20 field, testing, playbook+recovery, roadmap Slice 1-13, ADR, sejarah, kredit); dokumen lama (6 md civitas-os + OPERATIONS + ADR-0001..0009) → docs/archive/; docs/README.md jadi indeks satu-pintu; README root v1.1 (fitur self-life/MCP/CLI/multi-server + panduan Claude Desktop JSON); CHANGELOG v1.1.0 "SELF-LIFE" lengkap.
+- TESTING REAL MINECRAFT: Bedrock PMMP start via CLI → online 11ms; Java start → unduh Purpur 2329 (53MB) → boot `Done (50.764s)` → online 5ms — **DUA DUNIA HIDUP BERSAMAAN**; bot CIVITAS_AGENT join nyata → sensus 8 villager (1 baru) + 10 entitas SYNCED; pulse KOTA-01 patroli + COMP-001 glm-4-plus; chat warga "Zahra" menjawab nyata via CLI.
+- Invarian +5 (INV-40..44: registry, ping jujur, remote-tolak-jujur, backup manifest sha256, gitSync 4 remote terstruktur) → **67 PASS / 0 FAIL** (setelah fix race index.lock dgn retry).
+- Review & fix: server_add/remove wire ke API (dokumen jujur); db/custom.db + backups/ dikeluarkan dari git publik (state runtime bukan repo); filegraph regen 232 file/556 edges; tsc 0; lint 0 (1 warning pre-existing); build produksi hijau; app restart pasca-build (daemon terbukti menjaga denyut COMP-007 saat app mati — bukti self-life desain bekerja).
+- FINAL SYNC: push 4/4 remote OK @0869c8c (mulkymalikuldhrs, mulkymalikuldhaher, dhaher-labs, gitlab — GitLab pulih).
+
+Stage Summary:
+- CIVITAS OS v1.1.0 "SELF-LIFE": peradaban kini MENGURUS DIRINYA SENDIRI — 2 dunia Minecraft (Bedrock+Java) dikelola satu kernel, daemon 24/7 menjaga denyut+server+backup+sync meski UI mati, backup ber-manifest sha256, sync otomatis 4 remote, CIVITAS = server MCP 13 tools + CLI 17 perintah, semua dokumentasi tergabung satu MASTER doc.
+- Bukti: 67/0 invarian; Bedrock 4-11ms + Java Done(50.7s) bersamaan; bot+sensus nyata; push 4/4 @0869c8c; MCP 13 tools handshake+call; CLI end-to-end; tsc/lint/build hijau; daemon log COMP decisions.
+- Kebenaran tersisa (jujur): revenue eksternal riil 0 (rail pemilik); Aternos tidur (bangun dari panel); token git tidak persisten antar sesi sandbox (tempel ulang bila sync lapor hilang); bot Java (mineflayer) belum — Java realm saat ini dikelola via konsol + ping.
