@@ -37,9 +37,9 @@ export default function CloudDbView() {
   }, []);
 
   useEffect(() => {
-    void load();
+    const t0 = setTimeout(() => void load(), 0);
     const t = setInterval(() => void load(), 15_000);
-    return () => clearInterval(t);
+    return () => { clearTimeout(t0); clearInterval(t); };
   }, [load]);
 
   const cloudTables = (map?.cloud.tables ?? []).filter((t) => t.name.toLowerCase().includes(q.toLowerCase()));

@@ -491,3 +491,9 @@
 {"at":"2026-09-24T23:17:03.852Z","type":"NET_ERROR","err":"undefined is not an object (evaluating 'data[type][version]')"}
 {"at":"2026-09-24T23:17:04.359Z","type":"CHILD_EXIT","attempt":56,"code":0,"note":"disconnect normal"}
 {"at":"2026-09-24T23:17:22.361Z","type":"PING_FAIL","error":"timeout","streak":169,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T23:17:48.366Z","type":"PING_FAIL","error":"timeout","streak":170,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T23:18:14.367Z","type":"PING_FAIL","error":"timeout","streak":171,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T23:18:14.367Z","type":"JOIN_ANYWAY","reason":"ping tidak menentu — uji koneksi langsung"}
+{"at":"2026-09-24T23:18:19.855Z","type":"MEMORY_LOADED","players":0,"directives":0,"improvements":1,"bornAt":"2026-09-24T21:58:05.051Z"}
+{"at":"2026-09-24T23:18:19.919Z","type":"NET_ERROR","err":"undefined is not an object (evaluating 'data[type][version]')"}
+{"at":"2026-09-24T23:18:20.425Z","type":"CHILD_EXIT","attempt":57,"code":0,"note":"disconnect normal"}

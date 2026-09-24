@@ -69,9 +69,9 @@ export default function ServersView() {
   }, []);
 
   useEffect(() => {
-    void load();
+    const t0 = setTimeout(() => void load(), 0);
     const t = setInterval(() => void load(), 6000);
-    return () => clearInterval(t);
+    return () => { clearTimeout(t0); clearInterval(t); };
   }, [load, reload]);
 
   const doAction = async (id: string, action: string) => {
