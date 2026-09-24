@@ -49,6 +49,9 @@ interface Body {
     edition?: string;
     host?: string;
     port?: number;
+    // v1.5 "CITADEL" — backup/restore
+    file?: string;
+    scope?: string;
   };
 }
 

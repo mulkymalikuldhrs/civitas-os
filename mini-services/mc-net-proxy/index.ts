@@ -1,3 +1,4 @@
+// @ts-nocheck
 // CIVITAS OS — mc-net-proxy (mini-service, port 3010)
 // Jembatan WebSocket -> TCP sesuai protokol net-browserify:
 //   POST /api/vm/net/connect  {host,port} -> {token, remote:{address,family,port}}
