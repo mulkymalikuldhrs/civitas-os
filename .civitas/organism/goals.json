@@ -1,6 +1,6 @@
 [
   {
-    "id": "goal_dab639",
+    "id": "goal_f81f2c",
     "area": "infrastructure",
     "title": "Periksa & pulihkan web_app (health=0)",
     "action": "REPAIR_INFRA",
@@ -19,7 +19,7 @@
     "score": 11.119
   },
   {
-    "id": "goal_bb4ccb",
+    "id": "goal_3c4ae1",
     "area": "infrastructure",
     "title": "Periksa & pulihkan daemon (health=0)",
     "action": "REPAIR_INFRA",
@@ -38,7 +38,7 @@
     "score": 11.119
   },
   {
-    "id": "goal_6bb9b4",
+    "id": "goal_79f80c",
     "area": "infrastructure",
     "title": "Periksa & pulihkan java_console (health=0)",
     "action": "REPAIR_INFRA",
@@ -57,7 +57,7 @@
     "score": 11.119
   },
   {
-    "id": "goal_98a33f",
+    "id": "goal_91de04",
     "area": "knowledge",
     "title": "Verifikasi unknown: remote_server_quota",
     "action": "VERIFY_UNKNOWN",
@@ -77,7 +77,7 @@
     "score": 10.322999999999999
   },
   {
-    "id": "goal_2ca30c",
+    "id": "goal_3d6ae5",
     "area": "knowledge",
     "title": "Verifikasi unknown: player_concurrency_peak",
     "action": "VERIFY_UNKNOWN",

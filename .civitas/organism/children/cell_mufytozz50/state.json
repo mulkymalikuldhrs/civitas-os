@@ -1,9 +1,6 @@
 {
-  "at": "2026-09-24T20:13:57.221Z",
+  "at": "2026-09-24T20:14:45.221Z",
   "pid": 2092,
-  "cycle": 34,
-  "rssMb": 39,
-  "load1": 0.34,
-  "name": "observer-mufytozz50",
-  "phase": "RUNNING"
+  "cycle": 40,
+  "phase": "EXPIRED"
 }
