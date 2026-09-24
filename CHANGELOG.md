@@ -3,6 +3,71 @@
 Semua perubahan penting proyek ini didokumentasikan di sini.
 Format mengikuti [Keep a Changelog](https://keepachangelog.com/id/1.1.0/); versi mengikuti [SemVer](https://semver.org/lang/id/).
 
+## [1.1.0] — 2026-09-24 · "SELF-LIFE"
+
+Mandat pemilik: upgrade ekosistem — self server, self backup, self sync, self life,
+dokumen digabung satu, MCP + CLI, endpoint + host + daemon, multi-server all-in-one
+(Bedrock + Java + semua), testing Minecraft nyata, finalisasi + review.
+
+### Ditambahkan — MULTI-SERVER ALL-IN-ONE
+- `servers.ts`: registry server di kernel (CivKV `servers.registry`) — default 3 target:
+  **local-bedrock** (PocketMine-MP, managed), **local-java** (Purpur/Paper/vanilla, managed),
+  **aternos** (remote). Status = ping NYATA per edisi: Bedrock RakNet UDP, Java legacy TCP
+  Server List Ping (0xFE/0xFF, format modern & lama).
+- `scripts/java_server.sh`: supervisor Java — unduh otomatis dengan fallback 3 sumber
+  (PaperMC → Purpur → Mojang vanilla; sandbox memblokir PaperMC, Purpur terbukti unduh
+  53 MB), eula auto, FIFO konsol, RAM via `CIV_JAVA_RAM`.
+- Aksi lifecycle `start|stop|restart|status` dgn VERIFIKASI PING pasca-aksi (sukses hanya
+  bila dunia benar-benar merespons). Endpoint `/api/civos/servers` (GET/POST) + action
+  `server_action`. UI: panel REGISTRY SERVER di tab DUNIA (start/stop/restart per server).
+- **Bukti dunia nyata: Bedrock PMMP online 4–11 ms DAN Java Purpur 1.21.1 `Done (50.7s)`
+  online 4–5 ms — hidup BERSAMAAN dalam satu kernel.**
+
+### Ditambahkan — SELF-LIFE (daemon · backup · sync · doctor)
+- `selflife.ts`: `backupAll()` (tar.gz dunia+db+config, manifest sha256, retensi 7,
+  jadwal 6 jam), `gitSync()` (commit bila berubah + push 4 remote, token transient dari
+  `/home/z/.gitcreds` di LUAR repo — tidak pernah masuk git/config), `doctor()` (9 cek:
+  db, config, tiap server, backup, git-tree, git-creds, secret-scan, disk, LLM SDK),
+  `selfLifeTick()` (watchdog server autoStart + denyut peradaban + backup/sync jadwal).
+- `scripts/civitas_daemon.sh` + `scripts/civitas_selflife_tick.ts`: daemon 24/7 loop 30 dtk
+  via bun — **hidup tanpa web app**; log `backups/daemon.log` dengan rotasi.
+- Endpoint: `/api/civos/backup`, `/api/civos/git`, `/api/civos/selflife`, `/api/civos/doctor`.
+- Config baru: `mc.remoteHost`, `backup.keep`, `backup.intervalHours`, `sync.intervalMinutes`.
+
+### Ditambahkan — MCP SERVER + CLI
+- `scripts/civitas_mcp_stdio.mjs`: CIVITAS sebagai **server MCP** (JSON-RPC 2.0 stdio) —
+  **13 tools** (status/pulse/selflife/backup/sync/doctor/server_list/server_action/census/
+  chat/tool_run/config_get/config_set); HTTP-first ke kernel (15 dtk), fallback `bun`
+  subprocess ke kernel saat web app mati; pending-safe exit (bug satu-shot ditemukan & diperbaiki).
+- `bin/civitas.mjs` — CLI `civitas`: 17 perintah (status, pulse, selflife, doctor, census,
+  chat, server list/action, backup, sync, tool, config, events, daemon, mcp, version, help);
+  `CIVITAS_URL` dapat diarahkan ke host lain.
+- `package.json`: bin `civitas` + script `daemon`, `mcp`, `backup`, `sync`, `doctor`.
+- chat_send kini menerima `villagerCode` opsional (auto-pilih warga aktif pertama).
+
+### Diubah — DOKUMENTASI DIGABUNG SATU
+- **`docs/CIVITAS_OS_MASTER.md`** = satu-satunya dokumen rawatan (17 bagian: visi,
+  arsitektur, kanonik, ekonomi, keamanan, multi-server, self-life, endpoints, CLI, MCP,
+  konfig, pengujian, playbook, roadmap, ADR, sejarah, kredit).
+- Dokumen per-Slice lama (PRD/ARSITEKTUR/KANONIK/ROADMAP/EKONOMI/KEAMANAN/OPERATIONS +
+  ADR-0001..0009) dipindah ke `docs/archive/` (arsip historis).
+- README v1.1: fitur self-life/MCP/CLI/multi-server + panduan cepat + konfig Claude Desktop.
+
+### Diperbaiki — KEAMANAN & HIGIENE
+- Service key Supabase NYATA yang tertanam di `scripts/test_supabase_real.mjs` disanitasi
+  jadi env-var (push publik 100% bebas rahasia — scan `doctor` permanen).
+- `db/custom.db` (runtime state) & `backups/` dikeluarkan dari git — repo publik bukan
+  tempat state hidup; backup dilakukan via self-backup ber-manifest.
+- CLI/MCP: timeout pendek + fallback jujur (Caddy proxy menyebabkan hang saat app mati).
+
+### Bukti verifikasi (runtime)
+- MCP: initialize + tools/list (13) + tools/call backup/doctor/status — semua berbalas.
+- CLI: status (3 server), pulse LLM nyata (KOTA-01 patroli; COMP-001 glm-4-plus),
+  chat warga "Zahra" menjawab, backup list, doctor 9 cek.
+- Bot: join dunia nyata, sensus 8 villager (1 baru), 10 entitas SYNCED.
+- Sync: push 3 GitHub OK @7ceba9c (GitLab jaringan — diulang otomatis daemon).
+- tsc 0 error; lint 0 error.
+
 ## [1.0.0] — 2026-09-23 · "REALITY"
 
 Mandat 15 poin pemilik: realitas penuh, UI baru, konfigurasi via UI, docs rapi, interaksi langsung.

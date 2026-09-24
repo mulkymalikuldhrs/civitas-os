@@ -453,6 +453,34 @@ async function main() {
     } else check("INV-39 chat dunia masuk", false, "tidak ada warga aktif");
   }
 
+  // SLICE 11 — SELF-LIFE & MULTI-SERVER (INV-40..44)
+  {
+    // INV-40: registry server default 3 (bedrock managed, java managed, aternos remote) — id unik, edisi sah
+    const { ensureServerSeed, pingServer } = await import("../src/lib/civos/servers");
+    const regs = await ensureServerSeed();
+    const ids = new Set(regs.map((r) => r.id));
+    const bedrock = regs.find((r) => r.id === "local-bedrock");
+    const java = regs.find((r) => r.id === "local-java");
+    const aternos = regs.find((r) => r.id === "aternos");
+    check("INV-40 registry server all-in-one", regs.length >= 3 && ids.size === regs.length && Boolean(bedrock?.managed && java?.managed && !aternos?.managed), `${regs.map((r) => r.id).join(",")}`);
+    // INV-41: ping jujur — aternos tidur harus offline (tidak pernah online palsu)
+    const stAternos = await pingServer(aternos!);
+    check("INV-41 ping jujur offline/online", typeof stAternos.online === "boolean" && (stAternos.online === false || (stAternos.latencyMs ?? 0) >= 0), `aternos online=${stAternos.online} ${stAternos.error ?? stAternos.latencyMs + "ms"}`);
+    // INV-42: server_action remote ditolak jujur (kernel tidak bisa mengelola server pihak luar)
+    const { serverAction } = await import("../src/lib/civos/servers");
+    const rRemote = await serverAction("aternos", "start");
+    check("INV-42 aksi server remote ditolak jujur", !rRemote.ok && rRemote.detail.includes("remote"), rRemote.detail.slice(0, 80));
+    // INV-43: backup nyata — file ada + manifest sha256 + list terbaca
+    const { backupAll, listBackups } = await import("../src/lib/civos/selflife");
+    const b = await backupAll();
+    const lb = listBackups();
+    check("INV-43 backup tar.gz + manifest sha256", b.ok && Boolean(b.file) && (b.bytes ?? 0) > 1000 && (b.sha256 ?? "").length === 64 && lb.some((x) => x.file === b.file), `${b.file} ${b.bytes}B`);
+    // INV-44: gitSync terstruktur jujur — hasil per remote (pushed atau alasan jujur)
+    const { gitSync } = await import("../src/lib/civos/selflife");
+    const gs = await gitSync();
+    check("INV-44 gitSync 4 remote terstruktur", gs.remotes.length === 4 && gs.remotes.every((r) => typeof r.pushed === "boolean" && r.detail.length > 0), gs.remotes.map((r) => `${r.name}:${r.pushed ? "ok" : "fail"}`).join(" "));
+  }
+
   console.log(`\n=== HASIL: ${pass} PASS / ${fail} FAIL ===`);
   await db.$disconnect();
   process.exit(fail === 0 ? 0 : 1);

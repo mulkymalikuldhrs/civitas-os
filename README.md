@@ -7,7 +7,7 @@
 **Sistem operasi peradaban otonom di dalam Minecraft.**
 Warga villager sungguhan · Pemerintahan multi-agen · Ledger double-entry · Guild kerja nyata · Server Bedrock lokal & online.
 
-`v1.0 "REALITY"` · Next.js 16 · TypeScript · Prisma/SQLite · bedrock-protocol · PocketMine-MP · Supabase mirror
+`v1.1 "SELF-LIFE"` · Next.js 16 · TypeScript · Prisma/SQLite · bedrock-protocol · PocketMine-MP + Purpur · Supabase mirror
 
 </div>
 
@@ -37,6 +37,12 @@ CIVITAS OS adalah **peradaban digital yang hidup tanpa perintah manusia**: ia be
 | **Supabase Mirror** | Cermin event/txn ke PostgreSQL Dhaher Labs + test-suite tabel/kolom/roundtrip | ✅ dengan kredensial via UI |
 | **UI Minecraft** | Dashboard bergaya MC (panel bevel, pixel font, hotbar nav), peta dunia + identitas, 12 view | ✅ otonom (poll 4 dtk) |
 | **Konfigurasi** | Semua env/api-key/URL/token/server diatur **via UI tanpa restart** | ✅ secret dimasking |
+| **Multi-Server All-in-One** | Registry Bedrock + Java + remote dalam satu kernel: PocketMine-MP **dan** Purpur/vanilla, ping nyata per edisi (RakNet UDP / TCP SLP), start-stop-restart, watchdog | ✅ Bedrock 4-11ms · Java 4-5ms hidup bersamaan |
+| **Self-Life** | Daemon 24/7: watchdog server + denyut peradaban + jadwal backup/sync — hidup **tanpa web app** | ✅ log `backups/daemon.log` |
+| **Self Backup** | Arsip dunia+db+config → tar.gz + manifest sha256 + retensi 7 | ✅ otomatis 6 jam |
+| **Self Sync** | Commit + push otomatis ke **4 remote** (GitHub x3 + GitLab), token transient tak pernah masuk repo | ✅ push terverifikasi |
+| **MCP Server** | CIVITAS sebagai **server MCP** 13 tools (stdio) — siap Claude Desktop; fallback bun tanpa web app | ✅ initialize/tools/call |
+| **CLI `civitas`** | status · pulse · doctor · chat · server · backup · sync · tool · config · daemon | ✅ 17 perintah |
 
 ## Arsitektur (lima lapis)
 
@@ -58,6 +64,15 @@ CIVITAS OS adalah **peradaban digital yang hidup tanpa perintah manusia**: ia be
 ```
 
 ## Cara main langsung (live)
+
+**0. Semua dari satu perintah (rekomendasi):**
+```bash
+bun run dev                                  # web app :3000
+node bin/civitas.mjs server local-bedrock start   # dunia Bedrock (19132)
+node bin/civitas.mjs server local-java start      # dunia Java (25565, unduh jar otomatis)
+node bin/civitas.mjs daemon start                 # self-life 24/7
+node bin/civitas.mjs doctor                       # cek kesehatan 9 titik
+```
 
 **1. Server lokal (otomatis, satu perintah):**
 ```bash
@@ -82,17 +97,42 @@ bun install
 bun run db:push        # Prisma → SQLite (kernel otoritatif)
 bun run dev            # http://localhost:3000
 node scripts/filegraph.mjs   # peta arsitektur (tab ARSITEK)
-bun scripts/civos_invariants.ts   # invariant ledger/desa/guild (57 PASS)
+bun scripts/civos_invariants.ts   # invariant kernel (62+ PASS)
 ```
 
 | Jalur | Keterangan |
 |---|---|
 | `/` | CIVITAS COMMAND CENTER — 12 tab hotbar: Citadel, Peta, Warga, Guild, Pemerintah, Perusahaan, Ekonomi, Dunia, Konfig, Arsitek, Pustaka, Event |
 | `/api/civos/state` | agregator keadaan (poll UI otonom 4 dtk) |
-| `/api/civos/action` | semua aksi: tick, chat_send, mc_join, mc_console, config_*, mcp_*, tool_run, dst. |
+| `/api/civos/action` | semua aksi: tick, chat_send, mc_join, mc_console, config_*, mcp_*, tool_run, server_action, backup_run, git_sync, selflife_tick, dst. |
+| `/api/civos/servers` | registry multi-server + aksi start/stop/restart (GET/POST) |
+| `/api/civos/backup` `/api/civos/git` `/api/civos/selflife` `/api/civos/doctor` | self-life: backup, sync git, detak kehidupan, dokter |
 | `/api/civos/chat` | feed chat warga (realtime 2,5 dtk) |
 | `/api/civos/cron` | beacon denyut 24/7 (guard `CRON_SECRET`) |
 | `/api/civos/graph`, `/api/civos/docs` | peta arsitektur & pustaka dokumen |
+
+## CLI — `civitas`
+
+```bash
+node bin/civitas.mjs status          # peradaban + semua server
+civitas pulse                        # satu denyut otonom (LLM)
+civitas chat "Halo warga!"           # bicara dengan warga
+civitas server list                  # registry all-in-one
+civitas daemon start                 # self-life 24/7
+civitas backup | sync | doctor       # pemeliharaan diri
+civitas mcp                          # serve MCP untuk Claude Desktop
+```
+
+## MCP — pasang di Claude Desktop
+
+```json
+{ "mcpServers": { "civitas": {
+  "command": "node",
+  "args": ["/home/z/my-project/scripts/civitas_mcp_stdio.mjs"] } } }
+```
+
+13 tools: status, pulse, selflife, backup, sync, doctor, server_list, server_action,
+census, chat, tool_run, config_get, config_set — kernel tetap bisa diaudit meski web app mati (fallback bun).
 
 ## Kejujuran radikal (bukan marketing)
 
@@ -104,7 +144,10 @@ bun scripts/civos_invariants.ts   # invariant ledger/desa/guild (57 PASS)
 
 ## Struktur dokumen
 
-Semua dokumen rapi di [`docs/`](docs/README.md): [`CANONICAL.md`](docs/civitas-os/CANONICAL.md) (kebenaran berbasis bukti), ADR-0001…0009 (keputusan arsitektur), [`FILE_INDEX.md`](docs/FILE_INDEX.md) (198 file + 476 sambungan), [`OPERATIONS.md`](docs/OPERATIONS.md) (panduan server & konfigurasi). Riwayat perubahan: [`CHANGELOG.md`](CHANGELOG.md).
+**Dokumentasi telah digabung menjadi SATU**: [`docs/CIVITAS_OS_MASTER.md`](docs/CIVITAS_OS_MASTER.md) —
+visi, arsitektur, status kanonik, ekonomi, keamanan, multi-server, self-life, endpoints, CLI, MCP,
+playbook operasional, roadmap, ADR, kredit. Arsip historis per-Slice: `docs/archive/`.
+Indeks file + graph: [`docs/FILE_INDEX.md`](docs/FILE_INDEX.md). Riwayat perubahan: [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Developer
 

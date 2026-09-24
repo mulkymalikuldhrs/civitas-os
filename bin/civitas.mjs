@@ -18,17 +18,23 @@ function bad(s) { console.log(`${C.r}✗${C.x} ${s}`); }
 function info(s) { console.log(`${C.b}·${C.x} ${s}`); }
 
 async function api(pathname, body) {
-  const res = await fetch(BASE + pathname, {
-    method: body ? "POST" : "GET",
-    headers: { "content-type": "application/json" },
-    body: body ? JSON.stringify(body) : undefined,
-    signal: AbortSignal.timeout(180_000),
-  });
-  const data = await res.json().catch(() => ({}));
-  return { status: res.status, data };
+  try {
+    const res = await fetch(BASE + pathname, {
+      method: body ? "POST" : "GET",
+      headers: { "content-type": "application/json" },
+      body: body ? JSON.stringify(body) : undefined,
+      signal: AbortSignal.timeout(120_000),
+    });
+    const data = await res.json().catch(() => ({}));
+    return { status: res.status, data };
+  } catch {
+    return { status: 0, data: { error: `kernel tidak terjangkau di ${BASE} (jalankan: bun run dev)` } };
+  }
 }
 
 function out(v) { console.log(typeof v === "string" ? v : JSON.stringify(v, null, 1)); }
+
+/** @typedef {{ id: string; edition: string; host: string; port: number; online?: boolean; latencyMs?: number | null }} ServerStatusCli */
 
 function help() {
   console.log(`CIVITAS OS CLI — peradaban Minecraft otonom di genggaman
@@ -68,17 +74,21 @@ async function main() {
     case "status": {
       const { status, data } = await api("/api/civos/state").catch((e) => ({ status: 0, data: { error: e.message } }));
       if (status !== 200) return bad(`kernel tidak terjangkau di ${BASE} — ${data.error ?? status}`);
-      const m = data.metrics ?? {};
-      const servers = data.servers ?? [];
-      ok(`peradaban: ${m.treasury ?? "?"} FLR · ${m.orgs ?? "?"} organ · ${data.villagers ?? "?"} warga · event ${data.counts?.events ?? "?"}`);
+      const st = data.state ?? data;
+      const m = st.metrics ?? {};
+      const counts = st.counts ?? {};
+      const village = st.village ?? {};
+      const servers = st.servers ?? [];
+      ok(`peradaban: kas ${((m.treasury ?? 0) / 100).toLocaleString("id-ID")} FLR · ${counts.orgs ?? "?"} organ · ${village.population ?? "?"} warga · ${counts.events ?? "?"} event`);
       for (const s of servers) console.log(`  ${s.online ? C.g + "●" : C.r + "○"}${C.x} ${s.id} (${s.edition}) ${s.host}:${s.port} — ${s.online ? `online ${s.latencyMs}ms` : "offline"}`);
-      info(`denyut terakhir: ${data.lastTick?.at ?? "-"} — ${data.lastTick?.summary ?? "-"}`);
+      const lt = st.lastTick;
+      info(`denyut terakhir: ${lt?.at ?? "-"} — ${lt?.summary ?? "-"}`);
       return;
     }
     case "pulse": {
       const { status, data } = await api("/api/civos/action", { action: "tick", params: { orgCode: rest[0] } });
       if (status !== 200 || !data.ok) return bad(`pulse gagal: ${JSON.stringify(data).slice(0, 200)}`);
-      const t = data.tick ?? data;
+      const t = data.summary ?? data.tick ?? data;
       return ok(`denyut #${t.tick} → ${t.target} — ${t.summary}${t.model ? ` (${t.model})` : ""}`);
     }
     case "selflife": {

@@ -32,13 +32,17 @@ const TOOLS = [
 // ---------- eksekusi ----------
 
 async function httpApi(pathname, body) {
-  const res = await fetch(BASE + pathname, {
-    method: body ? "POST" : "GET",
-    headers: { "content-type": "application/json" },
-    body: body ? JSON.stringify(body) : undefined,
-    signal: AbortSignal.timeout(120_000),
-  });
-  return { status: res.status, data: await res.json().catch(() => ({})) };
+  try {
+    const res = await fetch(BASE + pathname, {
+      method: body ? "POST" : "GET",
+      headers: { "content-type": "application/json" },
+      body: body ? JSON.stringify(body) : undefined,
+      signal: AbortSignal.timeout(15_000), // pendek — kernel mati/proxy hang → fallback bun
+    });
+    return { status: res.status, data: await res.json().catch(() => ({})) };
+  } catch {
+    return { status: 0, data: { error: "kernel tidak terjangkau" } }; // pemicu fallback
+  }
 }
 
 function bunKernel(scriptBody, timeoutMs = 120_000) {
@@ -109,27 +113,33 @@ async function callTool(name, args) {
     }
     case "civitas_server_action": {
       const r = await httpApi("/api/civos/servers", { id: a.id, action: a.action });
-      return { status: r.status, result: r.data };
+      if (r.status === 200 || r.status === 400) return { status: r.status, result: r.data };
+      return { status: 0, result: { error: "kernel tidak terjangkau — aksi server butuh web app (atau jalankan scripts/civitas_daemon.sh)" } };
     }
     case "civitas_census": {
       const r = await httpApi("/api/civos/action", { action: "village_census", params: {} });
-      return { status: r.status, result: r.data };
+      if (r.status === 200) return { status: r.status, result: r.data };
+      return { status: 0, result: { error: "kernel tidak terjangkau — census butuh web app/bot" } };
     }
     case "civitas_chat": {
       const r = await httpApi("/api/civos/action", { action: "chat_send", params: { body: a.body, senderName: a.senderName ?? "MCP" } });
-      return { status: r.status, result: r.data };
+      if (r.status === 200 || r.status === 422) return { status: r.status, result: r.data };
+      return { status: 0, result: { error: "kernel tidak terjangkau — chat butuh web app" } };
     }
     case "civitas_tool_run": {
       const r = await httpApi("/api/civos/action", { action: "tool_run", params: { tool: a.tool, ...(a.params ?? {}) } });
-      return { status: r.status, result: r.data };
+      if (r.status === 200 || r.status === 422) return { status: r.status, result: r.data };
+      return { status: 0, result: { error: "kernel tidak terjangkau — tool butuh web app" } };
     }
     case "civitas_config_get": {
       const r = await httpApi("/api/civos/action", { action: "config_get", params: { key: a.key } });
-      return { status: r.status, result: r.data };
+      if (r.status === 200 || r.status === 404) return { status: r.status, result: r.data };
+      return { status: 0, result: { error: "kernel tidak terjangkau — config butuh web app" } };
     }
     case "civitas_config_set": {
       const r = await httpApi("/api/civos/action", { action: "config_put", params: { key: a.key, value: String(a.value ?? "") } });
-      return { status: r.status, result: r.data };
+      if (r.status === 200 || r.status === 422) return { status: r.status, result: r.data };
+      return { status: 0, result: { error: "kernel tidak terjangkau — config butuh web app" } };
     }
     default:
       return { error: `tool tidak dikenal: ${name}` };
@@ -143,6 +153,9 @@ function send(msg) {
 }
 
 let buffer = "";
+let pending = 0;
+let stdinEnded = false;
+function maybeExit() { if (stdinEnded && pending === 0) process.exit(0); }
 process.stdin.setEncoding("utf8");
 process.stdin.on("data", (chunk) => {
   buffer += chunk;
@@ -150,10 +163,10 @@ process.stdin.on("data", (chunk) => {
   while ((idx = buffer.indexOf("\n")) >= 0) {
     const line = buffer.slice(0, idx).trim();
     buffer = buffer.slice(idx + 1);
-    if (line) handle(line).catch((e) => send({ jsonrpc: "2.0", id: null, error: { code: -32700, message: "parse/parse error: " + e.message } }));
+    if (line) { pending += 1; handle(line).catch((e) => send({ jsonrpc: "2.0", id: null, error: { code: -32700, message: "parse error: " + e.message } })).finally(() => { pending -= 1; maybeExit(); }); }
   }
 });
-process.stdin.on("end", () => process.exit(0));
+process.stdin.on("end", () => { stdinEnded = true; maybeExit(); });
 
 async function handle(line) {
   let msg;

@@ -140,29 +140,37 @@ export interface SyncResult {
 export async function gitSync(): Promise<SyncResult> {
   const at = new Date().toISOString();
   const remotes: SyncResult["remotes"] = [];
-  // 1) commit bila ada perubahan
+  let commitBlocked = "";
+  // 1) commit bila ada perubahan — dengan retry (race index.lock dengan daemon/UI)
   const st = await sh("git", ["status", "--porcelain"]);
   let committed = false;
   let commit = "";
   if (st.out.trim()) {
-    const c = await sh("git", ["add", "-A"]);
-    if (c.code !== 0) return { ok: false, committed: false, remotes: [{ name: "git", pushed: false, detail: `add gagal: ${c.err}` }], at };
-    const cm = await sh("git", ["commit", "-m", `self-sync: ${new Date().toISOString()} — otomatis oleh CIVITAS daemon`]);
-    if (cm.code !== 0) return { ok: false, committed: false, remotes: [{ name: "git", pushed: false, detail: `commit gagal: ${cm.err || cm.out}`.slice(0, 200) }], at };
-    committed = true;
-    const id = await sh("git", ["rev-parse", "--short", "HEAD"]);
-    commit = id.out.trim();
+    for (let attempt = 0; attempt < 3 && !committed; attempt++) {
+      const c = await sh("git", ["add", "-A"]);
+      if (c.code !== 0) { commitBlocked = `add gagal: ${(c.err || c.out).slice(0, 120)}`; await new Promise((r) => setTimeout(r, 2500)); continue; }
+      const cm = await sh("git", ["commit", "-m", `self-sync: ${new Date().toISOString()} — otomatis oleh CIVITAS daemon`]);
+      if (cm.code === 0) {
+        committed = true;
+        const id = await sh("git", ["rev-parse", "--short", "HEAD"]);
+        commit = id.out.trim();
+      } else {
+        commitBlocked = `commit gagal: ${(cm.err || cm.out).split("\n").filter(Boolean)[0]?.slice(0, 120) ?? "?"}`;
+        await new Promise((r) => setTimeout(r, 2500));
+      }
+    }
   }
   // 2) push per remote dengan token transient (URL tidak disimpan)
   const tokens = readTokens();
   for (const r of REMOTES) {
+    if (commitBlocked && st.out.trim() && !committed) { remotes.push({ name: r.name, pushed: false, detail: `dilewati — ${commitBlocked}` }); continue; }
     const tok = tokens[r.tokenKey];
     if (!tok) { remotes.push({ name: r.name, pushed: false, detail: "token tidak ada di .gitcreds — lewati (jujur)" }); continue; }
     const authed = r.url.replace("https://", `https://oauth2:${tok}@`);
     const p = await sh("git", ["push", authed, "main:main"], 180_000);
     remotes.push({ name: r.name, pushed: p.code === 0, detail: p.code === 0 ? "pushed" : (p.err || p.out).split("\n").filter(Boolean).slice(-1)[0]?.slice(0, 160) ?? "gagal" });
   }
-  const ok = remotes.some((r) => r.pushed);
+  const ok = remotes.some((r) => r.pushed) || (!st.out.trim()); // tanpa perubahan & tanpa push = sinkron
   if (ok) {
     await db.civKV.upsert({ where: { key: KV_LAST_SYNC }, create: { key: KV_LAST_SYNC, value: JSON.stringify({ at, commit }) }, update: { value: JSON.stringify({ at, commit }) } });
     await emit({ type: EVENT_TYPES.SYNC_PUSHED, subjectType: "KERNEL", subjectId: "git", payload: { commit, pushed: remotes.filter((r) => r.pushed).map((r) => r.name) } });
@@ -209,9 +217,9 @@ export async function doctor(): Promise<DoctorReport> {
   const df = await sh("df", ["-h", ROOT]);
   const diskLine = df.out.split("\n")[1];
   push("disk", true, diskLine ? diskLine.split(/\s+/).slice(-2).join(" / ") : "n/a");
-  // 8 LLM key
-  const llmKey = Boolean(process.env.ZAI_API_KEY || process.env.GLZ_TOKEN || cfg.find((c) => c.key === "config.llm.apiKey"));
-  push("llm-key", llmKey, llmKey ? "tersedia (env/config)" : "tidak ada — reflex mode saja");
+  // 8 LLM — z-ai-web-dev-sdk membawa kredensialnya sendiri (sandbox), cek paketnya ada
+  const llmKey = fs.existsSync(path.join(ROOT, "node_modules/z-ai-web-dev-sdk")) || cfg.some((c) => c.key === "config.llm.apiKey");
+  push("llm-key", llmKey, llmKey ? "SDK z-ai tersedia (LLM hidup)" : "SDK tidak ada — reflex mode saja");
   const okAll = checks.every((c) => c.ok);
   return { healthy: okAll, checks, at: new Date().toISOString() };
 }

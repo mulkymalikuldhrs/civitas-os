@@ -208,12 +208,18 @@ export async function POST(req: NextRequest) {
       }
 
       // SLICE 10 — CHAT: bicara langsung dengan warga (otak LLM + relay dunia)
+      // SLICE 11 — villagerCode kini opsional: bila kosong, warga aktif pertama yang membalas.
       case "chat_send": {
         const { askCitizen } = await import("@/lib/civos/chat");
         const body = (p.body ?? "").trim();
-        if (!p.villagerCode) return NextResponse.json({ ok: false, error: "params.villagerCode wajib" }, { status: 400 });
         if (!body) return NextResponse.json({ ok: false, error: "params.body wajib" }, { status: 400 });
-        const r = await askCitizen({ villagerCode: p.villagerCode.trim(), body, channel: "DASHBOARD", senderName: p.senderName ?? "Pemilik" });
+        let code = (p.villagerCode ?? "").trim();
+        if (!code) {
+          const v = await db.civVillager.findFirst({ where: { status: "ACTIVE" }, orderBy: { code: "asc" }, select: { code: true } });
+          if (!v) return NextResponse.json({ ok: false, error: "belum ada warga aktif — jalankan census" }, { status: 404 });
+          code = v.code;
+        }
+        const r = await askCitizen({ villagerCode: code, body, channel: "DASHBOARD", senderName: p.senderName ?? "Pemilik" });
         return NextResponse.json({ ...r, ok: r.ok }, { status: r.ok ? 200 : 422 });
       }
 

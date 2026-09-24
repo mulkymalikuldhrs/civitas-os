@@ -16,11 +16,26 @@ case "${1:-}" in
     fi
     mkdir -p "$DIR"
     if [ ! -f "$JAR" ] || [ "$(stat -c%s "$JAR" 2>/dev/null || echo 0)" -lt 10000000 ]; then
-      echo "DOWNLOADING paper-$VER ..."
+      echo "DOWNLOADING server jar ($VER) ..."
+      DL=""; SRC=""
+      # Sumber 1: PaperMC
       BUILD=$(curl -s -m 30 "https://api.papermc.io/v2/projects/paper/versions/$VER/builds" | python3 -c "import json,sys; b=json.load(sys.stdin)['builds']; print(b[-1]['build'])" 2>/dev/null) || BUILD=""
-      if [ -z "$BUILD" ]; then echo "DOWNLOAD_FAIL: API PaperMC tidak terjangkau"; exit 1; fi
-      curl -s -L -m 300 -o "$JAR" "https://api.papermc.io/v2/projects/paper/versions/$VER/builds/$BUILD/downloads/paper-$VER-$BUILD.jar" || { echo "DOWNLOAD_FAIL"; exit 1; }
-      echo "DOWNLOADED build=$BUILD size=$(stat -c%s "$JAR")"
+      if [ -n "$BUILD" ]; then DL="https://api.papermc.io/v2/projects/paper/versions/$VER/builds/$BUILD/downloads/paper-$VER-$BUILD.jar"; SRC="paper"; fi
+      # Sumber 2: Purpur (fork Paper)
+      if [ -z "$DL" ]; then
+        PB=$(curl -s -m 30 "https://api.purpurmc.org/v2/purpur/$VER" | python3 -c "import json,sys; print(json.load(sys.stdin)['builds']['latest'])" 2>/dev/null) || PB=""
+        if [ -n "$PB" ]; then DL="https://api.purpurmc.org/v2/purpur/$VER/$PB/download"; SRC="purpur-$PB"; fi
+      fi
+      # Sumber 3: vanilla resmi Mojang
+      if [ -z "$DL" ]; then
+        VURL=$(curl -s -m 30 "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json" | python3 -c "import json,sys; d=json.load(sys.stdin); print([v['url'] for v in d['versions'] if v['id']=='$VER'][0])" 2>/dev/null) || VURL=""
+        if [ -n "$VURL" ]; then DL=$(curl -s -m 30 "$VURL" | python3 -c "import json,sys; print(json.load(sys.stdin)['downloads']['server']['url'])" 2>/dev/null) || DL=""; SRC="vanilla"; fi
+      fi
+      if [ -z "$DL" ]; then echo "DOWNLOAD_FAIL: tidak ada sumber terjangkau (paper/purpur/mojang)"; exit 1; fi
+      echo "source=$SRC"
+      curl -s -L -m 600 -o "$JAR" "$DL" || { echo "DOWNLOAD_FAIL"; exit 1; }
+      [ "$(stat -c%s "$JAR" 2>/dev/null || echo 0)" -gt 10000000 ] || { echo "DOWNLOAD_FAIL: file terlalu kecil"; exit 1; }
+      echo "DOWNLOADED $SRC size=$(stat -c%s "$JAR")"
     fi
     [ -f "$DIR/eula.txt" ] || echo "eula=true" > "$DIR/eula.txt"
     if [ ! -f "$DIR/server.properties" ]; then
@@ -48,10 +63,10 @@ case "${1:-}" in
     fi
     ;;
   status)
-    if pgrep -f "paper.jar" > /dev/null 2>&1; then echo "RUNNING"; else echo "NOT_RUNNING"; fi
+    if pgrep -f "$DIR/paper.jar" > /dev/null 2>&1 || pgrep -f "mc-server/java" > /dev/null 2>&1; then echo "RUNNING"; else echo "NOT_RUNNING"; fi
     ;;
   cmd)
-    if pgrep -f "paper.jar" > /dev/null 2>&1; then
+    if pgrep -f "mc-server/java" > /dev/null 2>&1; then
       echo "${2:-help}" > "$DIR/console.in" 2>/dev/null
       echo "SENT: ${2:-}"
     else
