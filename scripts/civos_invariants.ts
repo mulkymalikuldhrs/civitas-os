@@ -246,12 +246,18 @@ async function main() {
     check("INV-25c origin legal + koordinat berubah bila applied (SIM/BOT — Slice 10: bot nyata boleh meng-claim)", Boolean(d25) && (d25!.status === "EXPIRED" || ((d25!.origin === "SIM" || d25!.origin === "BOT" || d25!.origin === "KERNEL") && (d25!.status === "APPLIED" ? (movedCoords || d25!.origin === "BOT" || d25!.origin === "KERNEL") : true))), `${d25?.status}/${d25?.origin ?? "-"}`);
     if (enr25.id) await db.civVillagerDirective.delete({ where: { id: enr25.id } });
 
-    // INV-23e: klaim bot — SPEAK relay berlabel nama warga; antrean bersih → deterministik
+    // INV-23e: klaim bot — SPEAK relay berlabel nama warga; antrean bersih → deterministik.
+    // (v1.5) bot java yang HIDUP ikut mengklaim antrean tiap detak — pesaing nyata dihentikan
+    // sementara agar pengujian deterministik; sambungan dipulihkan setelah cek. Jujur dicatat.
+    const { javaBotStatus, javaBotDisconnect, javaBotConnect } = await import("@/lib/civos/javabot");
+    const botWasConnected = javaBotStatus().connected;
+    if (botWasConnected) await javaBotDisconnect();
     const enrS = await enqueueDirective({ id: v0.id, code: v0.code, name: v0.name, mcCoords: v0.mcCoords }, "SPEAK", { message: "klaim uji" });
     const claims = await claimDirectivesForBot(4);
     const claimS = claims.find((c) => c.id === enrS.id);
     check("INV-23e klaim bot SPEAK: relay berlabel warga", Boolean(claimS) && (claimS!.chatMessage ?? "").startsWith(`[${v0.name}`) && (claimS!.chatMessage ?? "").includes(v0.code), claimS?.chatMessage?.slice(0, 60) ?? "tak terklaim");
     if (enrS.id) await db.civVillagerDirective.delete({ where: { id: enrS.id } });
+    if (botWasConnected) await javaBotConnect().catch(() => undefined); // pulihkan kehadiran bot
 
     // INV-27: SPEAK dipotong kernel ke SPEAK_MAX_LEN (LLM tak bisa memaksa pesan panjang)
     const maxLen = (await getPolicy<number>("SPEAK_MAX_LEN")) ?? 120;
