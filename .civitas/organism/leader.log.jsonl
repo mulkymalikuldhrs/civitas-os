@@ -178,3 +178,18 @@
 {"at":"2026-09-24T22:17:34.587Z","type":"NET_ERROR","err":"Connect timed out"}
 {"at":"2026-09-24T22:17:34.652Z","type":"CHILD_EXIT","attempt":14,"code":0,"note":"disconnect normal"}
 {"at":"2026-09-24T22:17:52.653Z","type":"PING_FAIL","error":"timeout","streak":43,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:18:18.654Z","type":"PING_FAIL","error":"timeout","streak":44,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:18:44.655Z","type":"PING_FAIL","error":"timeout","streak":45,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:18:44.655Z","type":"JOIN_ANYWAY","reason":"ping tidak menentu — uji koneksi langsung"}
+{"at":"2026-09-24T22:18:49.950Z","type":"MEMORY_LOADED","players":0,"directives":0,"improvements":1,"bornAt":"2026-09-24T21:58:05.051Z"}
+{"at":"2026-09-24T22:19:02.376Z","type":"CHAT_SENT","message":"SENSUS #1: pemain=hanya aku · entitas=0 · posisiku=—."}
+{"at":"2026-09-24T22:19:10.371Z","type":"NET_ERROR","err":"Connect timed out"}
+{"at":"2026-09-24T22:19:10.402Z","type":"CHILD_EXIT","attempt":15,"code":0,"note":"disconnect normal"}
+{"at":"2026-09-24T22:19:28.402Z","type":"PING_FAIL","error":"timeout","streak":46,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:19:54.403Z","type":"PING_FAIL","error":"timeout","streak":47,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:20:20.418Z","type":"PING_FAIL","error":"timeout","streak":48,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:20:20.418Z","type":"JOIN_ANYWAY","reason":"ping tidak menentu — uji koneksi langsung"}
+{"at":"2026-09-24T22:20:26.148Z","type":"MEMORY_LOADED","players":0,"directives":0,"improvements":1,"bornAt":"2026-09-24T21:58:05.051Z"}
+{"at":"2026-09-24T22:20:38.589Z","type":"CHAT_SENT","message":"SENSUS #1: pemain=hanya aku · entitas=0 · posisiku=—."}
+{"at":"2026-09-24T22:20:46.584Z","type":"NET_ERROR","err":"Connect timed out"}
+{"at":"2026-09-24T22:20:46.672Z","type":"CHILD_EXIT","attempt":16,"code":0,"note":"disconnect normal"}
