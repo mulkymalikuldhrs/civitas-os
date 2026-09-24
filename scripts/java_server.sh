@@ -7,7 +7,7 @@ DIR="/home/z/my-project/mc-server/java"
 JAR="$DIR/paper.jar"
 VER="1.21.1"
 PIDFILE="$DIR/server.pid"
-RAM="${CIV_JAVA_RAM:-384M}" # 2026-09-24: 512M → 384M (kernel OOM-kill java saat RAM 4GB penuh)
+RAM="${CIV_JAVA_RAM:-512M}" # 2026-09-25: 384M → 512M — crash report: OutOfMemoryError: Metaspace @128m (Paper butuh metaspace lebih besar); total tetap aman utk RAM 4GB
 
 case "${1:-}" in
   start)
@@ -46,7 +46,7 @@ case "${1:-}" in
       cd "$1"
       exec 9<>console.in
       exec 2>/dev/null 3>&2
-      java -Xms"$3" -Xmx"$3" -XX:MaxMetaspaceSize=128m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -DPaper.IgnoreJavaVersion=true -jar "$2" nogui < console.in >> server.log 2>&1
+      java -Xms"$3" -Xmx"$3" -XX:MaxMetaspaceSize=256m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -DPaper.IgnoreJavaVersion=true -jar "$2" nogui < console.in >> server.log 2>&1
     ' _ "$DIR" "$JAR" "$RAM" > /dev/null 2>&1 < /dev/null &
     echo $! > "$PIDFILE"
     echo "STARTING pid=$(cat "$PIDFILE") ram=$RAM"
