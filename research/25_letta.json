@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://www.letta.com",
+    "name": "Benchmarking AI Agent Memory: Is a Filesystem All You",
+    "snippet": "Aug 12, 2025 — MemGPT introduced memory management for agents by creating a memory hierarchy inspired by a traditional operating system (OS).",
+    "host_name": "www.letta.com",
+    "rank": 0,
+    "date": "Aug 12, 2025",
+    "favicon": ""
+  },
+  {
+    "url": "https://vectorize.io",
+    "name": "Hindsight vs Letta (MemGPT): Agent Memory Compared (2026)",
+    "snippet": "Mar 14, 2026 — Letta is a full agent runtime . Memory is organized into three tiers: Core Memory. The key design choice: the agent self-edits. -inspired  ...",
+    "host_name": "vectorize.io",
+    "rank": 1,
+    "date": "Mar 14, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.deeplearning.ai",
+    "name": "LLMs as Operating Systems: Agent Memory",
+    "snippet": "In this course, you'll learn: How to build an agent with self-editing memory , using tool-calling and multi-step. Letta, an open-source framework that adds  ...",
+    "host_name": "www.deeplearning.ai",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://blog.stackademic.com",
+    "name": "Letta: Platform for Stateful LLM Agents | by DhanushKumar",
+    "snippet": "Sep 16, 2025 — MemGPT turns an LLM into a stateful, self-editing agent that can “remember” facts beyond the context window, update its own knowledge, and ...",
+    "host_name": "blog.stackademic.com",
+    "rank": 3,
+    "date": "Sep 16, 2025",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.graphlit.com",
+    "name": "Letta vs. Graphlit: Agent Memory That Edits Itself vs.",
+    "snippet": "Oct 30, 2025 — Letta pioneered the idea that agents should actively edit their own memory , using structured in-context blocks they can modify during ... Read more",
+    "host_name": "www.graphlit.com",
+    "rank": 4,
+    "date": "Oct 30, 2025",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com",
+    "name": "NirDiamant/Agent_Memory_Techniques: Agent memory for",
+    "snippet": "Letta (MemGPT): self-editing memory with inner/outer monologue architecture ; Zep: temporal knowledge graphs for long-term agent memory; Graphiti: episodic-to ... Read more",
+    "host_name": "github.com",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  }
+]

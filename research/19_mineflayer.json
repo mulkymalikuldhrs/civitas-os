@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://github.com",
+    "name": "Ecosystem-wide: most promising open ideas across",
+    "snippet": "Mar 28, 2026 — Most Promising Open Ideas Across PrismarineJS . This list was compiled by analyzing open issues and PRs across all PrismarineJS repos, ... Read more",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "Mar 28, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://prismarinejs.github.io",
+    "name": "Mineflayer",
+    "snippet": "Create Minecraft bots with a powerful, stable, and high level JavaScript API, also usable from Python. Supports Minecraft 1.8 to 26.1 … serialize minecraft ...",
+    "host_name": "prismarinejs.github.io",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://oss.issuehunt.io",
+    "name": "Using Minecraft Packets with mineflayer #2271",
+    "snippet": "PrismarineJS / mineflayer ... Mineflayer under the hood uses minecraft - protocol , which operates directly on the minecraft protocol as the name suggests. Read more",
+    "host_name": "oss.issuehunt.io",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.npmjs.com",
+    "name": "keywords:mineflayer - npm search",
+    "snippet": "First-class **battle-tested** simple API for emulating real Minecraft mouse control in Mineflayer . You should use it for digging (mining) or placing blocks ... Read more",
+    "host_name": "www.npmjs.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://issues.ecosyste.ms",
+    "name": "PrismarineJS/mineflayer issues and pull requests",
+    "snippet": "Issues and pull requests for PrismarineJS / mineflayer on GitHub. node- minecraft - protocol for chat Pull Request. Tools and open datasets to support, sustain, and ...",
+    "host_name": "issues.ecosyste.ms",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://classic.yarnpkg.com",
+    "name": "minecraft-protocol",
+    "snippet": "Parse and serialize minecraft packets, plus authentication and encryption.",
+    "host_name": "classic.yarnpkg.com",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  }
+]

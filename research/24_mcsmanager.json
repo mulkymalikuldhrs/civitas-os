@@ -1,0 +1,65 @@
+[
+  {
+    "url": "https://github.com",
+    "name": "MCSManager/MCSManager: Quick deployment",
+    "snippet": "MCSManager Panel (or simply MCSM Panel) is a fast-deploying, distributed, multi-user, and modern web-based management panel for Minecraft , Steam , and other ...",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://zeabur.com",
+    "name": "MCSManager Deploy Guide",
+    "snippet": "Dec 19, 2024 — A modern, secure, and distributed control panel designed for managing Minecraft and Steam game servers . go to the node page, and click on \"Add  ...",
+    "host_name": "zeabur.com",
+    "rank": 1,
+    "date": "Dec 19, 2024",
+    "favicon": ""
+  },
+  {
+    "url": "https://sourceforge.net",
+    "name": "MCSManager download",
+    "snippet": "MCSManager Panel (MCSM) is a modern, secure, and distributed control panel designed for managing Minecraft and Steam game servers.",
+    "host_name": "sourceforge.net",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://space-node.net",
+    "name": "MCSManager Guide: Minecraft Server Panel (2026)",
+    "snippet": "Apr 15, 2026 — MCSManager (MCSM ) is an open-source, lightweight web panel for managing Minecraft , and remote node management. Nodes: Remote daemons",
+    "host_name": "space-node.net",
+    "rank": 3,
+    "date": "Apr 15, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://context7.com",
+    "name": "MCSManager Panel",
+    "snippet": "MCSManager Panel is a fast-deploying, distributed, multi-user, and modern web-based management panel designed for Minecraft, Steam, and other game servers, ...",
+    "host_name": "context7.com",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://minecraft.how",
+    "name": "MCSManager: How to Control Multiple Minecraft Servers",
+    "snippet": "Apr 24, 2026 — MCSManager is a free web panel for managing multiple Minecraft servers from one dashboard. The project requires Node 16.20.2 or newer.",
+    "host_name": "minecraft.how",
+    "rank": 5,
+    "date": "Apr 24, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://ca.unraid.net",
+    "name": "MCSManager-Web for Unraid - Community Apps",
+    "snippet": "Aug 24, 2026 — MCSManager (MCSM ) is a fast, lightweight, open-source, web-based game server management panel. Manage multiple Minecraft Java/Bedrock, Steam ... Read more",
+    "host_name": "ca.unraid.net",
+    "rank": 6,
+    "date": "Aug 24, 2026",
+    "favicon": ""
+  }
+]

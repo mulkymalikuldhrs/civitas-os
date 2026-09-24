@@ -1,0 +1,65 @@
+[
+  {
+    "url": "https://pm2.io",
+    "name": "Programmatic | Reference | PM2 Documentation",
+    "snippet": "Simple example This example shows you how to start app.js with some configuration attributes. Programmatic API pm2 .connect(errback) pm2 will not be run as a  ...",
+    "host_name": "pm2.io",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com",
+    "name": "arthurschreiber/PM2: Modern CLI process manager",
+    "snippet": "PM2 is a process manager for Node.JS application -in load balancer. daemonization Assisted startup script creation. PM2 can start, stop, restart and delete ...",
+    "host_name": "github.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.npmjs.com",
+    "name": "pm2",
+    "snippet": "Aug 24, 2026 — PM2 can generate and configure a Startup Script to keep PM2 and your processes alive at every server restart.",
+    "host_name": "www.npmjs.com",
+    "rank": 2,
+    "date": "Aug 24, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://blog.appsignal.com",
+    "name": "PM2 for Node.js: Auto-Restart, Monitoring, and Clustering",
+    "snippet": "Mar 9, 2022 — It launches a daemon that monitors your application and keeps it running indefinitely. generate a startup script for your server's init system. ...",
+    "host_name": "blog.appsignal.com",
+    "rank": 3,
+    "date": "Mar 9, 2022",
+    "favicon": ""
+  },
+  {
+    "url": "https://pm2.keymetrics.io",
+    "name": "PM2 API",
+    "snippet": "Embed PM2 in your own Node .js code with the programmatic API : start , stop, restart , list processes and receive events via the message bus.",
+    "host_name": "pm2.keymetrics.io",
+    "rank": 4,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.grizzlypeaksoftware.com",
+    "name": "Process Management with PM2 - Library",
+    "snippet": "Feb 13, 2026 — A practical guide to managing Node .js applications with PM2 , Startup Scripts Your server will reboot. Power failure, kernel update, provider ...",
+    "host_name": "www.grizzlypeaksoftware.com",
+    "rank": 5,
+    "date": "Feb 13, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://community.latenode.com",
+    "name": "How to execute npm start command using pm2 process",
+    "snippet": "Aug 18, 2025 — I'm trying to figure out if pm2 can execute npm scripts directly instead of pointing to a specific JavaScript file. During development I use ...",
+    "host_name": "community.latenode.com",
+    "rank": 6,
+    "date": "Aug 18, 2025",
+    "favicon": ""
+  }
+]

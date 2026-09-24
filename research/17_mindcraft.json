@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://github.com",
+    "name": "[Merged into Airi] ⛏️ An intelligent Minecraft bot powered",
+    "snippet": "Feb 18, 2025 — An intelligent Minecraft bot powered by LLM . AIRI can understand natural language commands, interact with the world, and assist players in ... Read more",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "Feb 18, 2025",
+    "favicon": ""
+  },
+  {
+    "url": "https://sites.uci.edu",
+    "name": "MINDcraft – Kolby Nottingham - UCI Sites",
+    "snippet": "by K Nottingham — Mineflayer allows AI systems to interact with Minecraft using high-level code. modern LLMs are specifically trained for instruction following.  ...",
+    "host_name": "sites.uci.edu",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://landscape.jimmysong.io",
+    "name": "Mindcraft | AI Native Landscape",
+    "snippet": "Mindcraft is an open-source framework that integrates large language models with Mineflayer to create intelligent, programmable bots within Minecraft. Read more",
+    "host_name": "landscape.jimmysong.io",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://arxiv.org",
+    "name": "MineStudio: A Streamlined Package for Minecraft AI Agent",
+    "snippet": "Dec 24, 2024 — With MineStudio, users can not only conduct interactive evaluations of existing mainstream Minecraft agents but also quickly implement a model ... Read more",
+    "host_name": "arxiv.org",
+    "rank": 3,
+    "date": "Dec 24, 2024",
+    "favicon": ""
+  }
+]

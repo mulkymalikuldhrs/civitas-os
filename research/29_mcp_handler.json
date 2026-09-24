@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://www.npmjs.com",
+    "name": "mcp-handler",
+    "snippet": "Aug 13, 2026 — mcp-handler is a framework-agnostic HTTP adapter for hosting Model Context Protocol (MCP) servers in JavaScript and TypeScript applications. Read more",
+    "host_name": "www.npmjs.com",
+    "rank": 0,
+    "date": "Aug 13, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://vercel.com",
+    "name": "Latest MCP spec now supported in mcp-handler",
+    "snippet": "Jul 30, 2026 — We originally built mcp-handler to make it easier to spin up MCP servers on popular web frameworks including Next, Nuxt, Svelte, and more.",
+    "host_name": "vercel.com",
+    "rank": 1,
+    "date": "Jul 30, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://nextjs.org",
+    "name": "Guides: Next.js MCP Server",
+    "snippet": "Jul 8, 2026 — Learn how to use Next.js MCP support to allow coding agents access to your application state.",
+    "host_name": "nextjs.org",
+    "rank": 2,
+    "date": "Jul 8, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://mcpservers.org",
+    "name": "Vercel MCP Server",
+    "snippet": "An MCP server deployed on Vercel that provides a dice rolling tool. Browse Vercel MCP Server for Claude, Cursor, VS Code, and other AI agents.",
+    "host_name": "mcpservers.org",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.mintmcp.com",
+    "name": "Next.Js with MCP: build enterprise AI agents",
+    "snippet": "Apr 4, 2026 — The mcp-handler package provides Vercel's adapter for the Model Context Protocol , while zod enables schema validation for tool inputs. Read more",
+    "host_name": "www.mintmcp.com",
+    "rank": 4,
+    "date": "Apr 4, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com",
+    "name": "vercel/next-devtools-mcp: Next.js Development for Coding",
+    "snippet": "next-devtools-mcp is a Model Context Protocol (MCP) server that connects coding agents like Claude and Cursor to your running Next.js dev server. Read more",
+    "host_name": "github.com",
+    "rank": 5,
+    "date": "",
+    "favicon": ""
+  }
+]

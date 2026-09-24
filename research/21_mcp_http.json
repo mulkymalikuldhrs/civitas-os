@@ -1,0 +1,56 @@
+[
+  {
+    "url": "https://nextjs.org",
+    "name": "Guides: Next.js MCP Server",
+    "snippet": "Jul 8, 2026 — Learn how to use Next.js MCP support to allow coding agents access to your application state.",
+    "host_name": "nextjs.org",
+    "rank": 0,
+    "date": "Jul 8, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com",
+    "name": "vercel/mcp-handler",
+    "snippet": "Built on MCP SDK v2, it serves the 2026-07-28 MCP specification natively while transparently falling back to stateless Streamable HTTP for 2025 -era clients — ... Read more",
+    "host_name": "github.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://strapi.io",
+    "name": "Next.js 16 Route Handlers Explained: 3 Advanced Use",
+    "snippet": "Dec 5, 2025 — This article walks through 3 production-ready use cases that show how to apply route handlers effectively in real Next . js applications.",
+    "host_name": "strapi.io",
+    "rank": 2,
+    "date": "Dec 5, 2025",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.mintmcp.com",
+    "name": "Next.Js with MCP: build enterprise AI agents",
+    "snippet": "Apr 4, 2026 — This guide shows engineering teams how to build production-ready Next . js MCP servers that meet enterprise security requirements while enabling ...",
+    "host_name": "www.mintmcp.com",
+    "rank": 3,
+    "date": "Apr 4, 2026",
+    "favicon": ""
+  },
+  {
+    "url": "https://dev.to",
+    "name": "The Ultimate Guide to Server Components, Server Actions,",
+    "snippet": "Feb 13, 2025 — Posted on Feb 13, 2025 . The Ultimate Guide to Server Components, Server Actions, Route Handlers , and Suspense in Next . js App Router . #webdev ... Read more",
+    "host_name": "dev.to",
+    "rank": 4,
+    "date": "Feb 13, 2025",
+    "favicon": ""
+  },
+  {
+    "url": "https://upsun.com",
+    "name": "Next.js App Router: common mistakes and how to fix them",
+    "snippet": "May 6, 2026 — Avoid common Next . js App Router pitfalls with practical fixes and examples for cleaner, more predictable application routing .",
+    "host_name": "upsun.com",
+    "rank": 5,
+    "date": "May 6, 2026",
+    "favicon": ""
+  }
+]

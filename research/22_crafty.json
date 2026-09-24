@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://docs.craftycontrol.com",
+    "name": "Minecraft Server Configuration - Crafty Documentation",
+    "snippet": "Minecraft Server Configuration. This document provides detailed explanations of options used to configure various aspects of your server within Crafty . Read more",
+    "host_name": "docs.craftycontrol.com",
+    "rank": 0,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.hostinger.com",
+    "name": "Crafty Controller VPS Hosting | One-Click Minecraft Panel",
+    "snippet": "Multi-server control . Spin up, monitor, and operate multiple Minecraft Java and Bedrock servers in parallel from a single dashboard. · Web-based console. Read more",
+    "host_name": "www.hostinger.com",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://docs.ibracorp.io",
+    "name": "Crafty Minecraft Server - IBRADOCS",
+    "snippet": "Controller Features: Web-based Minecraft server management interface Support for vanilla, Paper, Forge, and modded servers Multiple Java version compatibility ...",
+    "host_name": "docs.ibracorp.io",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://mcservermanager.com",
+    "name": "Minecraft Server Hosting Tools Compared",
+    "snippet": "Compare popular Minecraft server management tools, connection services and hosting side by side. Pterodactyl, AMP, Crafty Controller , MCServerSoft (MCSS), ...",
+    "host_name": "mcservermanager.com",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  }
+]

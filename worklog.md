@@ -376,3 +376,41 @@ Stage Summary:
 - CIVITAS OS v1.1.0 "SELF-LIFE": peradaban kini MENGURUS DIRINYA SENDIRI — 2 dunia Minecraft (Bedrock+Java) dikelola satu kernel, daemon 24/7 menjaga denyut+server+backup+sync meski UI mati, backup ber-manifest sha256, sync otomatis 4 remote, CIVITAS = server MCP 13 tools + CLI 17 perintah, semua dokumentasi tergabung satu MASTER doc.
 - Bukti: 67/0 invarian; Bedrock 4-11ms + Java Done(50.7s) bersamaan; bot+sensus nyata; push 4/4 @0869c8c; MCP 13 tools handshake+call; CLI end-to-end; tsc/lint/build hijau; daemon log COMP decisions.
 - Kebenaran tersisa (jujur): revenue eksternal riil 0 (rail pemilik); Aternos tidur (bangun dari panel); token git tidak persisten antar sesi sandbox (tempel ulang bila sync lapor hilang); bot Java (mineflayer) belum — Java realm saat ini dikelola via konsol + ping.
+
+---
+Task ID: 16-b
+Agent: research-agent (general-purpose)
+Task: Research relevant repos/libraries for CIVITAS OS ecosystem upgrade
+
+Work Log:
+- Baca worklog.md (Tasks 1-16, fokus 14-16) + docs/CIVITAS_OS_MASTER.md (arsitektur 5 lapis, multi-server, self-life, MCP, CLI) + package.json + node_modules (verifikasi paket terpasang).
+- Audit kode terkait: scripts/civitas_mcp_stdio.mjs (JSON-RPC hand-rolled, protocolVersion 2024-11-05), src/lib/civos/mcbot.ts:86 (bedrock-protocol createClient offline:true, dynamic-import anti-bundler).
+- 13 kueri web search tersimpan research/17-29*.json: mindcraft, voyager, mineflayer, MCP TS SDK, MCP HTTP Next.js, Crafty, itzg, MCSManager, letta/memgpt, pm2, Minecraft civilization sims (Project Sid), PIANO, vercel mcp-handler.
+- Verifikasi GitHub API (bintang/aktivitas): mineflayer 7,491★ (push 2026-09-22), mindcraft-bots/mindcraft 5,788★ (redirect dari kolbytn), typescript-sdk 13,448★, itzg 14,332★, MCSManager 4,969★, crewAI 58,976★, pm2 43,298★ (sebagian rate-limited → approx).
+- Verifikasi npm registry: mineflayer@4.39.0 (node≥22), bedrock-protocol@3.60.1 (node≥24, = versi terpasang), @modelcontextprotocol/sdk@1.30.1 (zod peer ^3.25||^4.0 ✓ zod 4.0.2 proyek), @modelcontextprotocol/server+client@2.1.0 (v2 split), mcp-handler@2.2.0 (peer next≥13 ✓, peer @modelcontextprotocol/server ^2.0), rcon-client@4.2.5, pm2@7.0.4, minecraft-protocol@1.68.0, minecraft-data@3.117.0. Sandbox node v24.21.0 + bun 1.3.14 = semua minimum terpenuhi.
+- Temuan kunci: kolbytn/mindcraft pindah ke org mindcraft-bots; MCP SDK v2 pecah paket (@modelcontextprotocol/server); mcp-handler = jalur resmi MCP di Next.js route handler; @jsprismarine/jsbinaryutils di node_modules hanyalah transitive dep bedrock-protocol (bukan server JSPrismarine).
+
+Stage Summary:
+- Laporan: research/RELEVANT_REPOS_16b.md (52 baris; tabel 16 repo; paket terpasang; top-5 adopt-now).
+- Top-5: (1) mineflayer@4.39.0 — bot Java (gap terbesar, node≥22 OK); (2) @modelcontextprotocol/server@2.1.0 + mcp-handler@2.2.0 — migrasi MCP HTTP/stdio ke SDK resmi; (3) rcon-client@4.2.5 — konsol Java riil (ganti FIFO-only); (4) pola Voyager skill-library + Letta self-editing memory (0 dep baru); (5) pm2@7.0.4 programmatic API (opsional, ganti sebagian daemon.sh).
+- Relevansi tertinggi pola: mindcraft (LLM→JSON command plan→whitelist fungsi, cocok policy engine), Project Sid/PIANO (modul konkuren + critic → denyut & panel Kejujuran), itzg (AUTOPAUSE + template deklaratif + healthcheck RCON).
+- TIDAK mengedit file sumber apa pun (research-only). Paket baru yang layak install: mineflayer, @modelcontextprotocol/server, mcp-handler, rcon-client; opsional: pm2, @modelcontextprotocol/sdk.
+
+---
+Task ID: 16-h1
+Agent: review-agent (general-purpose)
+Task: Root-to-branch honesty audit of CIVITAS OS (mock hunt + wiring + build health)
+
+Work Log:
+- Baca worklog.md (fokus Task 14-16); inventaris kernel (30 modul src/lib/civos), 14 route api/civos, bin/, scripts/civitas_*.
+- Mock hunt greps: Math.random (3 hit village.ts:188,213,282 — semua REAL-OK kosmetik/variety, tx & direktif tetap nyata), TODO/FIXME/stub/placeholder = 0, fake/mock/simulate/canned = 0, silent-catch = 1 SUSPECT (village.ts:294), setTimeout-fake-work = 0, console.log palsu = 0.
+- Wiring: CLI civitas.mjs = klien HTTP nyata (fetch + error jujur); MCP stdio 13 tools = semua case callTool hit endpoint /api/civos/* + fallback bun ke fn kernel nyata; /api/mcp route = server MCP FLYBRAIN 9 tools (bukan CIVITAS) — mismatch docs MASTER.md:149; daemon loop 30 dtk nyata (pid 3277 hidup, tick bun nyata); selflife = tar+sha256+git push 4 remote+doctor 9 cek semuanya nyata; rantai mcbot: bedrock-protocol join/chat/command_request + console FIFO → CivitasBridge — terbukti di server.log.
+- Build health: tsc --noEmit = 0 error; lint = 0 error / 1 warning (no-page-custom-font, pre-existing).
+- Runtime evidence: PMMP RUNNING (pid 2727) — server.log: CIVITAS_AGENT logged in + joined (:77,:85), chat bot (:87), "[CIVITAS] 8 villager dipanggil" via plugin (:89), relay SPEAK Zahra VIL-0017 (:91); players/civitas_agent.dat ada. Java: boot nyata "Done (50.764s)" tapi 0 perintah CIVITAS (bot Bedrock-only, jujur; console.in Java tak tersambung). Daemon log: heartbeat nyata tapi 38/72 entri crash-footer "Bun v1.3.14" — tick daemon mati ~53%.
+- Supabase.ts: fetch PostgREST nyata, graceful tanpa kredensial (jujur); bug: roundtrip "hapus" pakai POST bukan DELETE (rest() tak punya DELETE) → cek itu tak pernah bisa hijau.
+- Tulis laporan research/REVIEW_16h1.md (verdict table + F-01..F-06 + bukti), tanpa mengubah kode apa pun.
+
+Stage Summary:
+- VERDICT: CLI REAL · MCP-stdio REAL · MCP-HTTP REAL-tapi-FLYBRAIN (docs mismatch) · daemon REAL-dengan-masalah-kesehatan · selflife REAL · mcbot-console-path REAL (bukti log) · economy/ledger REAL · supabase REAL-opsional (1 bug) · docs PARTIAL.
+- P0: 0 (tidak ada klaim palsu ditemukan). P1: F-01 tick daemon crash ~53% (tail -1 menelan stderr; backup/daemon.log 38/72 "Bun v1.3.14"). P2: F-02 /api/mcp salah deskripsi di MASTER.md:149; F-03 supabase.ts:191 hapus pakai POST; F-04 village.ts:294 silent catch; F-05 konsol Java tak tersambung (ping-only); F-06 klaim "17 perintah" CLI vs 16 aktual.
+- tsc 0 error · lint 0 error/1 warning. Sistem lolos audit kejujuran di level arsitektur; perbaiki F-01 sebelum finalisasi.

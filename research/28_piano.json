@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://arxiv.org",
+    "name": "Project Sid: Many-agent simulations toward AI civilization",
+    "snippet": "Oct 31, 2024 — PIANO architecture selectively and concurrently executes various modules in parallel to enable agents to interact with the environment in real- ...",
+    "host_name": "arxiv.org",
+    "rank": 0,
+    "date": "Oct 31, 2024",
+    "favicon": ""
+  },
+  {
+    "url": "https://andlukyane.com",
+    "name": "Project Sid: Many-agent simulations toward AI civilization",
+    "snippet": "Nov 25, 2024 — Using the PIANO architecture for real-time, coherent interactions , agents achieve meaningful progress in a Minecraft environment, demonstrating ... Read more",
+    "host_name": "andlukyane.com",
+    "rank": 1,
+    "date": "Nov 25, 2024",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.researchgate.net",
+    "name": "Project Sid: Many-agent simulations toward AI civilization",
+    "snippet": "Oct 31, 2024 — We first introduce the PIANO (Parallel Information Aggregation via Neural Orchestration) architecture , which enables agents to interact with ... Read more",
+    "host_name": "www.researchgate.net",
+    "rank": 2,
+    "date": "Oct 31, 2024",
+    "favicon": ""
+  },
+  {
+    "url": "https://github.com",
+    "name": "Project Sid: Many-agent simulations toward AI civilization",
+    "snippet": "Oct 31, 2024 — We first introduce the PIANO (Parallel Information Aggregation via Neu- ral Orchestration) architecture , which enables agents to interact with ...",
+    "host_name": "github.com",
+    "rank": 3,
+    "date": "Oct 31, 2024",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.emergentmind.com",
+    "name": "Project Sid: Many-agent simulations toward AI civilization",
+    "snippet": "Oct 31, 2024 — This paper introduces the PIANO architecture to simulate AI civilizations in Minecraft, where agents form specialized roles and adapt ...",
+    "host_name": "www.emergentmind.com",
+    "rank": 4,
+    "date": "Oct 31, 2024",
+    "favicon": ""
+  }
+]

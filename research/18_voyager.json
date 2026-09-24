@@ -1,0 +1,47 @@
+[
+  {
+    "url": "https://github.com",
+    "name": "Co-Voyager: Cooperative Task Decomposition for Minecraft",
+    "snippet": "Jun 13, 2025 — Co-Voyager is a fork of Voyager that extends the original open-ended embodied agent into a framework that collaborates with humans or multiple ...",
+    "host_name": "github.com",
+    "rank": 0,
+    "date": "Jun 13, 2025",
+    "favicon": ""
+  },
+  {
+    "url": "https://arxiv.org",
+    "name": "Voyager: An Open-Ended Embodied Agent with Large",
+    "snippet": "by G Wang · 2023 · Cited by 3516 — Voyager, the first LLM-powered embodied lifelong learning agent in Minecraft that continuously explores the world, acquires diverse skills, and ...",
+    "host_name": "arxiv.org",
+    "rank": 1,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://openreview.net",
+    "name": "Voyager: An Open-Ended Embodied Agent with Large",
+    "snippet": "by G Wang · Cited by 3481 — We introduce Voyager, the first LLM-powered embodied lifelong learning agent in an open-ended world that continuously explores, acquires diverse skills, ...",
+    "host_name": "openreview.net",
+    "rank": 2,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://www.alphaxiv.org",
+    "name": "Voyager: An Open-Ended Embodied Agent with Large",
+    "snippet": "VOYAGER introduces an AI agent capable of lifelong learning and open - ended exploration in Minecraft , leveraging a Large Language Model (LLM) to autonomously ...",
+    "host_name": "www.alphaxiv.org",
+    "rank": 3,
+    "date": "",
+    "favicon": ""
+  },
+  {
+    "url": "https://aiexpertsdirectory.org",
+    "name": "Voyager: An Open-Ended Embodied Agent with Large",
+    "snippet": "4 days ago — Voyager , developed by Dr. Jim Fan and collaborators at NVIDIA, Stanford, and Caltech, is the first open-ended embodied lifelong learning ... Read more",
+    "host_name": "aiexpertsdirectory.org",
+    "rank": 4,
+    "date": "Sep 20, 2026",
+    "favicon": ""
+  }
+]
