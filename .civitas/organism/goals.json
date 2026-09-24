@@ -1,25 +1,6 @@
 [
   {
-    "id": "goal_d895cc",
-    "area": "infrastructure",
-    "title": "Periksa & pulihkan web_app (health=0)",
-    "action": "REPAIR_INFRA",
-    "params": {
-      "target": "web_app"
-    },
-    "reward": 6,
-    "strategic": 6,
-    "feasibility": 6,
-    "cost": 3,
-    "risk": 2,
-    "novelty": 0,
-    "requiredCapabilities": [
-      "probe.env"
-    ],
-    "score": 11.224000000000002
-  },
-  {
-    "id": "goal_f1b1bd",
+    "id": "goal_1a89d4",
     "area": "knowledge",
     "title": "Verifikasi unknown: remote_server_quota",
     "action": "VERIFY_UNKNOWN",
@@ -39,7 +20,7 @@
     "score": 10.716999999999999
   },
   {
-    "id": "goal_3e3ec1",
+    "id": "goal_2e49ae",
     "area": "knowledge",
     "title": "Verifikasi unknown: player_concurrency_peak",
     "action": "VERIFY_UNKNOWN",
@@ -59,7 +40,7 @@
     "score": 10.716999999999999
   },
   {
-    "id": "goal_6c242d",
+    "id": "goal_518df2",
     "area": "knowledge",
     "title": "Verifikasi unknown: true_java_uptime_24h",
     "action": "VERIFY_UNKNOWN",
@@ -79,7 +60,7 @@
     "score": 10.716999999999999
   },
   {
-    "id": "goal_3ed133",
+    "id": "goal_d96907",
     "area": "organization",
     "title": "Spawn agent (0/1 hidup, komposisi genome: observer×1)",
     "action": "SPAWN_AGENT",
@@ -96,5 +77,24 @@
       "spawn.child"
     ],
     "score": 10.127000000000002
+  },
+  {
+    "id": "goal_6c06bb",
+    "area": "infrastructure",
+    "title": "Periksa & pulihkan mc_bedrock (health=0)",
+    "action": "REPAIR_INFRA",
+    "params": {
+      "target": "mc_bedrock"
+    },
+    "reward": 6,
+    "strategic": 6,
+    "feasibility": 3,
+    "cost": 3,
+    "risk": 2,
+    "novelty": 0,
+    "requiredCapabilities": [
+      "probe.env"
+    ],
+    "score": 9.289000000000001
   }
 ]

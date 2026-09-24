@@ -57,6 +57,7 @@ function mergeChildStats() {
 
 const attempt = { n: 0 };
 let stopping = false;
+let failStreak = 0;
 for (const sig of ["SIGTERM", "SIGINT"]) process.on(sig, () => { stopping = true; process.exit(0); });
 
 logEvent("SUPERVISOR_START", { server: `${HOST}:${PORT}`, pid: process.pid });
@@ -64,12 +65,17 @@ logEvent("SUPERVISOR_START", { server: `${HOST}:${PORT}`, pid: process.pid });
 while (!stopping) {
   const st = await pingBedrock(HOST, PORT, 6000);
   if (!st.online) {
+    failStreak += 1;
     state.status = "SIAGA"; state.lastHeartbeat = now(); saveState();
-    logEvent("PING_FAIL", { error: st.error ?? "offline", mode: "siaga-menunggu-server-bangun" });
-    await sleep(60);
-    continue;
+    logEvent("PING_FAIL", { error: st.error ?? "offline", streak: failStreak, mode: "siaga-menunggu-server-bangun" });
+    // ping Aternos sering tak menentu — tiap streak ke-3, tetap coba join langsung
+    // (joiner punya connect-timeout sendiri dan gagal dengan anggun bila server benar-benar tidur)
+    if (failStreak % 3 !== 0) { await sleep(20); continue; }
+    logEvent("JOIN_ANYWAY", { reason: "ping tidak menentu — uji koneksi langsung" });
+  } else {
+    failStreak = 0;
+    logEvent("PING_OK", { latencyMs: st.latencyMs, players: st.players, version: st.version });
   }
-  logEvent("PING_OK", { latencyMs: st.latencyMs, players: st.players, version: st.version });
   state.status = "JOINING"; state.lastHeartbeat = now(); saveState();
 
   attempt.n += 1;

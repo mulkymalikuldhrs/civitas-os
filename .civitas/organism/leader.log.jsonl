@@ -56,3 +56,13 @@
 {"at":"2026-09-24T21:50:10.552Z","type":"RECONNECT_WAIT","waitSec":20,"attempt":1}
 {"at":"2026-09-24T21:50:22.384Z","type":"SUPERVISOR_START","server":"mulkymalikuldhr.aternos.me:19132","pid":10923}
 {"at":"2026-09-24T21:50:28.385Z","type":"PING_FAIL","error":"timeout","mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T21:50:36.553Z","type":"PING_FAIL","error":"timeout","mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T21:50:36.553Z","type":"RECONNECT_WAIT","waitSec":25,"attempt":2}
+{"at":"2026-09-24T21:51:07.554Z","type":"PING_FAIL","error":"timeout","mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T21:51:07.554Z","type":"RECONNECT_WAIT","waitSec":30,"attempt":3}
+{"at":"2026-09-24T21:51:26.782Z","type":"SUPERVISOR_START","server":"mulkymalikuldhr.aternos.me:19132","pid":11021}
+{"at":"2026-09-24T21:51:32.783Z","type":"PING_FAIL","error":"timeout","streak":1,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T21:51:58.784Z","type":"PING_FAIL","error":"timeout","streak":2,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T21:54:22.674Z","type":"SUPERVISOR_START","server":"mulkymalikuldhr.aternos.me:19132","pid":11107}
+{"at":"2026-09-24T21:54:28.675Z","type":"PING_FAIL","error":"timeout","streak":1,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T21:55:38.438Z","type":"SUPERVISOR_START","server":"mulkymalikuldhr.aternos.me:19132","pid":11160}
