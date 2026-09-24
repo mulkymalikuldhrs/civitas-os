@@ -248,6 +248,19 @@ export async function selfLifeTick(): Promise<SelfLifeResult> {
     await writeServerStatusCache();
   }
   catch (e) { notes.push(`watchdog gagal: ${e instanceof Error ? e.message : "?"}`); }
+  // 1b) KEHADIRAN JAVA (F-05 fix): bot CIVITAS_AGENT join Paper lokal bila belum
+  // terhubung + perintah `list` sebagai bukti hidup di log Java. Non-fatal.
+  try {
+    const jb = await import("./javabot");
+    const st = jb.javaBotStatus();
+    if (!st.connected && !st.connecting) {
+      const r = await jb.javaBotConnect();
+      notes.push(r.ok ? `javabot: ${st.username} join Java realm` : `javabot gagal: ${r.error ?? r.detail}`);
+    } else {
+      await jb.javaBotCommand("list");
+      notes.push(`javabot: ${st.username} hadir (list dikirim)`);
+    }
+  } catch (e) { notes.push(`javabot error: ${e instanceof Error ? e.message : "?"}`); }
   // 2) denyut peradaban (organ round-robin + desa)
   try {
     const tick = await heartbeatTick();

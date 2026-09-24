@@ -16,7 +16,7 @@ export async function supabaseCreds(): Promise<SupabaseCreds> {
   return { url, key, enabled: Boolean(url && key) };
 }
 
-async function rest(creds: SupabaseCreds, path: string, method: "GET" | "POST", body?: unknown, prefer = "resolution=merge-duplicates,return=minimal"): Promise<{ ok: boolean; status: number; data: unknown }> {
+async function rest(creds: SupabaseCreds, path: string, method: "GET" | "POST" | "PATCH" | "DELETE", body?: unknown, prefer = "resolution=merge-duplicates,return=minimal"): Promise<{ ok: boolean; status: number; data: unknown }> {
   if (!creds.enabled) return { ok: false, status: 0, data: "supabase.url / supabase.serviceKey belum dikonfigurasi (isi di tab Konfigurasi)" };
   try {
     const res = await fetch(`${creds.url}/rest/v1/${path}`, {
@@ -188,8 +188,9 @@ export async function supabaseTest(): Promise<SupabaseTestResult> {
     push("roundtrip: tulis", ins.ok, ins.ok ? `note=${marker}` : `HTTP ${ins.status} ${String(ins.data).slice(0, 90)}`);
     const sel = await rest(creds, `civ_sync_log?select=id,note&note=eq.${marker}&limit=1`, "GET");
     push("roundtrip: baca", sel.ok, sel.ok ? "baris uji terbaca" : `HTTP ${sel.status}`);
-    const del = await rest(creds, `civ_sync_log?note=eq.${marker}`, "POST", undefined, "return=representation");
-    void del;
+    // F-03 FIX (review 16-h1): hapus memakai metode DELETE sungguhan (dulu POST —
+    // cek ini tidak pernah bisa lolos karena PostgREST mengembalikan 405).
+    const del = await rest(creds, `civ_sync_log?note=eq.${marker}`, "DELETE", undefined, "return=representation");
     const delOk = await rest(creds, `civ_sync_log?note=eq.${marker}&events_pushed=eq.0&txns_pushed=eq.0`, "GET");
     const gone = delOk.ok ? ((await (async () => { try { const res = await fetch(`${creds.url}/rest/v1/civ_sync_log?select=id&note=eq.${marker}`, { headers: { apikey: creds.key, Authorization: `Bearer ${creds.key}` }, signal: AbortSignal.timeout(8_000) }); const j = (await res.json()) as unknown[]; return j.length === 0; } catch { return false; } })())) : false;
     push("roundtrip: hapus", gone, gone ? "baris uji dibersihkan" : "baris uji masih ada (cek manual)");

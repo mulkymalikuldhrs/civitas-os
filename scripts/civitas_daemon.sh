@@ -19,7 +19,12 @@ case "${1:-}" in
     (
       while true; do
         ts="$(date '+%F %T')"
-        tick="$(cd "$ROOT" && timeout 300 bun scripts/civitas_selflife_tick.ts 2>&1 | tail -1)"
+        # F-01 FIX (review 16-h1): stderr ikut ditangkap (2>&1), lock anti-tumpang-tindih,
+        # dan marker crash Bun dideteksi eksplisit agar tidak pernah tersembunyi lagi.
+        tick="$(cd "$ROOT" && flock -n "$ROOT/.civitas-tick.lock" timeout 300 bun scripts/civitas_selflife_tick.ts 2>&1 | tail -3 | tr '\n' ' ')"
+        case "$tick" in
+          *"Bun v"*|*"error:"*|*"Uncaught"*) tick="TICK_CRASH_RAW $tick" ;;
+        esac
         app="$(curl -s -m 4 -o /dev/null -w '%{http_code}' http://127.0.0.1:3000/api/civos/state 2>/dev/null || echo 000)"
         echo "[$ts] app=$app tick=$tick" >> "$LOGFILE"
         # rotasi log sederhana (2MB)

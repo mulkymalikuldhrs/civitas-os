@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-// CIVITAS OS — CLI (SLICE 11)
+// CIVITAS OS — CLI (SLICE 11 + REVIEW 16-h1)
 //   civitas status | pulse | selflife | doctor | census | chat "<pesan>"
 //   civitas server list | server <id> <start|stop|restart|status>
 //   civitas backup [list] | sync | tool <nama> '<json>' | config [get|set] | events [n]
+//   civitas javabot <status|connect|chat "pesan"|command "cmd"|disconnect>
 //   civitas daemon <start|stop|restart|status|logs> | mcp | version
 // Kernel: HTTP API (CIVITAS_URL, default http://127.0.0.1:3000) — REALITY WINS,
 // error jaringan dilaporkan jujur, tanpa jawaban palsu.
@@ -51,6 +52,7 @@ function help() {
   ${C.bold}tool${C.x} <nama> [json]         jalankan tool Toolforge
   ${C.bold}config${C.x} [get k|set k v]     konfigurasi runtime
   ${C.bold}events${C.x} [n]                 event log immutable
+  ${C.bold}javabot${C.x} <aksi>             status|connect|chat|command|disconnect (bot Java Paper)
   ${C.bold}daemon${C.x} start|stop|status|logs|restart
   ${C.bold}mcp${C.x}                        serve MCP stdio (untuk Claude Desktop dll)`);
 }
@@ -181,6 +183,29 @@ async function main() {
       const evs = data.events ?? [];
       for (const e of evs.slice(0, Number(rest[0] ?? 15))) console.log(`  ${C.dim}${e.seq}${C.x} ${e.type.padEnd(22)} ${e.subjectId ?? ""} — ${e.summary ?? ""}`);
       return;
+    }
+    // REVIEW 16-h1 → F-05/F-06 FIX: jalur kernel → dunia Java, perintah ke-17.
+    case "javabot": {
+      const sub = rest[0] ?? "status";
+      if (sub === "status") {
+        const { data } = await api("/api/civos/javabot");
+        const b = data.bot ?? {};
+        console.log(`  connected : ${b.connected ? C.g + "YA" + C.x : C.r + "TIDAK" + C.x}`);
+        console.log(`  username  : ${b.username ?? "-"}`);
+        console.log(`  server    : ${b.server ?? "-"}`);
+        console.log(`  reconnect : ${JSON.stringify(b.reconnect ?? {})}`);
+        for (const e of (b.lastEvents ?? []).slice(-5)) console.log(`  ${C.dim}${e.at}${C.x} ${e.type}: ${String(e.detail ?? "").slice(0, 90)}`);
+        return;
+      }
+      const body =
+        sub === "connect" ? { action: "connect" } :
+        sub === "chat" ? { action: "chat", message: rest.slice(1).join(" ") } :
+        sub === "command" ? { action: "command", command: rest.slice(1).join(" ") } :
+        sub === "disconnect" ? { action: "disconnect" } : null;
+      if (!body) return bad("pakai: civitas javabot <status|connect|chat <pesan>|command <perintah>|disconnect>");
+      if ((sub === "chat" || sub === "command") && !body.message && !body.command) return bad(`isi pesan/perintah: civitas javabot ${sub} <isi>`);
+      const { status, data } = await api("/api/civos/javabot", body);
+      return status === 200 ? ok(data.detail ?? JSON.stringify(data).slice(0, 200)) : bad(data.error ?? data.detail ?? `HTTP ${status}`);
     }
     default:
       bad(`perintah tidak dikenal: ${cmd}`);

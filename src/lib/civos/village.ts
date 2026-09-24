@@ -291,7 +291,12 @@ async function embodimentStep(
     } else if (action === "BUY" && out.mood === "puas") {
       await queue("SPEAK", { message: `Barang dagangan masuk — belanja pasar desa selesai.` });
     }
-  } catch { /* direktif tak boleh membunuh denyut */ }
+  } catch (e) {
+    // F-04 FIX (review 16-h1): kegagalan antrean direktif dicatat jujur — dulu
+    // `catch {}` sunyi sehingga kegagalan eksekusi warga tak pernah terlihat.
+    const detail = e instanceof Error ? e.message.slice(0, 90) : String(e).slice(0, 90);
+    notes.push(`direktif gagal: ${detail}`);
+  }
 
   if (!online) {
     // Mimpi jaga: jalankan antrean di kernel SEKARANG (berlabel SIM, jujur).

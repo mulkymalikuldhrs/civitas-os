@@ -22,6 +22,7 @@ const TOOLS = [
   { name: "civitas_doctor", description: "Pemeriksaan kesehatan menyeluruh (db, server, backup, git, disk, rahasia).", inputSchema: { type: "object", properties: {} } },
   { name: "civitas_server_list", description: "Daftar semua server Minecraft (Bedrock/Java/remote) + status nyata.", inputSchema: { type: "object", properties: {} } },
   { name: "civitas_server_action", description: "Aksi server managed: start|stop|restart|status untuk id server.", inputSchema: { type: "object", properties: { id: { type: "string" }, action: { type: "string", enum: ["start", "stop", "restart", "status"] } }, required: ["id", "action"] } },
+  { name: "civitas_javabot", description: "Bot Java (mineflayer): status | connect | chat | command (konsol Paper via FIFO) | disconnect.", inputSchema: { type: "object", properties: { action: { type: "string", enum: ["status", "connect", "chat", "command", "disconnect"] }, message: { type: "string" }, command: { type: "string" } } } },
   { name: "civitas_census", description: "Sensus desa: ikat entitas villager nyata di dunia ke warga kernel.", inputSchema: { type: "object", properties: {} } },
   { name: "civitas_chat", description: "Bicara dengan warga (LLM) — persona + memori; balasan jujur dari otak warga.", inputSchema: { type: "object", properties: { body: { type: "string" }, senderName: { type: "string" } }, required: ["body"] } },
   { name: "civitas_tool_run", description: "Jalankan tool Toolforge (web_search/page_reader/code_write/build_plan/mine_route/patrol_report).", inputSchema: { type: "object", properties: { tool: { type: "string" }, params: { type: "object" } }, required: ["tool"] } },
@@ -130,6 +131,18 @@ async function callTool(name, args) {
       const r = await httpApi("/api/civos/action", { action: "tool_run", params: { tool: a.tool, ...(a.params ?? {}) } });
       if (r.status === 200 || r.status === 422) return { status: r.status, result: r.data };
       return { status: 0, result: { error: "kernel tidak terjangkau — tool butuh web app" } };
+    }
+    case "civitas_javabot": {
+      const action = a.action ?? "status";
+      if (action === "status") {
+        const r = await httpApi("/api/civos/javabot");
+        if (r.status === 200) return r.data;
+        return { error: "javabot status butuh web app (kernel tidak terjangkau)" };
+      }
+      const body = action === "connect" ? { action } : action === "chat" ? { action, message: a.message } : action === "command" ? { action, command: a.command } : action === "disconnect" ? { action } : null;
+      if (!body) return { error: `aksi javabot tidak dikenal: ${action} (status|connect|chat|command|disconnect)` };
+      const r = await httpApi("/api/civos/javabot", body);
+      return r.status === 200 || r.status === 502 ? r.data : { error: `HTTP ${r.status}: ${JSON.stringify(r.data).slice(0, 150)}` };
     }
     case "civitas_config_get": {
       const r = await httpApi("/api/civos/action", { action: "config_get", params: { key: a.key } });

@@ -414,3 +414,24 @@ Stage Summary:
 - VERDICT: CLI REAL · MCP-stdio REAL · MCP-HTTP REAL-tapi-FLYBRAIN (docs mismatch) · daemon REAL-dengan-masalah-kesehatan · selflife REAL · mcbot-console-path REAL (bukti log) · economy/ledger REAL · supabase REAL-opsional (1 bug) · docs PARTIAL.
 - P0: 0 (tidak ada klaim palsu ditemukan). P1: F-01 tick daemon crash ~53% (tail -1 menelan stderr; backup/daemon.log 38/72 "Bun v1.3.14"). P2: F-02 /api/mcp salah deskripsi di MASTER.md:149; F-03 supabase.ts:191 hapus pakai POST; F-04 village.ts:294 silent catch; F-05 konsol Java tak tersambung (ping-only); F-06 klaim "17 perintah" CLI vs 16 aktual.
 - tsc 0 error · lint 0 error/1 warning. Sistem lolos audit kejujuran di level arsitektur; perbaiki F-01 sebelum finalisasi.
+
+---
+Task ID: 16-d-mineflayer
+Agent: dev-agent (general-purpose)
+Task: mineflayer Java bot bridge (javabot.ts) + real probe
+
+Work Log:
+- Baca worklog (Task 16-b/16-h1: mineflayer@4.39.0 = top-1 adopt, F-05 konsol Java tak tersambung) + pola mcbot.ts (dynamic-import anti-bundler, status jujur) + types.ts/events.ts/console.ts (konvensi ID, emit, FIFO).
+- `bun add mineflayer` → mineflayer@4.39.0 (37 paket, node_modules terverifikasi; package.json/bun.lock sudah ter-commit oleh self-sync daemon sebelumnya).
+- Pre-verify infra nyata: Paper 1.21.1 RUNNING (pid 2897, `java < console.in`), port 25565 LISTEN, FIFO ada pembaca (`echo list > console.in` → "There are 0 of a max of 10 players online" di latest.log).
+- Buat src/lib/civos/javabot.ts — bot Java Edition nyata, miror mcbot.ts: javaBotStatus() {configured, connected, connecting, username, server, since, fifo, log, reconnect, lastEvents}; javaBotConnect(opts) → mineflayer createBot offline 127.0.0.1:25565, event login/spawn/chat/kicked/end/error → ring buffer 50 event ber-timestamp + emit MC_STATUS (subjectType MINECRAFT_JAVA) bila event bus kernel terjangkau; javaBotChat(message) → chat dunia nyata; javaBotCommand(cmd) → tulis ke FIFO console.in via fs/promises open/write/close dengan timeout 5 dtk (bukan appendFile murni — tak bisa dibatalkan bila pembaca hilang); javaBotDisconnect() → quit bersih; auto-reconnect backoff 2/4/8 dtk maks 3× pada "end" tak terduga; SEMUA fungsi catch → hasil jujur, tidak pernah melempar. Sintaks TS erasable-only (tanpa enum/@/ alias) agar bisa diimpor probe node langsung.
+- Buat scripts/javabot_probe.mjs — probe nyata import("../src/lib/civos/javabot.ts"): status → connect → chat → command FIFO → amati event → disconnect, semua payload dicetak.
+- PROBE LULUS (exit 0): spawn 11:30:39 pos 0 72 9; chat terkirim & ter-echo; FIFO 5 byte; quit→end bersih. Bukti server (latest.log): "UUID of player CIVITAS_AGENT is 9fede497-…", "CIVITAS_AGENT joined the game", "logged in with entity id 25 at ([world]-0.5, 72.0, 8.5)", "There are 1 of a max of 10 players online: CIVITAS_AGENT" (output `list` via FIFO — bot terhitung online), "[Not Secure] <CIVITAS_AGENT> CIVITAS_AGENT hadir di Java realm", "left the game".
+- Uji auto-reconnect runtime nyata: connect → `kick CIVITAS_AGENT uji-auto-reconnect` via FIFO → event kicked+end("tak terduga") → reconnect_scheduled 1/3 (2000ms) → login+spawn ulang 11:31:39 (CONNECTED-AGAIN: true) → disconnect bersih. Bukti log: "Kicked CIVITAS_AGENT: uji-auto-reconnect".
+- tsc --noEmit: 0 error; eslint javabot.ts: 0 (probe .mjs diabaikan konfigurasi lint).
+
+Stage Summary:
+- Gap F-05/16-b tertutup: Java realm kini punya bot nyata (mineflayer 4.39.0) + jalur kernel→konsol Paper (FIFO) — dua-duanya teruji end-to-end dengan bukti log server, bukan klaim.
+- Deliverables: src/lib/civos/javabot.ts (6 API: status/connect/chat/command/disconnect + auto-reconnect), scripts/javabot_probe.mjs (probe nyata replayable).
+- Bukti kunci: latest.log 11:30:38–11:30:48 (join+chat+list) & 11:31:36–11:31:39 (kick→auto-reconnect→spawn ulang); probe exit 0; tsc/eslint hijau.
+- Batasan jujur: (1) di luar kernel (probe node) emit ke event bus gagal resoluksi "./events" → dicatat "kernel_bus_unavailable" sekali di ring buffer (di dalam Next.js emit normal); (2) peringatan node MODULE_TYPELESS_PACKAGE_JSON (package.json tanpa "type") — kosmetik, ESM terdeteksi otomatis, tidak boleh edit package.json; (3) javaBotCommand tidak membaca output perintah (FIFO write-only) — verifikasi output via logs/latest.log (polanya sama dengan console.ts Bedrock); (4) bot tak dipersist otomatis oleh daemon — wiring heartbeat/daemon ada di agen lain (selflife.ts/daemon.sh/village.ts).

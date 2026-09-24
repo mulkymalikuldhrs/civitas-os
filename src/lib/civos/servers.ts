@@ -73,8 +73,10 @@ export async function defaultServers(): Promise<CivServer[]> {
       port: 25565,
       managed: true,
       script: `${ROOT}/scripts/java_server.sh`,
-      autoStart: false,
-      note: "edisi Java — dunia terpisah; bot Bedrock tidak join ke sini",
+      // 2026-09-24: autoStart AKTIF (mandat all-in-one Bedrock+Java) — heap 384M
+      // + metaspace cap agar OOM killer tidak memangsa server lagi.
+      autoStart: true,
+      note: "edisi Java — dunia terpisah; bot CIVITAS_AGENT (mineflayer) join ke sini",
     },
     {
       id: "aternos",
