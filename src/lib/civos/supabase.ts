@@ -283,3 +283,94 @@ export async function pushFullMirror(): Promise<FullMirrorResult> {
   }]).catch(() => undefined);
   return { ok: allOk, enabled: true, tables: FULL_MIRROR_TABLES.length, rowsPushed, perTable, error: allOk ? undefined : "sebagian tabel gagal — lihat perTable" };
 }
+
+// ---------- STORAGE API (v1.5 "CITADEL") ----------
+// Backup dunia disalin ke awan: bucket Supabase Storage. Real, idempoten, jujur.
+
+const BACKUP_BUCKET = "civitas-backups";
+
+async function storageFetch(creds: SupabaseCreds, path: string, init?: RequestInit): Promise<{ ok: boolean; status: number; body: Response["body"] | string | null; headers: Headers }> {
+  const res = await fetch(`${creds.url}/storage/v1${path}`, {
+    ...init,
+    headers: { apikey: creds.key, Authorization: `Bearer ${creds.key}`, ...(init?.headers ?? {}) },
+    signal: AbortSignal.timeout(120_000),
+  });
+  return { ok: res.ok, status: res.status, body: res.body, headers: res.headers };
+}
+
+/** Pastikan bucket backup ada (idempoten — 400 "sudah ada" dianggap sukses). */
+export async function storageEnsureBucket(): Promise<{ ok: boolean; detail: string }> {
+  const creds = await supabaseCreds();
+  if (!creds.enabled) return { ok: false, detail: "kredensial supabase belum diisi" };
+  try {
+    const r = await storageFetch(creds, `/bucket`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: BACKUP_BUCKET, public: false }),
+    });
+    if (r.ok) return { ok: true, detail: `bucket ${BACKUP_BUCKET} dibuat` };
+    const text = r.body ? await new Response(r.body).text() : "";
+    if (r.status === 400 && text.includes("already") ) return { ok: true, detail: `bucket ${BACKUP_BUCKET} sudah ada` };
+    return { ok: false, detail: `HTTP ${r.status} ${text.slice(0, 120)}` };
+  } catch (e) {
+    return { ok: false, detail: e instanceof Error ? e.message.slice(0, 120) : "gagal" };
+  }
+}
+
+/** Unggah satu file backup ke bucket. */
+export async function storageUploadBackup(file: string, bytes: Buffer): Promise<{ ok: boolean; detail: string }> {
+  const creds = await supabaseCreds();
+  if (!creds.enabled) return { ok: false, detail: "kredensial supabase belum diisi" };
+  try {
+    const r = await storageFetch(creds, `/object/${BACKUP_BUCKET}/${encodeURIComponent(file)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/octet-stream", "x-upsert": "true" },
+      body: new Uint8Array(bytes),
+    });
+    if (r.ok) return { ok: true, detail: `terunggah ke ${BACKUP_BUCKET}/${file} (${(bytes.length / 1e6).toFixed(1)} MB)` };
+    const text = r.body ? await new Response(r.body).text() : "";
+    return { ok: false, detail: `HTTP ${r.status} ${text.slice(0, 140)}` };
+  } catch (e) {
+    return { ok: false, detail: e instanceof Error ? e.message.slice(0, 140) : "unggah gagal" };
+  }
+}
+
+/** Daftar arsip di awan. */
+export async function storageListBackups(): Promise<{ ok: boolean; items: Array<{ name: string; size: number; at: string }>; detail: string }> {
+  const creds = await supabaseCreds();
+  if (!creds.enabled) return { ok: false, items: [], detail: "kredensial supabase belum diisi" };
+  try {
+    const r = await storageFetch(creds, `/object/list/${BACKUP_BUCKET}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prefix: "", limit: 100, sortBy: { column: "created_at", order: "desc" } }),
+    });
+    const text = r.body ? await new Response(r.body).text() : "[]";
+    if (!r.ok) return { ok: false, items: [], detail: `HTTP ${r.status} ${text.slice(0, 140)}` };
+    const data = JSON.parse(text) as Array<{ name?: string; created_at?: string; metadata?: { size?: number } }>;
+    return {
+      ok: true,
+      items: (Array.isArray(data) ? data : []).map((x) => ({ name: x.name ?? "?", size: x.metadata?.size ?? 0, at: x.created_at ?? "" })),
+      detail: `${data.length} arsip di awan`,
+    };
+  } catch (e) {
+    return { ok: false, items: [], detail: e instanceof Error ? e.message.slice(0, 140) : "list gagal" };
+  }
+}
+
+/** Unduh arsip dari awan ke memori. */
+export async function storageDownloadBackup(file: string): Promise<{ ok: boolean; bytes?: Buffer; detail: string }> {
+  const creds = await supabaseCreds();
+  if (!creds.enabled) return { ok: false, detail: "kredensial supabase belum diisi" };
+  try {
+    const r = await storageFetch(creds, `/object/${BACKUP_BUCKET}/${encodeURIComponent(file)}`, { method: "GET" });
+    if (!r.ok) {
+      const text = r.body ? await new Response(r.body).text() : "";
+      return { ok: false, detail: `HTTP ${r.status} ${text.slice(0, 140)}` };
+    }
+    const buf = Buffer.from(await new Response(r.body).arrayBuffer());
+    return { ok: true, bytes: buf, detail: `${(buf.length / 1e6).toFixed(1)} MB terunduh` };
+  } catch (e) {
+    return { ok: false, detail: e instanceof Error ? e.message.slice(0, 140) : "unduh gagal" };
+  }
+}
