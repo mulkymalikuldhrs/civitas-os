@@ -1,3 +1,15 @@
 {"at":"2026-09-24T21:00:02.928Z","kind":"BORN","pid":6740,"name":"observer-mug0msw073","purpose":"spawn manual via operator"}
 {"at":"2026-09-24T21:00:26.929Z","kind":"REPORT","cycle":3,"rssMb":38,"load1":0.73,"note":"observer-mug0msw073 hidup: siklus 3, RSS 38MB"}
 {"at":"2026-09-24T21:00:50.929Z","kind":"REPORT","cycle":6,"rssMb":38,"load1":1.45,"note":"observer-mug0msw073 hidup: siklus 6, RSS 38MB"}
+{"at":"2026-09-24T21:01:14.929Z","kind":"REPORT","cycle":9,"rssMb":38,"load1":1.78,"note":"observer-mug0msw073 hidup: siklus 9, RSS 38MB"}
+{"at":"2026-09-24T21:01:38.929Z","kind":"REPORT","cycle":12,"rssMb":38,"load1":1.17,"note":"observer-mug0msw073 hidup: siklus 12, RSS 38MB"}
+{"at":"2026-09-24T21:02:02.929Z","kind":"REPORT","cycle":15,"rssMb":38,"load1":0.84,"note":"observer-mug0msw073 hidup: siklus 15, RSS 38MB"}
+{"at":"2026-09-24T21:02:26.929Z","kind":"REPORT","cycle":18,"rssMb":38,"load1":0.7,"note":"observer-mug0msw073 hidup: siklus 18, RSS 38MB"}
+{"at":"2026-09-24T21:02:50.929Z","kind":"REPORT","cycle":21,"rssMb":38,"load1":0.7,"note":"observer-mug0msw073 hidup: siklus 21, RSS 38MB"}
+{"at":"2026-09-24T21:03:14.929Z","kind":"REPORT","cycle":24,"rssMb":38,"load1":0.61,"note":"observer-mug0msw073 hidup: siklus 24, RSS 38MB"}
+{"at":"2026-09-24T21:03:38.929Z","kind":"REPORT","cycle":27,"rssMb":38,"load1":0.4,"note":"observer-mug0msw073 hidup: siklus 27, RSS 38MB"}
+{"at":"2026-09-24T21:04:02.929Z","kind":"REPORT","cycle":30,"rssMb":38,"load1":0.37,"note":"observer-mug0msw073 hidup: siklus 30, RSS 38MB"}
+{"at":"2026-09-24T21:04:26.929Z","kind":"REPORT","cycle":33,"rssMb":38,"load1":0.24,"note":"observer-mug0msw073 hidup: siklus 33, RSS 38MB"}
+{"at":"2026-09-24T21:04:50.929Z","kind":"REPORT","cycle":36,"rssMb":38,"load1":0.16,"note":"observer-mug0msw073 hidup: siklus 36, RSS 38MB"}
+{"at":"2026-09-24T21:05:14.929Z","kind":"REPORT","cycle":39,"rssMb":38,"load1":0.11,"note":"observer-mug0msw073 hidup: siklus 39, RSS 38MB"}
+{"at":"2026-09-24T21:05:22.929Z","kind":"EXPIRED","cycle":40,"reason":"maxCycles=40 (temporary lifecycle)"}

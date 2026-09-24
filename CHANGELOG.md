@@ -29,6 +29,16 @@ Konsolidasi dokumentasi pasca-audit + referensi sumber riset + deskripsi repo re
   langsung menggantikan skrip orphan-squash lama agar history utuh; bundle backup
   full-history 344MB di luar repo.
 
+### Verifikasi ulang & bukti hidup (ronde finalisasi)
+- Gerbang penuh diulang di HEAD terkini: `tsc` exit 0 · invarian **63 PASS / 0 FAIL** ·
+  selftest organisme PASS end-to-end (mutasi L1 ADOPTED B=1.2ms vs A=4.6ms via git
+  worktree; child PID 6740 RUNNING; capability `text.hash` BUILD; tick cycle 19;
+  immuneEvents=0) · `next build` hijau.
+- Bukti Minecraft end-to-end segar di `mc-server/java/logs/latest.log`: bot
+  **CIVITAS_AGENT** join nyata 3× (20:49, 20:55, 21:00:34 UTC — UUID
+  `9fede497-bd6a-3b20-9b92-d0254bfbc853`), reconnect otomatis bekerja, Paper sehat
+  (pid 3689, port 25565). Server remote Aternos dilaporkan jujur tidur (INV-41 PASS).
+
 ## [1.2.0] — 2026-09-25 · "ORGANISM"
 
 Mandat pemilik: General Autonomous Digital Organism (38 poin blueprint) untuk SEMUA role ke depan +
