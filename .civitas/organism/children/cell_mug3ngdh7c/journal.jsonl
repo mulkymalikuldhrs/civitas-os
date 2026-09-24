@@ -12,3 +12,4 @@
 {"at":"2026-09-24T22:28:56.217Z","kind":"REPORT","cycle":33,"rssMb":39,"load1":0.23,"note":"observer-mug3ngdh7c hidup: siklus 33, RSS 39MB"}
 {"at":"2026-09-24T22:29:20.217Z","kind":"REPORT","cycle":36,"rssMb":40,"load1":0.15,"note":"observer-mug3ngdh7c hidup: siklus 36, RSS 40MB"}
 {"at":"2026-09-24T22:29:44.217Z","kind":"REPORT","cycle":39,"rssMb":40,"load1":0.26,"note":"observer-mug3ngdh7c hidup: siklus 39, RSS 40MB"}
+{"at":"2026-09-24T22:29:52.217Z","kind":"EXPIRED","cycle":40,"reason":"maxCycles=40 (temporary lifecycle)"}
