@@ -40,5 +40,16 @@
     "lastHeartbeat": "2026-09-24T20:15:02.821Z",
     "cycles": 29,
     "exitCode": null
+  },
+  {
+    "id": "cell_mufzmj4xa",
+    "name": "observer-mufzmj4xa",
+    "role": "observer",
+    "kind": "temporary",
+    "purpose": "spawn manual via operator",
+    "pid": 4410,
+    "dir": "/home/z/my-project/.civitas/organism/children/cell_mufzmj4xa",
+    "spawnedAt": "2026-09-24T20:31:50.626Z",
+    "status": "RUNNING"
   }
 ]
