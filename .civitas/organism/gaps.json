@@ -1,0 +1,62 @@
+[
+  {
+    "goalId": "goal_27a227",
+    "required": [
+      "probe.env"
+    ],
+    "available": [
+      "probe.env"
+    ],
+    "missing": [],
+    "plan": []
+  },
+  {
+    "goalId": "goal_532de0",
+    "required": [
+      "probe.env"
+    ],
+    "available": [
+      "probe.env"
+    ],
+    "missing": [],
+    "plan": []
+  },
+  {
+    "goalId": "goal_9dda35",
+    "required": [
+      "probe.env"
+    ],
+    "available": [
+      "probe.env"
+    ],
+    "missing": [],
+    "plan": []
+  },
+  {
+    "goalId": "goal_d09b9a",
+    "required": [
+      "mc.raknet"
+    ],
+    "available": [
+      "mc.raknet"
+    ],
+    "missing": [],
+    "plan": []
+  },
+  {
+    "goalId": "goal_722077",
+    "required": [
+      "census.snapshot"
+    ],
+    "available": [],
+    "missing": [
+      "census.snapshot"
+    ],
+    "plan": [
+      {
+        "capabilityId": "census.snapshot",
+        "how": "BUILD"
+      }
+    ]
+  }
+]

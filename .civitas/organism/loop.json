@@ -1,0 +1,12 @@
+{
+  "phase": "RUNNING",
+  "cycle": 1,
+  "stats": {
+    "actions": 0,
+    "failures": 0,
+    "mutations": 2,
+    "spawns": 0,
+    "lessons": 0
+  },
+  "lastTickAt": "2026-09-24T20:10:03.638Z"
+}

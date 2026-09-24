@@ -1,0 +1,28 @@
+[
+  {
+    "id": "mut_mufytnfo5a2",
+    "at": "2026-09-24T20:09:23.172Z",
+    "level": "L1_PARAMETER",
+    "target": "genome.weights",
+    "hypothesis": "Bobot penilaian baru memberi distribusi keputusan lebih sehat tanpa biaya ekstra",
+    "status": "REJECTED",
+    "aSnapshot": "{\n  \"weights\": {\n    \"reward\": 1,\n    \"strategic\": 0.8,\n    \"feasibility\": 0.6,\n    \"costPenalty\": 0.5,\n    \"riskPenalty\": 0.9,\n    \"novelty\": 0.2\n  },\n  \"strategy\": \"balanced-growth\",\n  \"workflow\": {\n    \"intervalMs\": 60000,\n    \"maxGoalsPerCycle\": 5,\n    \"doNothingBias\": 0.35,\n    \"steps\": [\n      \"observe\",\n      \"decide\",\n      \"act\",\n      \"evaluate\",\n      \"reflect\"\n    ]\n  },\n  \"tools\": [\n    \"envprobe\",\n    \"reposcan\",\n    \"mutation\",\n    \"spawner\",\n    \"capability\",\n    \"llm\"\n  ],\n  \"agentComposition\": [\n    {\n      \"role\": \"observer\",\n      \"count\": 1\n    }\n  ]\n}",
+    "bPatch": "{\n  \"weights\": {\n    \"reward\": 1.071,\n    \"strategic\": 0.886,\n    \"feasibility\": 0.624,\n    \"costPenalty\": 0.585,\n    \"riskPenalty\": 0.792,\n    \"novelty\": 0.164\n  },\n  \"strategy\": \"balanced-growth\",\n  \"workflow\": {\n    \"intervalMs\": 60000,\n    \"maxGoalsPerCycle\": 5,\n    \"doNothingBias\": 0.35,\n    \"steps\": [\n      \"observe\",\n      \"decide\",\n      \"act\",\n      \"evaluate\",\n      \"reflect\"\n    ]\n  },\n  \"tools\": [\n    \"envprobe\",\n    \"reposcan\",\n    \"mutation\",\n    \"spawner\",\n    \"capability\",\n    \"llm\"\n  ],\n  \"agentComposition\": [\n    {\n      \"role\": \"observer\",\n      \"count\": 1\n    }\n  ]\n}",
+    "sandbox": "/home/z/my-project/.civitas-sandbox/mut_mufytnfo5a2",
+    "verdict": "benchmark gagal: Command failed: bun /home/z/my-project/.civitas-sandbox/mut_mufytnfo5a2/scripts/organism_bench.ts .civitas/organism/dna.",
+    "lesson": "benchmark adalah gerbang mutasi — tanpa pengukuran tidak ada adopsi"
+  },
+  {
+    "id": "mut_mufyuean1nz",
+    "at": "2026-09-24T20:09:57.983Z",
+    "level": "L1_PARAMETER",
+    "target": "genome.weights",
+    "hypothesis": "Bobot penilaian baru memberi distribusi keputusan lebih sehat tanpa biaya ekstra",
+    "status": "REJECTED",
+    "aSnapshot": "{\n  \"weights\": {\n    \"reward\": 1,\n    \"strategic\": 0.8,\n    \"feasibility\": 0.6,\n    \"costPenalty\": 0.5,\n    \"riskPenalty\": 0.9,\n    \"novelty\": 0.2\n  },\n  \"strategy\": \"balanced-growth\",\n  \"workflow\": {\n    \"intervalMs\": 8000,\n    \"maxGoalsPerCycle\": 5,\n    \"doNothingBias\": 0.35,\n    \"steps\": [\n      \"observe\",\n      \"decide\",\n      \"act\",\n      \"evaluate\",\n      \"reflect\"\n    ]\n  },\n  \"tools\": [\n    \"envprobe\",\n    \"reposcan\",\n    \"mutation\",\n    \"spawner\",\n    \"capability\",\n    \"llm\"\n  ],\n  \"agentComposition\": [\n    {\n      \"role\": \"observer\",\n      \"count\": 1\n    }\n  ]\n}",
+    "bPatch": "{\n  \"weights\": {\n    \"reward\": 1.011,\n    \"strategic\": 0.718,\n    \"feasibility\": 0.653,\n    \"costPenalty\": 0.55,\n    \"riskPenalty\": 1.062,\n    \"novelty\": 0.23\n  },\n  \"strategy\": \"balanced-growth\",\n  \"workflow\": {\n    \"intervalMs\": 8000,\n    \"maxGoalsPerCycle\": 5,\n    \"doNothingBias\": 0.35,\n    \"steps\": [\n      \"observe\",\n      \"decide\",\n      \"act\",\n      \"evaluate\",\n      \"reflect\"\n    ]\n  },\n  \"tools\": [\n    \"envprobe\",\n    \"reposcan\",\n    \"mutation\",\n    \"spawner\",\n    \"capability\",\n    \"llm\"\n  ],\n  \"agentComposition\": [\n    {\n      \"role\": \"observer\",\n      \"count\": 1\n    }\n  ]\n}",
+    "sandbox": "/home/z/my-project/.civitas-sandbox/mut_mufyuean1nz",
+    "verdict": "benchmark gagal: Command failed: bun /home/z/my-project/.civitas-sandbox/mut_mufyuean1nz/scripts/organism_bench.ts .civitas/organism/dna.",
+    "lesson": "benchmark adalah gerbang mutasi — tanpa pengukuran tidak ada adopsi"
+  }
+]

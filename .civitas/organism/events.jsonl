@@ -1,0 +1,1 @@
+{"at":"2026-09-24T20:10:03.640Z","kind":"CYCLE","cycle":1,"decision":"PILIH 'Periksa & pulihkan web_app (health=0)' skor 11.10 > doNothing 3.93","action":"web app merespons 500 (probe ulang nyata)","ms":558}

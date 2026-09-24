@@ -1,0 +1,65 @@
+[
+  {
+    "id": "text.hash",
+    "kind": "module",
+    "status": "DEGRADED",
+    "impl": "/home/z/my-project/.civitas/organism/capabilities/text.hash.mjs",
+    "verifiedAt": "2026-09-24T20:09:28.732Z",
+    "verifyNote": "impl hilang dari disk",
+    "owner": "organism"
+  },
+  {
+    "id": "probe.env",
+    "kind": "probe",
+    "status": "AVAILABLE",
+    "impl": "src/lib/civos/organism/envprobe.ts",
+    "owner": "organism",
+    "verifiedAt": "2026-09-24T20:10:03.393Z",
+    "verifyNote": "impl tersedia"
+  },
+  {
+    "id": "probe.repo",
+    "kind": "probe",
+    "status": "AVAILABLE",
+    "impl": "src/lib/civos/organism/repos.ts",
+    "owner": "organism",
+    "verifiedAt": "2026-09-24T20:10:03.393Z",
+    "verifyNote": "impl tersedia"
+  },
+  {
+    "id": "mc.raknet",
+    "kind": "probe",
+    "status": "AVAILABLE",
+    "impl": "src/lib/civos/organism/worldmodel.ts#raknetPing",
+    "owner": "villager-builder",
+    "verifiedAt": "2026-09-24T20:10:03.393Z",
+    "verifyNote": "impl tersedia"
+  },
+  {
+    "id": "llm.brain",
+    "kind": "service",
+    "status": "AVAILABLE",
+    "impl": "src/lib/civos/organism/llm.ts",
+    "owner": "organism",
+    "verifiedAt": "2026-09-24T20:10:03.393Z",
+    "verifyNote": "impl tersedia"
+  },
+  {
+    "id": "mutation.sandbox",
+    "kind": "module",
+    "status": "AVAILABLE",
+    "impl": "src/lib/civos/organism/mutation.ts",
+    "owner": "organism",
+    "verifiedAt": "2026-09-24T20:10:03.393Z",
+    "verifyNote": "impl tersedia"
+  },
+  {
+    "id": "spawn.child",
+    "kind": "module",
+    "status": "AVAILABLE",
+    "impl": "src/lib/civos/organism/spawner.ts",
+    "owner": "organism",
+    "verifiedAt": "2026-09-24T20:10:03.393Z",
+    "verifyNote": "impl tersedia"
+  }
+]

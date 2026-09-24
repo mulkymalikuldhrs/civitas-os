@@ -39,8 +39,11 @@ export const CONFIG_FIELDS: ConfigField[] = [
   { key: "chat.autoReply", label: "Warga membalas chat dunia otomatis", kind: "BOOLEAN", group: "chat", default: "true" },
   { key: "chat.relayToDashboard", label: "Chat dunia tercatat di dashboard", kind: "BOOLEAN", group: "chat", default: "true" },
   { key: "chat.maxLen", label: "Panjang maks pesan", kind: "NUMBER", group: "chat", default: "220" },
-  // LLM
+  // LLM — custom provider via UI (mandat organisme: base URL + API key + model)
   { key: "llm.model", label: "Model otak warga & institusi", kind: "STRING", group: "llm", default: "glm-4-plus", note: "glm-4-plus | glm-4-flash | reflex" },
+  { key: "llm.baseUrl", label: "Base URL LLM (OpenAI-compatible)", kind: "STRING", group: "llm", default: "", note: "Kosong = mode HEURISTIC gratis (tanpa jaringan). Contoh: https://api.openai.com/v1 atau endpoint kompatibel lain" },
+  { key: "llm.apiKey", label: "API key LLM", kind: "SECRET", group: "llm", note: "Tidak pernah tampil kembali; dikirim sebagai Bearer token" },
+  { key: "llm.enabled", label: "Aktifkan LLM remote (bila baseUrl+key terisi)", kind: "BOOLEAN", group: "llm", default: "false", note: "Free-first: organisme hidup tanpa ini" },
   // CLOUD — Supabase mirror (mandat #9)
   { key: "supabase.url", label: "Supabase URL", kind: "SECRET", group: "cloud", env: "SUPABASE_URL", note: "https://<ref>.supabase.co" },
   { key: "supabase.serviceKey", label: "Supabase service key", kind: "SECRET", group: "cloud", env: "SUPABASE_SERVICE_KEY", note: "Tidak pernah tampil kembali; hanya overwrite" },

@@ -40,3 +40,17 @@ try {
   }));
   process.exitCode = 0; // daemon loop tetap jalan; kegagalan tercatat di log
 }
+
+// ── ORGANISM RUNTIME (mandat 38-poin): denyut organisme mengikuti daemon ──
+// Gagal organisme TIDAK boleh menggagalkan selflife tick (isolasi subsystem).
+try {
+  const { getOrganismRuntime } = await import("../src/lib/civos/organism/index");
+  const org = await getOrganismRuntime().tick(false); // hormati PAUSED/LOCKED/KILLED
+  console.log(JSON.stringify({ at: new Date().toISOString(), organism: org }));
+} catch (e) {
+  console.log(JSON.stringify({
+    at: new Date().toISOString(),
+    organism: "CRASHED",
+    error: e instanceof Error ? `${e.name}: ${e.message}`.slice(0, 200) : String(e).slice(0, 200),
+  }));
+}

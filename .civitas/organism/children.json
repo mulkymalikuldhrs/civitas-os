@@ -1,0 +1,26 @@
+[
+  {
+    "id": "cell_mufytozz50",
+    "name": "observer-mufytozz50",
+    "role": "observer",
+    "kind": "temporary",
+    "purpose": "spawn manual via operator",
+    "pid": 2092,
+    "dir": "/home/z/my-project/.civitas/organism/children/cell_mufytozz50",
+    "spawnedAt": "2026-09-24T20:09:25.201Z",
+    "status": "RUNNING",
+    "lastHeartbeat": "2026-09-24T20:09:57.221Z",
+    "cycles": 4
+  },
+  {
+    "id": "cell_mufyufiwc6",
+    "name": "observer-mufyufiwc6",
+    "role": "observer",
+    "kind": "temporary",
+    "purpose": "spawn manual via operator",
+    "pid": 2194,
+    "dir": "/home/z/my-project/.civitas/organism/children/cell_mufyufiwc6",
+    "spawnedAt": "2026-09-24T20:09:59.578Z",
+    "status": "RUNNING"
+  }
+]

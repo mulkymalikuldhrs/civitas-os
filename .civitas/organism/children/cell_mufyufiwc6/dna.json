@@ -1,0 +1,86 @@
+{
+  "core": {
+    "id": "cell_409f42ea5f",
+    "name": "observer-mufyufiwc6",
+    "kind": "temporary",
+    "bornAt": "2026-09-24T20:09:59.577Z",
+    "parent": "CIVITAS-PRIME",
+    "purpose": "spawn manual via operator",
+    "hardConstraints": [
+      "Tidak pernah mengaku DONE tanpa bukti eksekusi nyata.",
+      "Semua aksi melewati limit imun deklaratif — tanpa pengecualian.",
+      "Kegagalan adalah data: catat hypothesis/result/reason/cost/lesson.",
+      "Free-first: jangan pakai resource berbayar bila ada jalur gratis.",
+      "Ketidaktahuan adalah state first-class — jangan sembunyikan."
+    ],
+    "killSwitchPath": "/home/z/my-project/.civitas/organism/KILL_SWITCH"
+  },
+  "genome": {
+    "weights": {
+      "reward": 1,
+      "strategic": 0.8,
+      "feasibility": 0.6,
+      "costPenalty": 0.5,
+      "riskPenalty": 0.9,
+      "novelty": 0.2
+    },
+    "strategy": "balanced-growth",
+    "workflow": {
+      "intervalMs": 8000,
+      "maxGoalsPerCycle": 5,
+      "doNothingBias": 0.35,
+      "steps": [
+        "observe",
+        "decide",
+        "act",
+        "evaluate",
+        "reflect"
+      ]
+    },
+    "tools": [
+      "envprobe",
+      "reposcan",
+      "mutation",
+      "spawner",
+      "capability",
+      "llm"
+    ],
+    "agentComposition": [
+      {
+        "role": "observer",
+        "count": 1
+      }
+    ]
+  },
+  "immune": {
+    "timeoutMs": 30000,
+    "maxRecursion": 3,
+    "maxRetries": 2,
+    "maxMemoryMb": 1024,
+    "maxMemoryEntries": 500,
+    "networkAllowlist": [
+      "127.0.0.1",
+      "localhost",
+      "mulkymalikuldhr.aternos.me",
+      "api.binance.com"
+    ],
+    "networkTimeoutMs": 8000,
+    "toolPermissions": {
+      "envprobe": true,
+      "reposcan": true,
+      "mutation": true,
+      "spawner": true,
+      "capability": true,
+      "llm": true,
+      "server_action": false,
+      "git_push": false
+    }
+  },
+  "permissions": {
+    "fsRead": true,
+    "fsWrite": true,
+    "exec": true,
+    "network": true,
+    "spawn": true
+  }
+}

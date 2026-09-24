@@ -1,0 +1,208 @@
+{
+  "at": "2026-09-24T20:10:03.392Z",
+  "resources": {
+    "cpuCount": 2,
+    "load1": 0.22,
+    "load5": 0.12,
+    "rssMb": 80,
+    "heapMb": 4,
+    "freememMb": 2286,
+    "totalmemMb": 4042,
+    "diskFreeMb": 6676,
+    "uptimeS": 1466
+  },
+  "infrastructure": {
+    "web_app": {
+      "health": 0,
+      "note": "status 500"
+    },
+    "daemon": {
+      "health": 0,
+      "note": "tidak berjalan"
+    },
+    "java_console": {
+      "health": 0,
+      "note": "FIFO tidak ada"
+    },
+    "mc_bedrock": {
+      "health": 0,
+      "note": "tidak merespons ping"
+    }
+  },
+  "agents": [
+    {
+      "id": "CIVITAS-PRIME",
+      "kind": "root",
+      "alive": true,
+      "role": "governing-organism"
+    },
+    {
+      "id": "cell_mufytozz50",
+      "kind": "temporary",
+      "alive": true,
+      "role": "observer"
+    },
+    {
+      "id": "cell_mufyufiwc6",
+      "kind": "temporary",
+      "alive": true,
+      "role": "observer"
+    }
+  ],
+  "products": [
+    {
+      "name": "bin",
+      "path": "bin",
+      "owner": "villager-social",
+      "subsystems": 1
+    },
+    {
+      "name": "prisma",
+      "path": "prisma",
+      "owner": "unassigned",
+      "subsystems": 1
+    },
+    {
+      "name": "scripts",
+      "path": "scripts",
+      "owner": "unassigned",
+      "subsystems": 24
+    },
+    {
+      "name": "src",
+      "path": "src",
+      "owner": "unassigned",
+      "subsystems": 4
+    }
+  ],
+  "knowledge": {
+    "memoryEntries": 0
+  },
+  "risks": [
+    {
+      "key": "duplicate_organs",
+      "level": "LOW",
+      "note": "nama modul mirip: botjoinprobe ×2, civverify ×2, router ×2"
+    }
+  ],
+  "experiments": [
+    {
+      "id": "mut_mufytnfo5a2",
+      "status": "REJECTED",
+      "verdict": "benchmark gagal: Command failed: bun /home/z/my-project/.civitas-sandbox/mut_mufytnfo5a2/scripts/organism_bench.ts .civitas/organism/dna."
+    },
+    {
+      "id": "mut_mufyuean1nz",
+      "status": "REJECTED",
+      "verdict": "benchmark gagal: Command failed: bun /home/z/my-project/.civitas-sandbox/mut_mufyuean1nz/scripts/organism_bench.ts .civitas/organism/dna."
+    }
+  ],
+  "economy": {
+    "cycleCostMs": 0,
+    "actionsDone": 0,
+    "valueScore": 0
+  },
+  "epistemic": {
+    "known": [
+      {
+        "key": "runtime",
+        "value": "runtime v24.3.0 (1.3.14)",
+        "at": "2026-09-24T20:10:03.104Z",
+        "source": "envprobe"
+      },
+      {
+        "key": "cpu",
+        "value": "2 core load1=0.22",
+        "at": "2026-09-24T20:10:03.104Z",
+        "source": "envprobe"
+      },
+      {
+        "key": "rss_mb",
+        "value": "80",
+        "at": "2026-09-24T20:10:03.104Z",
+        "source": "process"
+      },
+      {
+        "key": "disk_free_mb",
+        "value": "6676",
+        "at": "2026-09-24T20:10:03.104Z",
+        "source": "df"
+      },
+      {
+        "key": "web_app",
+        "value": "down (500)",
+        "at": "2026-09-24T20:10:03.104Z",
+        "source": "http"
+      },
+      {
+        "key": "daemon",
+        "value": "not running",
+        "at": "2026-09-24T20:10:03.104Z",
+        "source": "pidfile"
+      },
+      {
+        "key": "java_console_fifo",
+        "value": "absent",
+        "at": "2026-09-24T20:10:03.104Z",
+        "source": "fs"
+      },
+      {
+        "key": "mc_server_ping",
+        "value": "no pong (5ms)",
+        "at": "2026-09-24T20:10:03.104Z",
+        "source": "raknet-udp"
+      },
+      {
+        "key": "memory_entries",
+        "value": "0",
+        "at": "2026-09-24T20:10:03.104Z",
+        "source": "memory"
+      },
+      {
+        "key": "capabilities",
+        "value": "1/1 available",
+        "at": "2026-09-24T20:10:03.104Z",
+        "source": "registry"
+      }
+    ],
+    "unknown": [
+      {
+        "key": "remote_server_quota",
+        "why": "kuota jam Aternos tidak terbaca dari luar",
+        "probe": "mc.raknet"
+      },
+      {
+        "key": "player_concurrency_peak",
+        "why": "butuh census jangka panjang yang belum dibangun",
+        "probe": "census.snapshot"
+      },
+      {
+        "key": "true_java_uptime_24h",
+        "why": "log Paper belum dianalisis rentang 24 jam penuh",
+        "probe": "java.logscan"
+      }
+    ],
+    "assumptions": [
+      {
+        "key": "localhost_web_is_canary",
+        "note": "health 127.0.0.1 mewakili kesehatan app produksi",
+        "risky": true
+      },
+      {
+        "key": "fifo_write_reaches_console",
+        "note": "tulisan ke console.in sampai ke konsol Paper",
+        "risky": true
+      }
+    ],
+    "unverified": [
+      {
+        "key": "economy_ledger_consistency",
+        "howToVerify": "rekonsiliasi balances vs transaksi"
+      },
+      {
+        "key": "backup_restore_works",
+        "howToVerify": "restore satu backup ke direktori uji"
+      }
+    ]
+  }
+}
