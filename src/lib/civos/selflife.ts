@@ -116,6 +116,136 @@ export function listBackups(): Array<{ file: string; bytes: number; sha256?: str
     });
 }
 
+// ---------- SELF RESTORE (v1.5 "CITADEL") ----------
+// Mandat pemilik: "can restore via ui". Restore NYATA: verifikasi sha256 → stop server
+// → ekstrak tar.gz ke akar project → start ulang server. Scope "worlds" hanya dunia;
+// scope "full" termasuk DB kernel (memicu restart self-server agar Prisma membuka file baru).
+
+export type RestoreScope = "worlds" | "full";
+
+export interface RestoreResult {
+  ok: boolean;
+  file: string;
+  scope: RestoreScope;
+  detail: string;
+  steps: string[];
+  at: string;
+}
+
+function sanitizeBackupName(file: string): string | null {
+  if (!file.startsWith("civitas-") || !file.endsWith(".tar.gz")) return null;
+  if (file.includes("/") || file.includes("\\") || file.includes("..")) return null;
+  return file;
+}
+
+/** Jadwalkan restart self-server (proses Next produksi) secara detached — watchdog membangkitkan. */
+function scheduleSelfRestart(reason: string): void {
+  try {
+    const child = spawn("bash", ["-c", `sleep 3 && pkill -f 'next/dist/bin/next start' || true; pkill -f 'next start -p 3000' || true`], { detached: true, stdio: "ignore", cwd: ROOT });
+    child.unref();
+    console.log(`[restore] restart self-server dijadwalkan (${reason}) pid=${child.pid ?? "?"}`);
+  } catch { /* watchdog tetap penjaga terakhir */ }
+}
+
+export async function restoreBackup(rawFile: string, scope: RestoreScope = "full"): Promise<RestoreResult> {
+  const at = new Date().toISOString();
+  const steps: string[] = [];
+  const fail = (detail: string): RestoreResult => ({ ok: false, file: rawFile, scope, detail, steps, at });
+  const file = sanitizeBackupName(rawFile);
+  if (!file) return fail(`nama arsip tidak sah: ${rawFile.slice(0, 60)}`);
+  const full = path.join(BACKUP_DIR, file);
+  if (!fs.existsSync(full)) return fail(`arsip tidak ditemukan: ${file}`);
+
+  // 1) verifikasi integritas (manifest sha256 bila ada)
+  let expectSha = "";
+  try { expectSha = (JSON.parse(fs.readFileSync(`${full}.manifest.json`, "utf8")) as { sha256?: string }).sha256 ?? ""; } catch { /* manifest lama */ }
+  if (expectSha) {
+    const actual = sha256(full);
+    if (actual !== expectSha) return fail(`sha256 tidak cocok: arsip ${actual.slice(0, 12)}… vs manifest ${expectSha.slice(0, 12)}…`);
+    steps.push(`sha256 cocok (${actual.slice(0, 12)}…)`);
+  } else {
+    steps.push("manifest sha256 tidak ada — lanjut tanpa verifikasi (jujur)");
+  }
+
+  // 2) stop server managed agar dunia tidak ditulis saat ditukar
+  const { serverAction } = await import("./servers");
+  for (const id of ["local-java", "local-bedrock"]) {
+    const r = await serverAction(id, "stop").catch((e) => ({ ok: false, detail: String(e) }));
+    steps.push(`stop ${id}: ${r.ok ? "ok" : "dilewati"}`);
+  }
+
+  // 3) ekstrak (scope worlds hanya mc-server/*; full semuanya)
+  const args = scope === "worlds"
+    ? ["-xzf", full, "-C", ROOT, "--wildcards", "mc-server/*"]
+    : ["-xzf", full, "-C", ROOT];
+  const ex = await sh("tar", args, 300_000);
+  if (ex.code !== 0) return fail(`ekstrak gagal: ${(ex.err || ex.out).slice(0, 200)}`);
+  steps.push(`ekstrak ${scope === "worlds" ? "dunia" : "penuh (dunia+db+config)"} ok`);
+
+  // 4) start ulang server
+  await new Promise((res) => setTimeout(res, 1500));
+  for (const id of ["local-java", "local-bedrock"]) {
+    const r = await serverAction(id, "start").catch((e) => ({ ok: false, detail: String(e) }));
+    steps.push(`start ${id}: ${r.ok ? "ok" : "watchdog akan mencoba lagi"}`);
+  }
+
+  // 5) full → restart self-server agar Prisma membuka DB baru
+  if (scope === "full") scheduleSelfRestart("restore full termasuk db/custom.db");
+
+  await emit({
+    type: EVENT_TYPES.BACKUP_RESTORED,
+    subjectType: "KERNEL",
+    subjectId: "restore",
+    payload: { file, scope, steps },
+  });
+  return { ok: true, file, scope, detail: `restore ${scope} dari ${file} selesai (${steps.length} langkah)`, steps, at };
+}
+
+// ---------- SELF BACKUP CLOUD (v1.5) ----------
+
+/** Unggah arsip lokal terbaru (atau nama tertentu) ke Supabase Storage. */
+export async function backupToCloud(rawFile?: string): Promise<{ ok: boolean; detail: string; file?: string; at: string }> {
+  const at = new Date().toISOString();
+  try {
+    const { storageEnsureBucket, storageUploadBackup } = await import("./supabase");
+    const ensure = await storageEnsureBucket();
+    if (!ensure.ok) return { ok: false, detail: `bucket: ${ensure.detail}`, at };
+    const list = listBackups();
+    const target = rawFile ? list.find((b) => b.file === rawFile) : list[0];
+    if (!target) return { ok: false, detail: rawFile ? `arsip ${rawFile} tidak ada lokal` : "belum ada arsip lokal", at };
+    const bytes = fs.readFileSync(path.join(BACKUP_DIR, target.file));
+    const up = await storageUploadBackup(target.file, bytes);
+    await emit({ type: EVENT_TYPES.BACKUP_CLOUD, subjectType: "KERNEL", subjectId: "backup-cloud", payload: { file: target.file, ok: up.ok, detail: up.detail } });
+    return { ok: up.ok, detail: up.detail, file: target.file, at };
+  } catch (e) {
+    return { ok: false, detail: e instanceof Error ? e.message : "cloud error", at };
+  }
+}
+
+export async function cloudBackupList(): Promise<{ ok: boolean; items: Array<{ name: string; size: number; at: string }>; detail: string }> {
+  const { storageListBackups } = await import("./supabase");
+  return storageListBackups();
+}
+
+/** Unduh arsip dari awan (bila belum ada lokal) lalu restore. */
+export async function restoreFromCloud(rawFile: string, scope: RestoreScope = "full"): Promise<RestoreResult> {
+  const file = sanitizeBackupName(rawFile);
+  const at = new Date().toISOString();
+  const steps: string[] = [];
+  if (!file) return { ok: false, file: rawFile, scope, detail: "nama arsip tidak sah", steps, at };
+  if (!fs.existsSync(path.join(BACKUP_DIR, file))) {
+    const { storageDownloadBackup } = await import("./supabase");
+    const dl = await storageDownloadBackup(file);
+    if (!dl.ok || !dl.bytes) return { ok: false, file, scope, detail: `unduh gagal: ${dl.detail}`, steps, at };
+    fs.writeFileSync(path.join(BACKUP_DIR, file), dl.bytes);
+    steps.push(`terunduh dari awan (${(dl.bytes.length / 1e6).toFixed(1)} MB)`);
+  } else {
+    steps.push("arsip sudah ada lokal — unduh dilewati");
+  }
+  const r = await restoreBackup(file, scope);
+  return { ...r, steps: [...steps, ...r.steps] };
+}
+
 // ---------- SELF SYNC (git push ke 4 remote) ----------
 
 function readTokens(): Record<string, string> {
@@ -317,6 +447,25 @@ export async function selfLifeTick(): Promise<SelfLifeResult> {
     const tick = await heartbeatTick();
     out.pulse = { tick: tick.tick, target: tick.target, summary: tick.summary };
   } catch (e) { notes.push(`denyut gagal: ${e instanceof Error ? e.message : "?"}`); }
+  // 2b) MC-NET-PROXY — jembatan WS->TCP untuk klien Minecraft web. Mati -> spawn detached.
+  try {
+    const res = await fetch("http://127.0.0.1:3010/healthz", { signal: AbortSignal.timeout(3000) }).catch(() => null);
+    if (!res) {
+      const lock = path.join(ROOT, ".civitas/mcnetproxy.spawn.lock");
+      let lockFresh = false;
+      try { lockFresh = Date.now() - fs.statSync(lock).mtimeMs < 2 * 60_000; } catch { /* lock belum ada */ }
+      if (!lockFresh) {
+        fs.writeFileSync(lock, String(Date.now()));
+        const child = spawn("bun", [path.join(ROOT, "mini-services/mc-net-proxy/index.ts")], { detached: true, stdio: "ignore", cwd: ROOT });
+        child.unref();
+        notes.push(`mc-net-proxy: dihidupkan ulang (pid ${child.pid ?? "?"})`);
+      } else {
+        notes.push("mc-net-proxy: mati, lock spawn segar — tunggu siklus berikut");
+      }
+    } else {
+      notes.push(`mc-net-proxy: hidup (HTTP ${res.status})`);
+    }
+  } catch (e) { notes.push(`mc-net-proxy watchdog gagal: ${e instanceof Error ? e.message : "?"}`); }
   // 3) backup sesuai jadwal
   const backupHours = Number((await getConfigValue("backup.intervalHours")) || "6");
   const lastB = await db.civKV.findUnique({ where: { key: KV_LAST_BACKUP } });
@@ -325,6 +474,13 @@ export async function selfLifeTick(): Promise<SelfLifeResult> {
     out.backupRan = true;
     out.backup = await backupAll();
     if (!out.backup.ok) notes.push(`backup gagal: ${out.backup.detail}`);
+    else {
+      // v1.5 "CITADEL": auto sync arsip backup ke awan (Supabase Storage) — non-fatal
+      try {
+        const cloud = await backupToCloud(out.backup.file);
+        notes.push(cloud.ok ? `backup-cloud: ${cloud.detail}` : `backup-cloud gagal: ${cloud.detail}`);
+      } catch (e) { notes.push(`backup-cloud error: ${e instanceof Error ? e.message : "?"}`); }
+    }
   }
   // 4) sync sesuai jadwal
   const syncMin = Number((await getConfigValue("sync.intervalMinutes")) || "30");
