@@ -1,0 +1,8 @@
+{
+  "name": "mc-net-proxy",
+  "version": "1.5.0",
+  "private": true,
+  "scripts": {
+    "dev": "bun --hot index.ts"
+  }
+}
