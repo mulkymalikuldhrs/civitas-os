@@ -68,7 +68,7 @@ Ringkasan per 2026-09-24 (SLICE 11):
 | Chat 2 arah (dashboard ⇄ dunia) | VERIFIED LIVE | warga menjawab via LLM |
 | **Multi-server all-in-one (SLICE 11)** | VERIFIED LIVE | Bedrock PMMP online 4–11 ms; Java Purpur 1.21.1 online 4–5 ms; Aternos terping (tidur = jujur) |
 | **Self backup (SLICE 11)** | VERIFIED LIVE | tar.gz + manifest sha256 + retensi 7 |
-| **Self sync git → 4 remote (SLICE 11)** | VERIFIED LIVE | push 3 GitHub OK (GitLab jaringan, diulang otomatis) |
+| **Self sync git → 4 remote (SLICE 11)** | VERIFIED LIVE | **4/4 sinkron** — GitHub ×3 + GitLab (SSH altssh:443, force push via API unprotect) |
 | **Daemon self-life 24/7 (SLICE 11)** | VERIFIED LIVE | watchdog + denyut + backup/sync jadwal; log `backups/daemon.log` |
 | **MCP stdio 13 tools (SLICE 11)** | VERIFIED | initialize/tools/list/tools/call; fallback bun tanpa web app |
 | **CLI `civitas` (SLICE 11)** | VERIFIED | status/pulse/doctor/chat/server/backup/sync/config |

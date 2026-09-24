@@ -40,7 +40,7 @@ CIVITAS OS adalah **peradaban digital yang hidup tanpa perintah manusia**: ia be
 | **Multi-Server All-in-One** | Registry Bedrock + Java + remote dalam satu kernel: PocketMine-MP **dan** Purpur/vanilla, ping nyata per edisi (RakNet UDP / TCP SLP), start-stop-restart, watchdog | ✅ Bedrock 4-11ms · Java 4-5ms hidup bersamaan |
 | **Self-Life** | Daemon 24/7: watchdog server + denyut peradaban + jadwal backup/sync — hidup **tanpa web app** | ✅ log `backups/daemon.log` |
 | **Self Backup** | Arsip dunia+db+config → tar.gz + manifest sha256 + retensi 7 | ✅ otomatis 6 jam |
-| **Self Sync** | Commit + push otomatis ke **4 remote** (GitHub x3 + GitLab), token transient tak pernah masuk repo | ✅ GitHub ×3 terverifikasi `c1f62db` · GitLab menunggu scope `write_repository` token (baca+API-write OK) |
+| **Self Sync** | Commit + push otomatis ke **4 remote** (GitHub x3 + GitLab), token transient tak pernah masuk repo | ✅ **4/4 TERSINKRON** — GitHub ×3 + GitLab (via SSH `altssh.gitlab.com:443`) terverifikasi |
 | **MCP Server** | CIVITAS sebagai **server MCP** 13 tools (stdio) — siap Claude Desktop; fallback bun tanpa web app | ✅ initialize/tools/call |
 | **CLI `civitas`** | status · pulse · doctor · chat · server · backup · sync · tool · config · daemon | ✅ 17 perintah |
 
