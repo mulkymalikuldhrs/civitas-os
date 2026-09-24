@@ -21,7 +21,7 @@ async function main(): Promise<void> {
 
   // 2. MUTATION A/B penuh (worktree sandbox + benchmark)
   console.log("\n[2] MUTATION L1 — propose → sandbox(worktree) → patch B → benchmark A/B → verdict");
-  const m = await rt.mutate("L1_PARAMETER");
+  const m = await rt.mutate("L1_PARAMETER", "");
   console.log(`    → ${m}`);
 
   // 3. SPAWN child nyata
