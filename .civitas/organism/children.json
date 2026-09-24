@@ -22,9 +22,10 @@
     "pid": 2194,
     "dir": "/home/z/my-project/.civitas/organism/children/cell_mufyufiwc6",
     "spawnedAt": "2026-09-24T20:09:59.578Z",
-    "status": "RUNNING",
+    "status": "DEAD",
     "lastHeartbeat": "2026-09-24T20:15:03.617Z",
-    "cycles": 38
+    "cycles": 38,
+    "exitCode": null
   },
   {
     "id": "cell_mufyvyfy6v",
@@ -35,8 +36,9 @@
     "pid": 2368,
     "dir": "/home/z/my-project/.civitas/organism/children/cell_mufyvyfy6v",
     "spawnedAt": "2026-09-24T20:11:10.751Z",
-    "status": "RUNNING",
+    "status": "DEAD",
     "lastHeartbeat": "2026-09-24T20:15:02.821Z",
-    "cycles": 29
+    "cycles": 29,
+    "exitCode": null
   }
 ]

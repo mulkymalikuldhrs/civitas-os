@@ -1,6 +1,6 @@
 [
   {
-    "goalId": "goal_b233e6",
+    "goalId": "goal_1f9ffd",
     "required": [
       "mc.raknet"
     ],
@@ -11,7 +11,7 @@
     "plan": []
   },
   {
-    "goalId": "goal_fb2ef5",
+    "goalId": "goal_dca48e",
     "required": [
       "census.snapshot"
     ],
@@ -27,7 +27,7 @@
     ]
   },
   {
-    "goalId": "goal_c1acc4",
+    "goalId": "goal_5f1217",
     "required": [
       "java.logscan"
     ],
@@ -43,23 +43,23 @@
     ]
   },
   {
-    "goalId": "goal_0eeada",
+    "goalId": "goal_a74b5a",
     "required": [
-      "probe.env"
+      "spawn.child"
     ],
     "available": [
-      "probe.env"
+      "spawn.child"
     ],
     "missing": [],
     "plan": []
   },
   {
-    "goalId": "goal_59e274",
+    "goalId": "goal_a1dd54",
     "required": [
-      "llm.brain"
+      "probe.env"
     ],
     "available": [
-      "llm.brain"
+      "probe.env"
     ],
     "missing": [],
     "plan": []
