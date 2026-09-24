@@ -339,6 +339,7 @@ function decideAndAct(client, alive) {
 // ---------- KONEKSI ANAK: SATU PERCOBAAN PENUH, lalu keluar ----------
 // Dijalankan oleh supervisor (leader_agent.mjs). Crash keras apa pun di bedrock-protocol
 // hanya membunuh proses ini — supervisor mencatat dan menghidupkan ulang.
+let attempt = 0;
 
 async function runOnce() {
   attempt += 1;

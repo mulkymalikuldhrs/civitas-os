@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "prisma generate --schema prisma/schema.postgres.prisma && next build",
   "crons": [
     {
       "path": "/api/organism/cron",
