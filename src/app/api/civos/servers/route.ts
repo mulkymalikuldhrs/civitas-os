@@ -1,16 +1,18 @@
-// CIVITAS OS — servers/route.ts (SLICE 11 — MULTI-SERVER ALL-IN-ONE)
+// CIVITAS OS — servers/route.ts (SLICE 11 → v1.5 "CITADEL")
 // GET  = daftar server + status ping NYATA (Bedrock RakNet / Java legacy ping)
+//        + info host: alamat IP, port, URL koneksi (mandat: url server terpampang di UI)
 // POST = aksi lifecycle managed server (start|stop|restart|status)
 
 import { NextResponse, type NextRequest } from "next/server";
 import { listServerStatuses, serverAction, type ServerAction } from "@/lib/civos/servers";
+import { hostInfo } from "@/lib/civos/dbmap";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const servers = await listServerStatuses();
-    return NextResponse.json({ ok: true, servers });
+    const [servers, host] = await Promise.all([listServerStatuses(), hostInfo()]);
+    return NextResponse.json({ ok: true, servers, host });
   } catch (e) {
     return NextResponse.json({ ok: false, error: e instanceof Error ? e.message : "server list gagal" }, { status: 500 });
   }

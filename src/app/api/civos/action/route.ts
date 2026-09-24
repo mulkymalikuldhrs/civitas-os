@@ -349,6 +349,26 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ ...r, ok: r.ok }, { status: r.ok ? 200 : 500 });
       }
 
+      case "backup_cloud_upload": {
+        const { backupToCloud } = await import("@/lib/civos/selflife");
+        const r = await backupToCloud(typeof p.file === "string" ? p.file : undefined);
+        return NextResponse.json({ ...r, ok: r.ok }, { status: r.ok ? 200 : 500 });
+      }
+
+      case "backup_restore": {
+        const { restoreBackup } = await import("@/lib/civos/selflife");
+        const scope = p.scope === "worlds" ? "worlds" : "full";
+        const r = await restoreBackup(String(p.file ?? ""), scope);
+        return NextResponse.json({ ...r, ok: r.ok }, { status: r.ok ? 200 : 500 });
+      }
+
+      case "backup_cloud_restore": {
+        const { restoreFromCloud } = await import("@/lib/civos/selflife");
+        const scope = p.scope === "worlds" ? "worlds" : "full";
+        const r = await restoreFromCloud(String(p.file ?? ""), scope);
+        return NextResponse.json({ ...r, ok: r.ok }, { status: r.ok ? 200 : 500 });
+      }
+
       case "git_sync": {
         const { gitSync } = await import("@/lib/civos/selflife");
         const r = await gitSync();
