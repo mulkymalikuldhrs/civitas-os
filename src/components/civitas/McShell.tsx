@@ -63,6 +63,7 @@ export const useCiv = () => useContext(CivCtx);
 
 const NAV: { key: string; label: string; icon: string }[] = [
   { key: "citadel", label: "CITADEL", icon: "🏛" },
+  { key: "organism", label: "ORGANISME", icon: "🧬" },
   { key: "map", label: "PETA", icon: "🗺" },
   { key: "citizens", label: "WARGA", icon: "🧑‍🌾" },
   { key: "guild", label: "GUILD", icon: "⚒" },
@@ -190,6 +191,7 @@ export function McShell() {
 /* ---------- Registry view (lazy import statis sederhana) ---------- */
 
 import CitadelView from "./views/CitadelView";
+import OrganismView from "./views/OrganismView";
 import MapView from "./views/MapView";
 import CitizensView from "./views/CitizensView";
 import GuildView from "./views/GuildView";
@@ -204,6 +206,7 @@ import EventsView from "./views/EventsView";
 
 const VIEWS: Record<string, () => React.JSX.Element> = {
   citadel: CitadelView,
+  organism: OrganismView,
   map: MapView,
   citizens: CitizensView,
   guild: GuildView,

@@ -1,6 +1,6 @@
 [
   {
-    "id": "goal_27a227",
+    "id": "goal_dab639",
     "area": "infrastructure",
     "title": "Periksa & pulihkan web_app (health=0)",
     "action": "REPAIR_INFRA",
@@ -16,10 +16,10 @@
     "requiredCapabilities": [
       "probe.env"
     ],
-    "score": 11.1
+    "score": 11.119
   },
   {
-    "id": "goal_532de0",
+    "id": "goal_bb4ccb",
     "area": "infrastructure",
     "title": "Periksa & pulihkan daemon (health=0)",
     "action": "REPAIR_INFRA",
@@ -35,10 +35,10 @@
     "requiredCapabilities": [
       "probe.env"
     ],
-    "score": 11.1
+    "score": 11.119
   },
   {
-    "id": "goal_9dda35",
+    "id": "goal_6bb9b4",
     "area": "infrastructure",
     "title": "Periksa & pulihkan java_console (health=0)",
     "action": "REPAIR_INFRA",
@@ -54,10 +54,10 @@
     "requiredCapabilities": [
       "probe.env"
     ],
-    "score": 11.1
+    "score": 11.119
   },
   {
-    "id": "goal_d09b9a",
+    "id": "goal_98a33f",
     "area": "knowledge",
     "title": "Verifikasi unknown: remote_server_quota",
     "action": "VERIFY_UNKNOWN",
@@ -74,10 +74,10 @@
     "requiredCapabilities": [
       "mc.raknet"
     ],
-    "score": 10.1
+    "score": 10.322999999999999
   },
   {
-    "id": "goal_722077",
+    "id": "goal_2ca30c",
     "area": "knowledge",
     "title": "Verifikasi unknown: player_concurrency_peak",
     "action": "VERIFY_UNKNOWN",
@@ -94,6 +94,6 @@
     "requiredCapabilities": [
       "census.snapshot"
     ],
-    "score": 10.1
+    "score": 10.322999999999999
   }
 ]

@@ -2,10 +2,10 @@
   {
     "id": "text.hash",
     "kind": "module",
-    "status": "DEGRADED",
+    "status": "AVAILABLE",
     "impl": "/home/z/my-project/.civitas/organism/capabilities/text.hash.mjs",
-    "verifiedAt": "2026-09-24T20:09:28.732Z",
-    "verifyNote": "impl hilang dari disk",
+    "verifiedAt": "2026-09-24T20:11:14.288Z",
+    "verifyNote": "build+test ok: eeb83321d5ea5ba60f10c5e2eca07db93d4919f71275533aa5c2eeef6ffc",
     "owner": "organism"
   },
   {

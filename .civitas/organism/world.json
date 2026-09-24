@@ -1,15 +1,15 @@
 {
-  "at": "2026-09-24T20:10:03.392Z",
+  "at": "2026-09-24T20:11:14.657Z",
   "resources": {
     "cpuCount": 2,
-    "load1": 0.22,
-    "load5": 0.12,
-    "rssMb": 80,
-    "heapMb": 4,
-    "freememMb": 2286,
+    "load1": 0.46,
+    "load5": 0.2,
+    "rssMb": 81,
+    "heapMb": 5,
+    "freememMb": 2255,
     "totalmemMb": 4042,
-    "diskFreeMb": 6676,
-    "uptimeS": 1466
+    "diskFreeMb": 6674,
+    "uptimeS": 1537
   },
   "infrastructure": {
     "web_app": {
@@ -47,6 +47,12 @@
       "kind": "temporary",
       "alive": true,
       "role": "observer"
+    },
+    {
+      "id": "cell_mufyvyfy6v",
+      "kind": "temporary",
+      "alive": true,
+      "role": "observer"
     }
   ],
   "products": [
@@ -76,7 +82,7 @@
     }
   ],
   "knowledge": {
-    "memoryEntries": 0
+    "memoryEntries": 1
   },
   "risks": [
     {
@@ -95,73 +101,78 @@
       "id": "mut_mufyuean1nz",
       "status": "REJECTED",
       "verdict": "benchmark gagal: Command failed: bun /home/z/my-project/.civitas-sandbox/mut_mufyuean1nz/scripts/organism_bench.ts .civitas/organism/dna."
+    },
+    {
+      "id": "mut_mufyvwv36jk",
+      "status": "ADOPTED",
+      "verdict": "B diterima: 1ms vs A 3.2ms (valid=true)"
     }
   ],
   "economy": {
-    "cycleCostMs": 0,
-    "actionsDone": 0,
-    "valueScore": 0
+    "cycleCostMs": 555,
+    "actionsDone": 1,
+    "valueScore": 11.1
   },
   "epistemic": {
     "known": [
       {
         "key": "runtime",
         "value": "runtime v24.3.0 (1.3.14)",
-        "at": "2026-09-24T20:10:03.104Z",
+        "at": "2026-09-24T20:11:14.309Z",
         "source": "envprobe"
       },
       {
         "key": "cpu",
-        "value": "2 core load1=0.22",
-        "at": "2026-09-24T20:10:03.104Z",
+        "value": "2 core load1=0.46",
+        "at": "2026-09-24T20:11:14.309Z",
         "source": "envprobe"
       },
       {
         "key": "rss_mb",
-        "value": "80",
-        "at": "2026-09-24T20:10:03.104Z",
+        "value": "81",
+        "at": "2026-09-24T20:11:14.309Z",
         "source": "process"
       },
       {
         "key": "disk_free_mb",
-        "value": "6676",
-        "at": "2026-09-24T20:10:03.104Z",
+        "value": "6674",
+        "at": "2026-09-24T20:11:14.309Z",
         "source": "df"
       },
       {
         "key": "web_app",
         "value": "down (500)",
-        "at": "2026-09-24T20:10:03.104Z",
+        "at": "2026-09-24T20:11:14.309Z",
         "source": "http"
       },
       {
         "key": "daemon",
         "value": "not running",
-        "at": "2026-09-24T20:10:03.104Z",
+        "at": "2026-09-24T20:11:14.309Z",
         "source": "pidfile"
       },
       {
         "key": "java_console_fifo",
         "value": "absent",
-        "at": "2026-09-24T20:10:03.104Z",
+        "at": "2026-09-24T20:11:14.309Z",
         "source": "fs"
       },
       {
         "key": "mc_server_ping",
-        "value": "no pong (5ms)",
-        "at": "2026-09-24T20:10:03.104Z",
+        "value": "no pong (4ms)",
+        "at": "2026-09-24T20:11:14.309Z",
         "source": "raknet-udp"
       },
       {
         "key": "memory_entries",
-        "value": "0",
-        "at": "2026-09-24T20:10:03.104Z",
+        "value": "1",
+        "at": "2026-09-24T20:11:14.309Z",
         "source": "memory"
       },
       {
         "key": "capabilities",
-        "value": "1/1 available",
-        "at": "2026-09-24T20:10:03.104Z",
+        "value": "7/7 available",
+        "at": "2026-09-24T20:11:14.309Z",
         "source": "registry"
       }
     ],
