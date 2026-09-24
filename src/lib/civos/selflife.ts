@@ -8,7 +8,7 @@
 //                  backup/sync sesuai jadwal config. Dipakai daemon + cron + UI.
 // REALITY WINS: setiap hasil adalah pengukuran nyata; kegagalan dilaporkan jujur per-item.
 
-import { execFile } from "node:child_process";
+import { execFile, spawn } from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { createHash } from "node:crypto";
@@ -263,6 +263,33 @@ export async function selfLifeTick(): Promise<SelfLifeResult> {
       notes.push(`javabot: ${st.username} hadir (list dikirim)`);
     }
   } catch (e) { notes.push(`javabot error: ${e instanceof Error ? e.message : "?"}`); }
+  // 1c) LEADER WATCHDOG — RATU_CIVITAS, pemain pemimpin ekosistem di Aternos, harus hidup 24/7.
+  // Proses mati / denyut tertinggal > 6 menit → hidupkan ulang (ter-guard lock 3 menit). Non-fatal.
+  try {
+    const leaderFile = path.join(ROOT, ".civitas/organism/leader.json");
+    if (fs.existsSync(leaderFile)) {
+      const leader = JSON.parse(fs.readFileSync(leaderFile, "utf8")) as { pid?: number; lastHeartbeat?: string; status?: string; name?: string };
+      const hbAge = leader.lastHeartbeat ? Date.now() - new Date(leader.lastHeartbeat).getTime() : Infinity;
+      let pidAlive = false;
+      if (leader.pid) { try { process.kill(leader.pid, 0); pidAlive = true; } catch { /* proses mati */ } }
+      if (!pidAlive || hbAge > 6 * 60_000) {
+        const lock = path.join(ROOT, ".civitas/organism/leader.spawn.lock");
+        let lockFresh = false;
+        try { lockFresh = Date.now() - fs.statSync(lock).mtimeMs < 3 * 60_000; } catch { /* lock belum ada */ }
+        if (!lockFresh) {
+          fs.writeFileSync(lock, String(Date.now()));
+          const child = spawn("bun", [path.join(ROOT, "scripts/leader_agent.mjs")], { detached: true, stdio: "ignore", cwd: ROOT });
+          child.unref();
+          notes.push(`leader: ${leader.name ?? "RATU_CIVITAS"} dihidupkan ulang (pid ${child.pid ?? "?"})`);
+          await emit({ type: EVENT_TYPES.LEADER_RESPAWNED, subjectType: "KERNEL", subjectId: "leader", payload: { pid: child.pid, reason: !pidAlive ? "proses-mati" : "heartbeat-tertinggal" } });
+        } else {
+          notes.push("leader: mati namun lock spawn segar — tunggu siklus berikut");
+        }
+      } else {
+        notes.push(`leader: ${leader.name ?? "RATU_CIVITAS"} hidup (pid ${leader.pid}, denyut ${Math.round(hbAge / 1000)}s lalu, status ${leader.status ?? "?"})`);
+      }
+    }
+  } catch (e) { notes.push(`leader watchdog gagal: ${e instanceof Error ? e.message : "?"}`); }
   // 2) denyut peradaban (organ round-robin + desa)
   try {
     const tick = await heartbeatTick();

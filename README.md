@@ -7,7 +7,7 @@
 **Sistem operasi peradaban otonom di dalam Minecraft.**
 Warga villager sungguhan · Pemerintahan multi-agen · Ledger double-entry · Guild kerja nyata · Server Bedrock lokal & online.
 
-`v1.2 "ORGANISM"` · Next.js 16 · TypeScript · Prisma/SQLite · bedrock-protocol · mineflayer · PocketMine-MP + Purpur · Supabase mirror
+`v1.3 "LEADER"` · Next.js 16 · TypeScript · Prisma/SQLite · bedrock-protocol · mineflayer · PocketMine-MP + Purpur · Supabase mirror
 
 </div>
 
@@ -41,6 +41,7 @@ CIVITAS OS adalah **peradaban digital yang hidup tanpa perintah manusia**: ia be
 | **Self-Life** | Daemon 24/7: watchdog server + denyut peradaban + jadwal backup/sync — hidup **tanpa web app** | ✅ log `backups/daemon.log` |
 | **Self Backup** | Arsip dunia+db+config → tar.gz + manifest sha256 + retensi 7 | ✅ otomatis 6 jam |
 | **Self Sync** | Commit + push otomatis ke **4 remote** (GitHub x3 + GitLab), token transient tak pernah masuk repo | ✅ **4/4 TERSINKRON** — GitHub ×3 + GitLab (via SSH `altssh.gitlab.com:443`) terverifikasi |
+| **Pemimpin Ekosistem** | Agent **RATU_CIVITAS** masuk server Aternos sebagai **pemain**: loop otonom OBSERVE→DECIDE→ACT→REFLECT — salam/visi, sensus, direktif, patrol, koordinasi chat, laporan; siaga 24/7 + auto-rejoin + watchdog self-life | ✅ proses hidup (siaga); masuk otomatis begitu server bangun |
 | **MCP Server** | CIVITAS sebagai **server MCP** 13 tools (stdio) — siap Claude Desktop; fallback bun tanpa web app | ✅ initialize/tools/call |
 | **CLI `civitas`** | status · pulse · doctor · chat · server · backup · sync · tool · config · daemon | ✅ 17 perintah |
 

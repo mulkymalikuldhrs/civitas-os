@@ -99,6 +99,7 @@ export const EVENT_TYPES = {
   // SLICE 11 — SELF-LIFE (self backup · self sync · multi-server)
   BACKUP_CREATED: "BACKUP_CREATED",
   SYNC_PUSHED: "SYNC_PUSHED",
+  LEADER_RESPAWNED: "LEADER_RESPAWNED",
 } as const;
 
 /** Jenis direktif tubuh — jembatan keputusan → aksi fisik villager.

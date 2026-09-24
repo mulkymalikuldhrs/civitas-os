@@ -1,6 +1,6 @@
 [
   {
-    "id": "goal_079fa5",
+    "id": "goal_6c44c1",
     "area": "infrastructure",
     "title": "Periksa & pulihkan web_app (health=0)",
     "action": "REPAIR_INFRA",
@@ -19,7 +19,7 @@
     "score": 11.224000000000002
   },
   {
-    "id": "goal_e37d74",
+    "id": "goal_aa8634",
     "area": "knowledge",
     "title": "Verifikasi unknown: remote_server_quota",
     "action": "VERIFY_UNKNOWN",
@@ -39,7 +39,7 @@
     "score": 10.716999999999999
   },
   {
-    "id": "goal_9da67d",
+    "id": "goal_e3d050",
     "area": "knowledge",
     "title": "Verifikasi unknown: player_concurrency_peak",
     "action": "VERIFY_UNKNOWN",
@@ -59,7 +59,7 @@
     "score": 10.716999999999999
   },
   {
-    "id": "goal_282346",
+    "id": "goal_0201ee",
     "area": "knowledge",
     "title": "Verifikasi unknown: true_java_uptime_24h",
     "action": "VERIFY_UNKNOWN",
@@ -79,7 +79,7 @@
     "score": 10.716999999999999
   },
   {
-    "id": "goal_77f01e",
+    "id": "goal_c4730b",
     "area": "organization",
     "title": "Spawn agent (0/1 hidup, komposisi genome: observer×1)",
     "action": "SPAWN_AGENT",

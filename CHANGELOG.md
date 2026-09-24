@@ -3,6 +3,31 @@
 Semua perubahan penting proyek ini didokumentasikan di sini.
 Format mengikuti [Keep a Changelog](https://keepachangelog.com/id/1.1.0/); versi mengikuti [SemVer](https://semver.org/lang/id/).
 
+## [1.3.0] — 2026-09-25 · "LEADER"
+
+Mandat pemilik: *"aternos online, go now, add 1 agents, but as player, autonomously do everything, she is the ecosystem leader."*
+
+### Ditambahkan
+- **RATU_CIVITAS — agent pemimpin ekosistem sebagai PEMAIN Bedrock** (`scripts/leader_agent.mjs`,
+  bedrock-protocol): loop otonom OBSERVE → DECIDE → ACT → REFLECT **tanpa perintah manusia** —
+  rotasi peran SALAM/VISI · SENSUS · DIREKTIF (5 mandat kerja ekosistem) · PATROL · KOORDINASI
+  (respons chat) · LAPORAN; mengamati pemain/chat/entitas/health/waktu-dunia, mengirim chat
+  kepemimpinan nyata ke server, gerak via `player_auth_input` dengan degrade anggun
+  (auth-input → move_player → idle) dan pelajaran yang terekam.
+- **Siaga 24/7 + auto-rejoin**: ping RakNet udp4 kernel tiap siklus; begitu Aternos bangun,
+  RATU masuk sebagai pemain dalam <60 detik — kehadirannya sendiri menjaga server tetap
+  bangun; reconnect backoff bila terlempar; resolusi IP ulang per percobaan (Aternos memutar
+  IP); state persisten `.civitas/organism/leader.json` + log `.civitas/organism/leader.log.jsonl`.
+- **Leader watchdog di self-life tick** (`selflife.ts` + event `LEADER_RESPAWNED`): proses
+  mati / denyut tertinggal >6 menit → spawn ulang detached (guard lock 3 menit) oleh daemon.
+
+### Kejujuran
+- Aternos tidur kembali tepat saat siap tempur (terverifikasi online 5 ms dengan MOTD
+  "CIVITAS OS - Peradaban Nusantara Digital" pukul 21:22 UTC, lalu auto-sleep — free tier).
+  Membangunkan server = gerbang pemilik (panel Aternos); RATU berjaga dan masuk otomatis.
+- Autentikasi offline dicoba lebih dulu; bila server menuntut Xbox Live, alasan kick
+  terekam di log dan dilaporkan jujur.
+
 ## [1.2.1] — 2026-09-25 · "REFERENSI & AUDIT"
 
 Konsolidasi dokumentasi pasca-audit + referensi sumber riset + deskripsi repo remote.
