@@ -63,6 +63,9 @@ export const useCiv = () => useContext(CivCtx);
 
 const NAV: { key: string; label: string; icon: string }[] = [
   { key: "citadel", label: "CITADEL", icon: "🏛" },
+  { key: "play", label: "MAIN MC", icon: "🎮" },
+  { key: "server", label: "SERVER", icon: "🖥" },
+  { key: "cloud", label: "CLOUD DB", icon: "☁" },
   { key: "organism", label: "ORGANISME", icon: "🧬" },
   { key: "map", label: "PETA", icon: "🗺" },
   { key: "citizens", label: "WARGA", icon: "🧑‍🌾" },
@@ -139,7 +142,7 @@ export function McShell() {
             <span className="flex-1" />
             <MCBadge tone={online ? "green" : "red"}>{online ? `DUNIA ONLINE ${s?.mcStatus?.latencyMs ?? "?"}ms` : "DUNIA TIDUR"}</MCBadge>
             <MCBadge tone="diamond">{villageCount} WARGA</MCBadge>
-            <MCBadge tone="gold">v1.0</MCBadge>
+            <MCBadge tone="gold">v1.5</MCBadge>
           </div>
           {/* HOTBAR NAV */}
           <nav className="max-w-7xl mx-auto px-4 pb-3">
@@ -179,7 +182,7 @@ export function McShell() {
             </span>
           </div>
           <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap gap-2 items-center justify-between">
-            <p className="mc-font text-[8px] text-white/50">CIVITAS OS v1.0 &quot;REALITY&quot; — dibangun untuk Mulky Malikul Dhaher · mulkymalikuldhr@mail.com</p>
+            <p className="mc-font text-[8px] text-white/50">CIVITAS OS v1.5 &quot;CITADEL&quot; — dibangun untuk Mulky Malikul Dhaher · mulkymalikuldhr@mail.com</p>
             <p className="mc-font text-[8px] text-white/50">Intelligence ≠ Authority · Ledger double-entry · Event immutable</p>
           </div>
         </footer>
@@ -203,9 +206,15 @@ import ConfigView from "./views/ConfigView";
 import GraphView from "./views/GraphView";
 import DocsView from "./views/DocsView";
 import EventsView from "./views/EventsView";
+import ServersView from "./views/ServersView";
+import CloudDbView from "./views/CloudDbView";
+import PlayView from "./views/PlayView";
 
 const VIEWS: Record<string, () => React.JSX.Element> = {
   citadel: CitadelView,
+  play: PlayView,
+  server: ServersView,
+  cloud: CloudDbView,
   organism: OrganismView,
   map: MapView,
   citizens: CitizensView,
