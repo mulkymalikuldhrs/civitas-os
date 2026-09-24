@@ -199,3 +199,87 @@ export async function supabaseTest(): Promise<SupabaseTestResult> {
   const failed = checks.filter((c) => !c.ok).length;
   return { enabled: true, checks, passed: checks.length - failed, failed, at: new Date().toISOString() };
 }
+
+// ---------- MIRROR TOTAL (v1.4 "SYNC") ----------
+// Mandat pemilik: "mount semua db di supabase" — SELURUH 24 tabel kernel dicerminkan
+// ke Postgres Supabase (upsert idempoten by PK). Kernel SQLite tetap otoritatif;
+// Supabase kini cermin LENGKAP, dipakai juga sebagai sumber data window publik (Vercel).
+
+const FULL_MIRROR_TABLES: Array<{ model: string; table: string }> = [
+  { model: "user", table: "User" },
+  { model: "post", table: "Post" },
+  { model: "civOrg", table: "CivOrg" },
+  { model: "civVillager", table: "CivVillager" },
+  { model: "civVillagerDirective", table: "CivVillagerDirective" },
+  { model: "civMarketOffer", table: "CivMarketOffer" },
+  { model: "civAgent", table: "CivAgent" },
+  { model: "civAccount", table: "CivAccount" },
+  { model: "civTxn", table: "CivTxn" }, // induk ledger dulu — CivEntry punya FK txId
+  { model: "civEntry", table: "CivEntry" },
+  { model: "civEvent", table: "CivEvent" },
+  { model: "civTask", table: "CivTask" },
+  { model: "civMemory", table: "CivMemory" },
+  { model: "civPolicy", table: "CivPolicy" },
+  { model: "civCapability", table: "CivCapability" },
+  { model: "civGrant", table: "CivGrant" },
+  { model: "civProposal", table: "CivProposal" },
+  { model: "civWorldEntity", table: "CivWorldEntity" },
+  { model: "civKV", table: "CivKV" },
+  { model: "civArtifact", table: "CivArtifact" },
+  { model: "civToolCall", table: "CivToolCall" },
+  { model: "civChatMessage", table: "CivChatMessage" },
+  { model: "civMcpServer", table: "CivMcpServer" },
+  { model: "civConsoleLog", table: "CivConsoleLog" },
+];
+
+export interface FullMirrorResult {
+  ok: boolean;
+  enabled: boolean;
+  tables: number;
+  rowsPushed: number;
+  perTable: Array<{ table: string; rows: number; ok: boolean; err?: string }>;
+  error?: string;
+}
+
+/** Cerminan penuh seluruh tabel kernel → Supabase (idempoten, batch 200 baris). */
+export async function pushFullMirror(): Promise<FullMirrorResult> {
+  const creds = await supabaseCreds();
+  if (!creds.enabled) return { ok: false, enabled: false, tables: 0, rowsPushed: 0, perTable: [], error: "kredensial supabase belum diisi (config supabase.url / supabase.serviceKey)" };
+  const delegates = db as unknown as Record<string, { findMany?: (a?: unknown) => Promise<Record<string, unknown>[]> } | undefined>;
+  const perTable: FullMirrorResult["perTable"] = [];
+  let rowsPushed = 0;
+  let allOk = true;
+  for (const t of FULL_MIRROR_TABLES) {
+    const del = delegates[t.model];
+    if (!del?.findMany) {
+      perTable.push({ table: t.table, rows: 0, ok: false, err: "model tidak ditemukan" });
+      allOk = false;
+      continue;
+    }
+    try {
+      const rows = await del.findMany({ take: 5000 });
+      if (rows.length === 0) {
+        perTable.push({ table: t.table, rows: 0, ok: true });
+        continue;
+      }
+      let ok = true;
+      let err: string | undefined;
+      for (let i = 0; i < rows.length && ok; i += 200) {
+        const chunk = rows.slice(i, i + 200);
+        const r = await rest(creds, t.table, "POST", chunk);
+        if (!r.ok) { ok = false; err = String(r.data).slice(0, 140); }
+      }
+      if (ok) rowsPushed += rows.length; else allOk = false;
+      perTable.push({ table: t.table, rows: ok ? rows.length : 0, ok, err });
+    } catch (e) {
+      perTable.push({ table: t.table, rows: 0, ok: false, err: e instanceof Error ? e.message.slice(0, 140) : "?" });
+      allOk = false;
+    }
+  }
+  // catat status mirror penuh (tabel status lama tetap dipakai — sudah ada sejak SLICE 10)
+  await rest(creds, "civ_mirror_state", "POST", [{
+    key: "full_mirror",
+    value: { at: new Date().toISOString(), tables: FULL_MIRROR_TABLES.length, rowsPushed, ok: allOk, per: perTable.filter((p) => !p.ok).slice(0, 6) },
+  }]).catch(() => undefined);
+  return { ok: allOk, enabled: true, tables: FULL_MIRROR_TABLES.length, rowsPushed, perTable, error: allOk ? undefined : "sebagian tabel gagal — lihat perTable" };
+}

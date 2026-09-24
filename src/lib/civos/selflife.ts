@@ -292,6 +292,26 @@ export async function selfLifeTick(): Promise<SelfLifeResult> {
       }
     }
   } catch (e) { notes.push(`leader watchdog gagal: ${e instanceof Error ? e.message : "?"}`); }
+  // 1d) SELF SERVER — web app produksi (port 3000) harus hidup 24/7: dashboard + endpoint
+  // organisme + API kernel. Mati → spawn ulang detached (guard lock 2 menit). Non-fatal.
+  try {
+    const res = await fetch("http://127.0.0.1:3000/", { signal: AbortSignal.timeout(4000) }).catch(() => null);
+    if (!res) {
+      const lock = path.join(ROOT, ".civitas/selfserver.spawn.lock");
+      let lockFresh = false;
+      try { lockFresh = Date.now() - fs.statSync(lock).mtimeMs < 2 * 60_000; } catch { /* lock belum ada */ }
+      if (!lockFresh) {
+        fs.writeFileSync(lock, String(Date.now()));
+        const child = spawn("bun", ["node_modules/next/dist/bin/next", "start", "-p", "3000"], { detached: true, stdio: "ignore", cwd: ROOT });
+        child.unref();
+        notes.push(`self-server: web app dihidupkan ulang (pid ${child.pid ?? "?"})`);
+      } else {
+        notes.push("self-server: mati, lock spawn segar — tunggu siklus berikut");
+      }
+    } else {
+      notes.push(`self-server: hidup (HTTP ${res.status})`);
+    }
+  } catch (e) { notes.push(`self-server watchdog gagal: ${e instanceof Error ? e.message : "?"}`); }
   // 2) denyut peradaban (organ round-robin + desa)
   try {
     const tick = await heartbeatTick();
@@ -314,6 +334,12 @@ export async function selfLifeTick(): Promise<SelfLifeResult> {
     out.syncRan = true;
     out.sync = await gitSync();
     if (!out.sync.ok) notes.push(`sync: ${out.sync.remotes.filter((r) => !r.pushed).map((r) => r.name).join(",") || "semua"} gagal`);
+    // v1.4 "SYNC": cerminan penuh seluruh DB kernel → Supabase (24 tabel, upsert idempoten)
+    try {
+      const { pushFullMirror } = await import("./supabase");
+      const fm = await pushFullMirror();
+      notes.push(fm.ok ? `supabase mirror: ${fm.rowsPushed} baris / ${fm.tables} tabel` : `supabase mirror gagal: ${fm.error ?? "?"}`);
+    } catch (e) { notes.push(`supabase mirror error: ${e instanceof Error ? e.message : "?"}`); }
   }
   await db.civKV.upsert({
     where: { key: KV_LIFE },
