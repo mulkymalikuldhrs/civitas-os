@@ -238,3 +238,22 @@
 {"at":"2026-09-24T22:29:55.376Z","type":"PING_FAIL","error":"timeout","streak":66,"mode":"siaga-menunggu-server-bangun"}
 {"at":"2026-09-24T22:29:55.376Z","type":"JOIN_ANYWAY","reason":"ping tidak menentu — uji koneksi langsung"}
 {"at":"2026-09-24T22:30:01.186Z","type":"MEMORY_LOADED","players":0,"directives":0,"improvements":1,"bornAt":"2026-09-24T21:58:05.051Z"}
+{"at":"2026-09-24T22:30:13.626Z","type":"CHAT_SENT","message":"SENSUS #1: pemain=hanya aku · entitas=0 · posisiku=—."}
+{"at":"2026-09-24T22:30:21.620Z","type":"NET_ERROR","err":"Connect timed out"}
+{"at":"2026-09-24T22:30:21.683Z","type":"CHILD_EXIT","attempt":22,"code":0,"note":"disconnect normal"}
+{"at":"2026-09-24T22:30:39.684Z","type":"PING_FAIL","error":"timeout","streak":67,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:31:05.684Z","type":"PING_FAIL","error":"timeout","streak":68,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:31:31.685Z","type":"PING_FAIL","error":"timeout","streak":69,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:31:31.685Z","type":"JOIN_ANYWAY","reason":"ping tidak menentu — uji koneksi langsung"}
+{"at":"2026-09-24T22:31:36.966Z","type":"MEMORY_LOADED","players":0,"directives":0,"improvements":1,"bornAt":"2026-09-24T21:58:05.051Z"}
+{"at":"2026-09-24T22:31:49.458Z","type":"CHAT_SENT","message":"SENSUS #1: pemain=hanya aku · entitas=0 · posisiku=—."}
+{"at":"2026-09-24T22:31:57.450Z","type":"NET_ERROR","err":"Connect timed out"}
+{"at":"2026-09-24T22:31:57.516Z","type":"CHILD_EXIT","attempt":23,"code":0,"note":"disconnect normal"}
+{"at":"2026-09-24T22:32:15.517Z","type":"PING_FAIL","error":"timeout","streak":70,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:32:41.518Z","type":"PING_FAIL","error":"timeout","streak":71,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:33:07.518Z","type":"PING_FAIL","error":"timeout","streak":72,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T22:33:07.518Z","type":"JOIN_ANYWAY","reason":"ping tidak menentu — uji koneksi langsung"}
+{"at":"2026-09-24T22:33:12.848Z","type":"MEMORY_LOADED","players":0,"directives":0,"improvements":1,"bornAt":"2026-09-24T21:58:05.051Z"}
+{"at":"2026-09-24T22:33:25.376Z","type":"CHAT_SENT","message":"SENSUS #1: pemain=hanya aku · entitas=0 · posisiku=—."}
+{"at":"2026-09-24T22:33:33.370Z","type":"NET_ERROR","err":"Connect timed out"}
+{"at":"2026-09-24T22:33:33.437Z","type":"CHILD_EXIT","attempt":24,"code":0,"note":"disconnect normal"}

@@ -8,9 +8,9 @@
   "status": "JOINING",
   "pid": 11160,
   "joinedAt": null,
-  "lastHeartbeat": "2026-09-24T22:29:55.376Z",
+  "lastHeartbeat": "2026-09-24T22:33:33.437Z",
   "cycles": 1,
-  "reconnects": 21,
+  "reconnects": 24,
   "stats": {
     "chatsSent": 1,
     "directivesIssued": 0,
