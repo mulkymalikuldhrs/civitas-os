@@ -306,15 +306,22 @@ export async function javaBotConnect(opts: JavaBotConnectOpts = {}): Promise<Jav
   }
 }
 
-/** Kirim chat dunia nyata dari bot. Tidak pernah melempar. */
+/** Kirim chat dunia nyata dari bot. Tidak pernah melempar.
+ *  Fallback jujur: bila state bot proses ini belum "connected" (Next dev bisa
+ *  multi-worker), chat diteruskan via FIFO konsol `say` — tetap pesan dunia
+ *  NYATA dari server, bukan simulasi. */
 export async function javaBotChat(message: string): Promise<JavaBotResult> {
   const at = new Date().toISOString();
-  if (state !== "connected" || !bot) {
-    return { ok: false, detail: "bot TIDAK terhubung ke dunia Java — panggil javaBotConnect() dahulu", at, error: "NOT_CONNECTED" };
-  }
   const msg = String(message).replace(/\s+/g, " ").trim().slice(0, 256);
   if (!msg) {
     return { ok: false, detail: "pesan kosong", at, error: "EMPTY" };
+  }
+  if (state !== "connected" || !bot) {
+    const viaConsole = await javaBotCommand(`say ${msg}`);
+    if (viaConsole.ok) {
+      return { ok: true, detail: `chat terkirim via konsol (say): "${msg}"`, at };
+    }
+    return { ok: false, detail: "bot TIDAK terhubung dan FIFO konsol tak tersedia — chat tidak terkirim", at, error: "NOT_CONNECTED" };
   }
   try {
     bot.chat(msg);

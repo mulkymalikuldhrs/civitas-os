@@ -98,5 +98,15 @@
     "at": "2026-09-24T20:21:07.791Z",
     "kind": "OBSERVATION",
     "text": "reap 3 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v"
+  },
+  {
+    "at": "2026-09-24T20:22:36.145Z",
+    "kind": "DECISION",
+    "text": "c#11 PILIH 'Periksa & pulihkan web_app (health=0)' skor 11.12 > doNothing 4.64 | hasil: web app merespons 500 (probe ulang nyata)"
+  },
+  {
+    "at": "2026-09-24T20:22:36.146Z",
+    "kind": "OBSERVATION",
+    "text": "reap 3 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v"
   }
 ]
