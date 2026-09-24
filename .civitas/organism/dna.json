@@ -16,12 +16,12 @@
   },
   "genome": {
     "weights": {
-      "reward": 0.871,
-      "strategic": 0.876,
-      "feasibility": 0.649,
-      "costPenalty": 0.569,
-      "riskPenalty": 0.775,
-      "novelty": 0.239
+      "reward": 0.794,
+      "strategic": 0.994,
+      "feasibility": 0.638,
+      "costPenalty": 0.552,
+      "riskPenalty": 0.805,
+      "novelty": 0.276
     },
     "strategy": "balanced-growth",
     "workflow": {
