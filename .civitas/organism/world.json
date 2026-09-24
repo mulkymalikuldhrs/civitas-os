@@ -1,20 +1,20 @@
 {
-  "at": "2026-09-24T23:18:36.478Z",
+  "at": "2026-09-24T23:19:39.419Z",
   "resources": {
     "cpuCount": 2,
-    "load1": 2.5,
-    "load5": 1.39,
-    "rssMb": 146,
+    "load1": 2.84,
+    "load5": 1.7,
+    "rssMb": 143,
     "heapMb": 25,
-    "freememMb": 1227,
+    "freememMb": 2156,
     "totalmemMb": 4042,
-    "diskFreeMb": 4784,
-    "uptimeS": 12777
+    "diskFreeMb": 4114,
+    "uptimeS": 12840
   },
   "infrastructure": {
     "web_app": {
       "health": 100,
-      "note": "520ms"
+      "note": "310ms"
     },
     "daemon": {
       "health": 100,
@@ -100,13 +100,13 @@
     }
   ],
   "knowledge": {
-    "memoryEntries": 137
+    "memoryEntries": 139
   },
   "risks": [
     {
       "key": "cpu_saturated",
       "level": "MEDIUM",
-      "note": "load1=2.5 > cores=2"
+      "note": "load1=2.84 > cores=2"
     },
     {
       "key": "duplicate_organs",
@@ -142,70 +142,70 @@
     }
   ],
   "economy": {
-    "cycleCostMs": 3924,
-    "actionsDone": 60,
-    "valueScore": 654.9589999999994
+    "cycleCostMs": 3903,
+    "actionsDone": 61,
+    "valueScore": 665.6759999999994
   },
   "epistemic": {
     "known": [
       {
         "key": "runtime",
         "value": "runtime v24.3.0 (1.3.14)",
-        "at": "2026-09-24T23:18:34.573Z",
+        "at": "2026-09-24T23:19:37.588Z",
         "source": "envprobe"
       },
       {
         "key": "cpu",
-        "value": "2 core load1=2.5",
-        "at": "2026-09-24T23:18:34.573Z",
+        "value": "2 core load1=2.84",
+        "at": "2026-09-24T23:19:37.588Z",
         "source": "envprobe"
       },
       {
         "key": "rss_mb",
-        "value": "146",
-        "at": "2026-09-24T23:18:34.573Z",
+        "value": "143",
+        "at": "2026-09-24T23:19:37.588Z",
         "source": "process"
       },
       {
         "key": "disk_free_mb",
-        "value": "4784",
-        "at": "2026-09-24T23:18:34.573Z",
+        "value": "4114",
+        "at": "2026-09-24T23:19:37.588Z",
         "source": "df"
       },
       {
         "key": "web_app",
-        "value": "ok 520ms",
-        "at": "2026-09-24T23:18:34.573Z",
+        "value": "ok 310ms",
+        "at": "2026-09-24T23:19:37.588Z",
         "source": "http"
       },
       {
         "key": "daemon",
         "value": "alive",
-        "at": "2026-09-24T23:18:34.573Z",
+        "at": "2026-09-24T23:19:37.588Z",
         "source": "pidfile"
       },
       {
         "key": "java_console_fifo",
         "value": "present",
-        "at": "2026-09-24T23:18:34.573Z",
+        "at": "2026-09-24T23:19:37.588Z",
         "source": "fs"
       },
       {
         "key": "mc_server_ping",
-        "value": "no pong (1802ms)",
-        "at": "2026-09-24T23:18:34.573Z",
+        "value": "no pong (1804ms)",
+        "at": "2026-09-24T23:19:37.588Z",
         "source": "raknet-udp"
       },
       {
         "key": "memory_entries",
-        "value": "137",
-        "at": "2026-09-24T23:18:34.573Z",
+        "value": "139",
+        "at": "2026-09-24T23:19:37.588Z",
         "source": "memory"
       },
       {
         "key": "capabilities",
         "value": "6/7 available",
-        "at": "2026-09-24T23:18:34.573Z",
+        "at": "2026-09-24T23:19:37.588Z",
         "source": "registry"
       }
     ],

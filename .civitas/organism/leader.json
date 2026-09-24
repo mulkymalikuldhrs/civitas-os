@@ -8,9 +8,9 @@
   "status": "SIAGA",
   "pid": 11160,
   "joinedAt": null,
-  "lastHeartbeat": "2026-09-24T23:19:04.426Z",
+  "lastHeartbeat": "2026-09-24T23:20:20.431Z",
   "cycles": 1,
-  "reconnects": 57,
+  "reconnects": 58,
   "stats": {
     "chatsSent": 1,
     "directivesIssued": 0,
