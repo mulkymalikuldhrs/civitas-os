@@ -1,0 +1,8 @@
+probe1: const [host, port] = arr
+probe2: const [hello] = arr
+probe3: const [h] = arr
+probe4: const [a, b] = arr
+probe5: const [he, ho] = arr
+probe6: raw [host] bracket
+probe7: raw [house] bracket
+probe8: const [she] = arr
