@@ -50,8 +50,9 @@
     "pid": 4410,
     "dir": "/home/z/my-project/.civitas/organism/children/cell_mufzmj4xa",
     "spawnedAt": "2026-09-24T20:31:50.626Z",
-    "status": "RUNNING",
+    "status": "DEAD",
     "lastHeartbeat": "2026-09-24T20:33:26.651Z",
-    "cycles": 12
+    "cycles": 12,
+    "exitCode": null
   }
 ]
