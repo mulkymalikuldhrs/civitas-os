@@ -660,3 +660,9 @@
 {"at":"2026-09-24T23:47:26.630Z","type":"CHILD_EXIT","attempt":80,"code":0,"note":"disconnect normal"}
 {"at":"2026-09-24T23:47:44.631Z","type":"PING_FAIL","error":"timeout","streak":241,"mode":"siaga-menunggu-server-bangun"}
 {"at":"2026-09-24T23:48:10.631Z","type":"PING_FAIL","error":"timeout","streak":242,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T23:48:36.632Z","type":"PING_FAIL","error":"timeout","streak":243,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T23:48:36.632Z","type":"JOIN_ANYWAY","reason":"ping tidak menentu — uji koneksi langsung"}
+{"at":"2026-09-24T23:48:41.987Z","type":"MEMORY_LOADED","players":0,"directives":0,"improvements":1,"bornAt":"2026-09-24T21:58:05.051Z"}
+{"at":"2026-09-24T23:48:42.052Z","type":"NET_ERROR","err":"undefined is not an object (evaluating 'data[type][version]')"}
+{"at":"2026-09-24T23:48:42.560Z","type":"CHILD_EXIT","attempt":81,"code":0,"note":"disconnect normal"}
+{"at":"2026-09-24T23:49:00.560Z","type":"PING_FAIL","error":"timeout","streak":244,"mode":"siaga-menunggu-server-bangun"}

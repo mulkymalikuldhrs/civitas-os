@@ -1,6 +1,6 @@
 [
   {
-    "id": "goal_2e6849",
+    "id": "goal_704701",
     "area": "knowledge",
     "title": "Verifikasi unknown: remote_server_quota",
     "action": "VERIFY_UNKNOWN",
@@ -20,7 +20,7 @@
     "score": 10.716999999999999
   },
   {
-    "id": "goal_0a8c05",
+    "id": "goal_221ce6",
     "area": "knowledge",
     "title": "Verifikasi unknown: player_concurrency_peak",
     "action": "VERIFY_UNKNOWN",
@@ -40,7 +40,7 @@
     "score": 10.716999999999999
   },
   {
-    "id": "goal_9d8ef7",
+    "id": "goal_3b65d6",
     "area": "knowledge",
     "title": "Verifikasi unknown: true_java_uptime_24h",
     "action": "VERIFY_UNKNOWN",
@@ -60,7 +60,7 @@
     "score": 10.716999999999999
   },
   {
-    "id": "goal_0cf1eb",
+    "id": "goal_83a38b",
     "area": "organization",
     "title": "Spawn agent (0/1 hidup, komposisi genome: observer×1)",
     "action": "SPAWN_AGENT",
@@ -79,7 +79,7 @@
     "score": 10.127000000000002
   },
   {
-    "id": "goal_b54ebd",
+    "id": "goal_d7b5ee",
     "area": "infrastructure",
     "title": "Periksa & pulihkan mc_bedrock (health=0)",
     "action": "REPAIR_INFRA",
