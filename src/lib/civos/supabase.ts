@@ -10,9 +10,14 @@ const KV_LAST_SEQ = "civsync.lastSeq";
 
 export interface SupabaseCreds { url: string; key: string; enabled: boolean }
 
+/** Buang kutip/spasi/CR yang bisa menempel saat nilai disalin dari file env. */
+function sanitizeSecret(v: string): string {
+  return v.trim().replace(/^["']+|["']+$/g, "");
+}
+
 export async function supabaseCreds(): Promise<SupabaseCreds> {
-  const url = (await getConfigValue("supabase.url")).replace(/\/+$/, "");
-  const key = await getConfigValue("supabase.serviceKey");
+  const url = sanitizeSecret(await getConfigValue("supabase.url")).replace(/\/+$/, "");
+  const key = sanitizeSecret(await getConfigValue("supabase.serviceKey"));
   return { url, key, enabled: Boolean(url && key) };
 }
 

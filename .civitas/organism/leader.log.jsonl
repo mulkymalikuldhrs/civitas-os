@@ -518,3 +518,7 @@
 {"at":"2026-09-24T23:22:07.578Z","type":"MEMORY_LOADED","players":0,"directives":0,"improvements":1,"bornAt":"2026-09-24T21:58:05.051Z"}
 {"at":"2026-09-24T23:22:07.580Z","type":"NET_ERROR","err":"undefined is not an object (evaluating 'data[type][version]')"}
 {"at":"2026-09-24T23:22:08.087Z","type":"CHILD_EXIT","attempt":60,"code":0,"note":"disconnect normal"}
+{"at":"2026-09-24T23:22:26.088Z","type":"PING_FAIL","error":"timeout","streak":181,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T23:22:52.089Z","type":"PING_FAIL","error":"timeout","streak":182,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T23:23:18.090Z","type":"PING_FAIL","error":"timeout","streak":183,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T23:23:18.090Z","type":"JOIN_ANYWAY","reason":"ping tidak menentu — uji koneksi langsung"}
