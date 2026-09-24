@@ -1,0 +1,85 @@
+{
+  "core": {
+    "id": "org_28ec0ef8e4",
+    "name": "CIVITAS-PRIME",
+    "kind": "root",
+    "bornAt": "2026-09-24T20:11:08.702Z",
+    "purpose": "Menjaga peradaban Minecraft hidup: amati dunia, rawat infrastruktur, kawal ekonomi, berevolusi lewat bukti.",
+    "hardConstraints": [
+      "Tidak pernah mengaku DONE tanpa bukti eksekusi nyata.",
+      "Semua aksi melewati limit imun deklaratif — tanpa pengecualian.",
+      "Kegagalan adalah data: catat hypothesis/result/reason/cost/lesson.",
+      "Free-first: jangan pakai resource berbayar bila ada jalur gratis.",
+      "Ketidaktahuan adalah state first-class — jangan sembunyikan."
+    ],
+    "killSwitchPath": "/home/z/my-project/.civitas/organism/KILL_SWITCH"
+  },
+  "genome": {
+    "weights": {
+      "reward": 0.871,
+      "strategic": 0.876,
+      "feasibility": 0.649,
+      "costPenalty": 0.569,
+      "riskPenalty": 0.775,
+      "novelty": 0.239
+    },
+    "strategy": "balanced-growth",
+    "workflow": {
+      "intervalMs": 60000,
+      "maxGoalsPerCycle": 5,
+      "doNothingBias": 0.35,
+      "steps": [
+        "observe",
+        "decide",
+        "act",
+        "evaluate",
+        "reflect"
+      ]
+    },
+    "tools": [
+      "envprobe",
+      "reposcan",
+      "mutation",
+      "spawner",
+      "capability",
+      "llm"
+    ],
+    "agentComposition": [
+      {
+        "role": "observer",
+        "count": 1
+      }
+    ]
+  },
+  "immune": {
+    "timeoutMs": 30000,
+    "maxRecursion": 3,
+    "maxRetries": 2,
+    "maxMemoryMb": 1024,
+    "maxMemoryEntries": 500,
+    "networkAllowlist": [
+      "127.0.0.1",
+      "localhost",
+      "mulkymalikuldhr.aternos.me",
+      "api.binance.com"
+    ],
+    "networkTimeoutMs": 8000,
+    "toolPermissions": {
+      "envprobe": true,
+      "reposcan": true,
+      "mutation": true,
+      "spawner": true,
+      "capability": true,
+      "llm": true,
+      "server_action": false,
+      "git_push": false
+    }
+  },
+  "permissions": {
+    "fsRead": true,
+    "fsWrite": true,
+    "exec": true,
+    "network": true,
+    "spawn": true
+  }
+}
