@@ -1,39 +1,6 @@
 [
   {
-    "goalId": "goal_f81f2c",
-    "required": [
-      "probe.env"
-    ],
-    "available": [
-      "probe.env"
-    ],
-    "missing": [],
-    "plan": []
-  },
-  {
-    "goalId": "goal_3c4ae1",
-    "required": [
-      "probe.env"
-    ],
-    "available": [
-      "probe.env"
-    ],
-    "missing": [],
-    "plan": []
-  },
-  {
-    "goalId": "goal_79f80c",
-    "required": [
-      "probe.env"
-    ],
-    "available": [
-      "probe.env"
-    ],
-    "missing": [],
-    "plan": []
-  },
-  {
-    "goalId": "goal_91de04",
+    "goalId": "goal_b233e6",
     "required": [
       "mc.raknet"
     ],
@@ -44,7 +11,7 @@
     "plan": []
   },
   {
-    "goalId": "goal_3d6ae5",
+    "goalId": "goal_fb2ef5",
     "required": [
       "census.snapshot"
     ],
@@ -58,5 +25,43 @@
         "how": "BUILD"
       }
     ]
+  },
+  {
+    "goalId": "goal_c1acc4",
+    "required": [
+      "java.logscan"
+    ],
+    "available": [],
+    "missing": [
+      "java.logscan"
+    ],
+    "plan": [
+      {
+        "capabilityId": "java.logscan",
+        "how": "BUILD"
+      }
+    ]
+  },
+  {
+    "goalId": "goal_0eeada",
+    "required": [
+      "probe.env"
+    ],
+    "available": [
+      "probe.env"
+    ],
+    "missing": [],
+    "plan": []
+  },
+  {
+    "goalId": "goal_59e274",
+    "required": [
+      "llm.brain"
+    ],
+    "available": [
+      "llm.brain"
+    ],
+    "missing": [],
+    "plan": []
   }
 ]

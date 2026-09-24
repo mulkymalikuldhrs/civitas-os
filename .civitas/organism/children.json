@@ -8,9 +8,10 @@
     "pid": 2092,
     "dir": "/home/z/my-project/.civitas/organism/children/cell_mufytozz50",
     "spawnedAt": "2026-09-24T20:09:25.201Z",
-    "status": "RUNNING",
+    "status": "DEAD",
     "lastHeartbeat": "2026-09-24T20:13:57.221Z",
-    "cycles": 34
+    "cycles": 34,
+    "exitCode": null
   },
   {
     "id": "cell_mufyufiwc6",
@@ -22,8 +23,8 @@
     "dir": "/home/z/my-project/.civitas/organism/children/cell_mufyufiwc6",
     "spawnedAt": "2026-09-24T20:09:59.578Z",
     "status": "RUNNING",
-    "lastHeartbeat": "2026-09-24T20:13:59.598Z",
-    "cycles": 30
+    "lastHeartbeat": "2026-09-24T20:15:03.617Z",
+    "cycles": 38
   },
   {
     "id": "cell_mufyvyfy6v",
@@ -35,7 +36,7 @@
     "dir": "/home/z/my-project/.civitas/organism/children/cell_mufyvyfy6v",
     "spawnedAt": "2026-09-24T20:11:10.751Z",
     "status": "RUNNING",
-    "lastHeartbeat": "2026-09-24T20:13:58.821Z",
-    "cycles": 21
+    "lastHeartbeat": "2026-09-24T20:15:02.821Z",
+    "cycles": 29
   }
 ]

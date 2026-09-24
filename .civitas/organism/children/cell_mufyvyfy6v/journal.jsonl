@@ -8,3 +8,4 @@
 {"at":"2026-09-24T20:13:58.821Z","kind":"REPORT","cycle":21,"rssMb":39,"load1":0.31,"note":"observer-mufyvyfy6v hidup: siklus 21, RSS 39MB"}
 {"at":"2026-09-24T20:14:22.821Z","kind":"REPORT","cycle":24,"rssMb":39,"load1":0.22,"note":"observer-mufyvyfy6v hidup: siklus 24, RSS 39MB"}
 {"at":"2026-09-24T20:14:46.821Z","kind":"REPORT","cycle":27,"rssMb":39,"load1":1.01,"note":"observer-mufyvyfy6v hidup: siklus 27, RSS 39MB"}
+{"at":"2026-09-24T20:15:05.776Z","kind":"SIGTERM","cycle":29}
