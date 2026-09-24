@@ -420,3 +420,5 @@
 {"at":"2026-09-24T23:04:24.130Z","type":"MEMORY_LOADED","players":0,"directives":0,"improvements":1,"bornAt":"2026-09-24T21:58:05.051Z"}
 {"at":"2026-09-24T23:04:24.142Z","type":"NET_ERROR","err":"undefined is not an object (evaluating 'data[type][version]')"}
 {"at":"2026-09-24T23:04:24.649Z","type":"CHILD_EXIT","attempt":46,"code":0,"note":"disconnect normal"}
+{"at":"2026-09-24T23:04:42.649Z","type":"PING_FAIL","error":"timeout","streak":139,"mode":"siaga-menunggu-server-bangun"}
+{"at":"2026-09-24T23:05:08.650Z","type":"PING_FAIL","error":"timeout","streak":140,"mode":"siaga-menunggu-server-bangun"}

@@ -5,10 +5,10 @@
   "kind": "player-agent",
   "brain": "v2.1-supervisor+joiner",
   "server": "mulkymalikuldhr.aternos.me:19132",
-  "status": "JOINING",
+  "status": "SIAGA",
   "pid": 11160,
   "joinedAt": null,
-  "lastHeartbeat": "2026-09-24T23:04:24.649Z",
+  "lastHeartbeat": "2026-09-24T23:05:08.650Z",
   "cycles": 1,
   "reconnects": 46,
   "stats": {
