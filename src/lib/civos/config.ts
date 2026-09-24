@@ -30,6 +30,11 @@ export const CONFIG_FIELDS: ConfigField[] = [
   { key: "mc.summonCount", label: "Jumlah villager disummon", kind: "NUMBER", group: "minecraft", default: "8" },
   { key: "mc.localConsolePath", label: "Path FIFO konsol server lokal", kind: "STRING", group: "minecraft", default: "/home/z/my-project/mc-server/pmmp/console.in", note: "Kosong = jalur konsol mati (server remote)" },
   { key: "mc.localLogPath", label: "Path log server lokal", kind: "STRING", group: "minecraft", default: "/home/z/my-project/mc-server/pmmp/server.log" },
+  { key: "mc.remoteHost", label: "Host server online (Bedrock)", kind: "STRING", group: "minecraft", default: "mulkymalikuldhr.aternos.me", note: "dipakai registry server 'aternos'" },
+  // SLICE 11 — SELF-LIFE (multi-server, backup, sync)
+  { key: "backup.keep", label: "Retensi backup (arsip disimpan)", kind: "NUMBER", group: "settlement", default: "7" },
+  { key: "backup.intervalHours", label: "Jadwal backup (jam)", kind: "NUMBER", group: "settlement", default: "6" },
+  { key: "sync.intervalMinutes", label: "Jadwal self-sync git (menit)", kind: "NUMBER", group: "settlement", default: "30", note: "push ke 4 remote bila ada perubahan" },
   // CHAT — interaksi langsung dengan warga (mandat #1)
   { key: "chat.autoReply", label: "Warga membalas chat dunia otomatis", kind: "BOOLEAN", group: "chat", default: "true" },
   { key: "chat.relayToDashboard", label: "Chat dunia tercatat di dashboard", kind: "BOOLEAN", group: "chat", default: "true" },

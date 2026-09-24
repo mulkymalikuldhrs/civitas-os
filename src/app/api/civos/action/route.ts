@@ -291,6 +291,44 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ ok: r.ok, response: r.response });
       }
 
+      // SLICE 11 — SELF-LIFE & MULTI-SERVER: config baca, aksi server, backup, sync, detak
+      case "config_get": {
+        const { configView } = await import("@/lib/civos/config");
+        if (!p.key) return NextResponse.json({ ok: false, error: "params.key wajib" }, { status: 400 });
+        const cfg = await configView();
+        const f = cfg.fields.find((x) => x.key === p.key!.trim());
+        if (!f) return NextResponse.json({ ok: false, error: `field tidak dikenal: ${p.key}` }, { status: 404 });
+        return NextResponse.json({ ok: true, key: f.key, value: f.value, masked: f.masked, set: f.set });
+      }
+
+      case "server_action": {
+        const { serverAction } = await import("@/lib/civos/servers");
+        const id = (p.key ?? p.item ?? "").trim();
+        const act = (p.value ?? "status").trim();
+        if (!id) return NextResponse.json({ ok: false, error: "params.key = id server wajib" }, { status: 400 });
+        if (!["start", "stop", "restart", "status"].includes(act)) return NextResponse.json({ ok: false, error: "params.value = start|stop|restart|status" }, { status: 400 });
+        const r = await serverAction(id, act as "start" | "stop" | "restart" | "status");
+        return NextResponse.json(r, { status: r.ok ? 200 : 400 });
+      }
+
+      case "backup_run": {
+        const { backupAll } = await import("@/lib/civos/selflife");
+        const r = await backupAll();
+        return NextResponse.json({ ...r, ok: r.ok }, { status: r.ok ? 200 : 500 });
+      }
+
+      case "git_sync": {
+        const { gitSync } = await import("@/lib/civos/selflife");
+        const r = await gitSync();
+        return NextResponse.json({ ...r, ok: r.ok }, { status: r.ok ? 200 : 500 });
+      }
+
+      case "selflife_tick": {
+        const { selfLifeTick } = await import("@/lib/civos/selflife");
+        const r = await selfLifeTick();
+        return NextResponse.json({ ok: true, ...r });
+      }
+
       case "reset": {
         if (p.confirm !== "RESET-CIVOS") {
           return NextResponse.json({ ok: false, error: "butuh params.confirm = 'RESET-CIVOS'" }, { status: 403 });

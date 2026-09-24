@@ -10,7 +10,15 @@
     "db:push": "prisma db push --accept-data-loss",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:reset": "prisma migrate reset"
+    "db:reset": "prisma migrate reset",
+    "civitas": "node bin/civitas.mjs",
+    "daemon": "bash scripts/civitas_daemon.sh",
+    "daemon:start": "bash scripts/civitas_daemon.sh start",
+    "daemon:stop": "bash scripts/civitas_daemon.sh stop",
+    "mcp": "node scripts/civitas_mcp_stdio.mjs",
+    "backup": "node bin/civitas.mjs backup",
+    "sync": "node bin/civitas.mjs sync",
+    "doctor": "node bin/civitas.mjs doctor"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -92,5 +100,8 @@
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.5",
     "typescript": "^5"
+  },
+  "bin": {
+    "civitas": "./bin/civitas.mjs"
   }
 }

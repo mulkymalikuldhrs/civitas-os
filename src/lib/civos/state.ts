@@ -18,6 +18,8 @@ import { recentChat } from "./chat";
 import { listMcpServers } from "./mcp";
 import { consoleLog } from "./console";
 import { configView } from "./config";
+import { cachedServerStatuses } from "./servers";
+import { selfLifeStatus } from "./selflife";
 import { KV_LAST_TICK } from "./types";
 import { mcTarget } from "./config";
 import { safeParse } from "./events";
@@ -192,6 +194,9 @@ export async function civState() {
     config: cfg,
     mcStatus,
     mcServer: await mcTarget(),
+    // SLICE 11 — MULTI-SERVER + SELF-LIFE
+    servers: await cachedServerStatuses(),
+    selfLife: await selfLifeStatus(),
     lastTick,
     counts,
     serverTime: new Date().toISOString(),

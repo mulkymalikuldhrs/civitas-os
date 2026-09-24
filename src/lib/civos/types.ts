@@ -96,6 +96,9 @@ export const EVENT_TYPES = {
   // SLICE 9 — GUILD KERJA & TOOLFORGE (tool calling + internet nyata)
   TOOL_INVOKED: "TOOL_INVOKED",
   ARTIFACT_CREATED: "ARTIFACT_CREATED",
+  // SLICE 11 — SELF-LIFE (self backup · self sync · multi-server)
+  BACKUP_CREATED: "BACKUP_CREATED",
+  SYNC_PUSHED: "SYNC_PUSHED",
 } as const;
 
 /** Jenis direktif tubuh — jembatan keputusan → aksi fisik villager.
@@ -213,6 +216,10 @@ export const KV_VILLAGE_SEQ = "village.seq";
 export const KV_VILLAGE_SEEDFLAG = "village.simCensusSeeded";
 export const KV_MARKET_SEQ = "market.seq";
 export const KV_TOOL_SEQ = "toolforge.seq";
+export const KV_SELF_LIFE = "selflife.lastTick";
+
+/** SLICE 11 — edisi server yang dikenali kernel (all-in-one: Bedrock + Java + registry). */
+export const SERVER_EDITIONS = ["BEDROCK", "JAVA"] as const;
 
 /** Info server Minecraft pemilik (mandat 2026-09): Bedrock 1.26.51.1. */
 export const MC_SERVER_INFO = {
