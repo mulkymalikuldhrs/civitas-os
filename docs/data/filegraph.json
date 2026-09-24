@@ -1,22 +1,22 @@
 {
- "generatedAt": "2026-09-24T10:20:35.114Z",
+ "generatedAt": "2026-09-24T20:46:47.874Z",
  "root": "civitas-os",
  "counts": {
-  "files": 232,
-  "edges": 556,
-  "kernelEdges": 219
+  "files": 259,
+  "edges": 631,
+  "kernelEdges": 283
  },
  "groups": {
-  "api": 18,
+  "api": 21,
   "app": 3,
-  "ui-civitas": 16,
+  "ui-civitas": 17,
   "ui": 63,
   "misc": 10,
-  "kernel": 30,
+  "kernel": 47,
   "lib": 39,
-  "scripts": 29,
+  "scripts": 34,
   "db": 1,
-  "docs": 21,
+  "docs": 22,
   "mc-server": 2
  },
  "nodes": [
@@ -75,10 +75,28 @@
    "loc": 28
   },
   {
+   "id": "src/app/api/civos/javabot/route.ts",
+   "size": 2255,
+   "group": "api",
+   "loc": 64
+  },
+  {
+   "id": "src/app/api/civos/mcp/route.ts",
+   "size": 12153,
+   "group": "api",
+   "loc": 200
+  },
+  {
    "id": "src/app/api/civos/minecraft/route.ts",
    "size": 887,
    "group": "api",
    "loc": 24
+  },
+  {
+   "id": "src/app/api/civos/organism/route.ts",
+   "size": 4723,
+   "group": "api",
+   "loc": 95
   },
   {
    "id": "src/app/api/civos/selflife/route.ts",
@@ -154,9 +172,9 @@
   },
   {
    "id": "src/components/civitas/McShell.tsx",
-   "size": 11213,
+   "size": 11345,
    "group": "ui-civitas",
-   "loc": 219
+   "loc": 222
   },
   {
    "id": "src/components/civitas/divmeta.ts",
@@ -235,6 +253,12 @@
    "size": 7220,
    "group": "ui-civitas",
    "loc": 160
+  },
+  {
+   "id": "src/components/civitas/views/OrganismView.tsx",
+   "size": 21189,
+   "group": "ui-civitas",
+   "loc": 359
   },
   {
    "id": "src/components/civitas/views/WorldView.tsx",
@@ -658,9 +682,9 @@
   },
   {
    "id": "src/lib/civos/config.ts",
-   "size": 7544,
+   "size": 8174,
    "group": "kernel",
-   "loc": 136
+   "loc": 139
   },
   {
    "id": "src/lib/civos/console.ts",
@@ -697,6 +721,12 @@
    "size": 14493,
    "group": "kernel",
    "loc": 244
+  },
+  {
+   "id": "src/lib/civos/javabot.ts",
+   "size": 15866,
+   "group": "kernel",
+   "loc": 410
   },
   {
    "id": "src/lib/civos/ledger.ts",
@@ -741,6 +771,102 @@
    "loc": 15
   },
   {
+   "id": "src/lib/civos/organism/capability.ts",
+   "size": 7804,
+   "group": "kernel",
+   "loc": 168
+  },
+  {
+   "id": "src/lib/civos/organism/decision.ts",
+   "size": 2029,
+   "group": "kernel",
+   "loc": 38
+  },
+  {
+   "id": "src/lib/civos/organism/dna.ts",
+   "size": 3719,
+   "group": "kernel",
+   "loc": 102
+  },
+  {
+   "id": "src/lib/civos/organism/envprobe.ts",
+   "size": 3239,
+   "group": "kernel",
+   "loc": 88
+  },
+  {
+   "id": "src/lib/civos/organism/goals.ts",
+   "size": 5966,
+   "group": "kernel",
+   "loc": 134
+  },
+  {
+   "id": "src/lib/civos/organism/immune.ts",
+   "size": 7440,
+   "group": "kernel",
+   "loc": 165
+  },
+  {
+   "id": "src/lib/civos/organism/index.ts",
+   "size": 714,
+   "group": "kernel",
+   "loc": 22
+  },
+  {
+   "id": "src/lib/civos/organism/llm.ts",
+   "size": 3616,
+   "group": "kernel",
+   "loc": 84
+  },
+  {
+   "id": "src/lib/civos/organism/loop.ts",
+   "size": 18700,
+   "group": "kernel",
+   "loc": 388
+  },
+  {
+   "id": "src/lib/civos/organism/memory.ts",
+   "size": 1574,
+   "group": "kernel",
+   "loc": 52
+  },
+  {
+   "id": "src/lib/civos/organism/mutation.ts",
+   "size": 9904,
+   "group": "kernel",
+   "loc": 195
+  },
+  {
+   "id": "src/lib/civos/organism/repos.ts",
+   "size": 4228,
+   "group": "kernel",
+   "loc": 102
+  },
+  {
+   "id": "src/lib/civos/organism/spawner.ts",
+   "size": 6683,
+   "group": "kernel",
+   "loc": 176
+  },
+  {
+   "id": "src/lib/civos/organism/store.ts",
+   "size": 2248,
+   "group": "kernel",
+   "loc": 63
+  },
+  {
+   "id": "src/lib/civos/organism/types.ts",
+   "size": 9558,
+   "group": "kernel",
+   "loc": 276
+  },
+  {
+   "id": "src/lib/civos/organism/worldmodel.ts",
+   "size": 8809,
+   "group": "kernel",
+   "loc": 169
+  },
+  {
    "id": "src/lib/civos/policy.ts",
    "size": 10644,
    "group": "kernel",
@@ -766,15 +892,15 @@
   },
   {
    "id": "src/lib/civos/selflife.ts",
-   "size": 15062,
+   "size": 15714,
    "group": "kernel",
-   "loc": 295
+   "loc": 308
   },
   {
    "id": "src/lib/civos/servers.ts",
-   "size": 12535,
+   "size": 12700,
    "group": "kernel",
-   "loc": 297
+   "loc": 299
   },
   {
    "id": "src/lib/civos/settle.ts",
@@ -790,9 +916,9 @@
   },
   {
    "id": "src/lib/civos/supabase.ts",
-   "size": 9342,
+   "size": 9512,
    "group": "kernel",
-   "loc": 201
+   "loc": 202
   },
   {
    "id": "src/lib/civos/tools.ts",
@@ -808,9 +934,9 @@
   },
   {
    "id": "src/lib/civos/village.ts",
-   "size": 24462,
+   "size": 24722,
    "group": "kernel",
-   "loc": 441
+   "loc": 446
   },
   {
    "id": "src/lib/civos/villagers.ts",
@@ -1084,21 +1210,21 @@
   },
   {
    "id": "scripts/civitas_daemon.sh",
-   "size": 2087,
+   "size": 2428,
    "group": "scripts",
    "loc": 0
   },
   {
    "id": "scripts/civitas_mcp_stdio.mjs",
-   "size": 12151,
+   "size": 13312,
    "group": "scripts",
-   "loc": 194
+   "loc": 207
   },
   {
    "id": "scripts/civitas_selflife_tick.ts",
-   "size": 664,
+   "size": 2535,
    "group": "scripts",
-   "loc": 18
+   "loc": 57
   },
   {
    "id": "scripts/civos_invariants.ts",
@@ -1138,15 +1264,45 @@
   },
   {
    "id": "scripts/java_server.sh",
-   "size": 3825,
+   "size": 4035,
    "group": "scripts",
    "loc": 0
+  },
+  {
+   "id": "scripts/javabot_probe.mjs",
+   "size": 2545,
+   "group": "scripts",
+   "loc": 59
   },
   {
    "id": "scripts/mc_server.sh",
    "size": 1856,
    "group": "scripts",
    "loc": 0
+  },
+  {
+   "id": "scripts/organism_bench.ts",
+   "size": 3047,
+   "group": "scripts",
+   "loc": 81
+  },
+  {
+   "id": "scripts/organism_child.ts",
+   "size": 3501,
+   "group": "scripts",
+   "loc": 82
+  },
+  {
+   "id": "scripts/organism_selftest.ts",
+   "size": 3574,
+   "group": "scripts",
+   "loc": 61
+  },
+  {
+   "id": "scripts/organism_tick.ts",
+   "size": 1024,
+   "group": "scripts",
+   "loc": 24
   },
   {
    "id": "scripts/package.json",
@@ -1233,20 +1389,26 @@
    "loc": 0
   },
   {
+   "id": "docs/AUDIT_v1.2.md",
+   "size": 9466,
+   "group": "docs",
+   "loc": 0
+  },
+  {
    "id": "docs/CIVITAS_OS_MASTER.md",
-   "size": 17503,
+   "size": 18629,
    "group": "docs",
    "loc": 0
   },
   {
    "id": "docs/FILE_INDEX.md",
-   "size": 25242,
+   "size": 25987,
    "group": "docs",
    "loc": 0
   },
   {
    "id": "docs/README.md",
-   "size": 832,
+   "size": 1173,
    "group": "docs",
    "loc": 0
   },
@@ -1348,7 +1510,7 @@
   },
   {
    "id": "docs/data/filegraph.json",
-   "size": 82833,
+   "size": 87682,
    "group": "docs",
    "loc": 0
   },
@@ -1402,13 +1564,13 @@
   },
   {
    "id": "package.json",
-   "size": 3717,
+   "size": 3745,
    "group": "misc",
    "loc": 0
   },
   {
    "id": "README.md",
-   "size": 11307,
+   "size": 16798,
    "group": "misc",
    "loc": 0
   }
@@ -1635,12 +1797,117 @@
    "kind": "import"
   },
   {
+   "from": "src/app/api/civos/javabot/route.ts",
+   "to": "src/lib/civos/javabot.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/economy.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/javabot.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/runtime.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/javabot.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/villagers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/chat.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/tools.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/mcp/route.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
    "from": "src/app/api/civos/minecraft/route.ts",
    "to": "src/lib/civos/minecraft.ts",
    "kind": "import"
   },
   {
    "from": "src/app/api/civos/minecraft/route.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/organism/route.ts",
+   "to": "src/lib/civos/organism/index.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/organism/route.ts",
    "to": "src/lib/civos/config.ts",
    "kind": "import"
   },
@@ -1767,6 +2034,11 @@
   {
    "from": "src/components/civitas/McShell.tsx",
    "to": "src/components/civitas/views/CitadelView.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/McShell.tsx",
+   "to": "src/components/civitas/views/OrganismView.tsx",
    "kind": "import"
   },
   {
@@ -1942,6 +2214,11 @@
   {
    "from": "src/components/civitas/views/MapView.tsx",
    "to": "src/components/civitas/McShell.tsx",
+   "kind": "import"
+  },
+  {
+   "from": "src/components/civitas/views/OrganismView.tsx",
+   "to": "src/components/civitas/mcui.tsx",
    "kind": "import"
   },
   {
@@ -2800,6 +3077,11 @@
    "kind": "import"
   },
   {
+   "from": "src/lib/civos/javabot.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
    "from": "src/lib/civos/ledger.ts",
    "to": "src/lib/db.ts",
    "kind": "import"
@@ -2942,6 +3224,216 @@
   {
    "from": "src/lib/civos/minecraft.ts",
    "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/capability.ts",
+   "to": "src/lib/civos/organism/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/capability.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/decision.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/dna.ts",
+   "to": "src/lib/civos/organism/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/dna.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/envprobe.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/goals.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/immune.ts",
+   "to": "src/lib/civos/organism/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/immune.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/index.ts",
+   "to": "src/lib/civos/organism/loop.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/index.ts",
+   "to": "src/lib/civos/organism/llm.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/index.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/llm.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/llm.ts",
+   "to": "src/lib/civos/organism/immune.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/llm.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/capability.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/decision.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/immune.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/dna.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/llm.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/mutation.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/spawner.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/worldmodel.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/goals.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/loop.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/memory.ts",
+   "to": "src/lib/civos/organism/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/memory.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/mutation.ts",
+   "to": "src/lib/civos/organism/dna.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/mutation.ts",
+   "to": "src/lib/civos/organism/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/mutation.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/repos.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/spawner.ts",
+   "to": "src/lib/civos/organism/dna.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/spawner.ts",
+   "to": "src/lib/civos/organism/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/spawner.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/worldmodel.ts",
+   "to": "src/lib/civos/organism/repos.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/worldmodel.ts",
+   "to": "src/lib/civos/organism/store.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/worldmodel.ts",
+   "to": "src/lib/civos/organism/memory.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/worldmodel.ts",
+   "to": "src/lib/civos/organism/envprobe.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/organism/worldmodel.ts",
+   "to": "src/lib/civos/organism/types.ts",
    "kind": "import"
   },
   {
@@ -3112,6 +3604,11 @@
   {
    "from": "src/lib/civos/selflife.ts",
    "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/selflife.ts",
+   "to": "src/lib/civos/javabot.ts",
    "kind": "import"
   },
   {
@@ -3970,6 +4467,11 @@
    "kind": "import"
   },
   {
+   "from": "scripts/civitas_selflife_tick.ts",
+   "to": "src/lib/civos/organism/index.ts",
+   "kind": "import"
+  },
+  {
    "from": "scripts/civos_invariants.ts",
    "to": "src/lib/db.ts",
    "kind": "import"
@@ -4102,6 +4604,41 @@
   {
    "from": "scripts/guild_probe.ts",
    "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/javabot_probe.mjs",
+   "to": "src/lib/civos/javabot.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/organism_bench.ts",
+   "to": "src/lib/civos/organism/dna.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/organism_bench.ts",
+   "to": "src/lib/civos/organism/goals.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/organism_bench.ts",
+   "to": "src/lib/civos/organism/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/organism_selftest.ts",
+   "to": "src/lib/civos/organism/index.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/organism_selftest.ts",
+   "to": "src/lib/civos/organism/dna.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/organism_tick.ts",
+   "to": "src/lib/civos/organism/index.ts",
    "kind": "import"
   },
   {

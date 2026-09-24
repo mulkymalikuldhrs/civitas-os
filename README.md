@@ -23,7 +23,7 @@ CIVITAS OS adalah **peradaban digital yang hidup tanpa perintah manusia**: ia be
 
 | Lapisan | Kemampuan | Status |
 |---|---|---|
-| **Civilization Kernel** | Ledger double-entry (Σdebit=Σcredit), event immutable, policy engine di luar LLM, 19+ model Prisma | ✅ terverifikasi (57 invariant PASS) |
+| **Civilization Kernel** | Ledger double-entry (Σdebit=Σcredit), event immutable, policy engine di luar LLM, 19+ model Prisma | ✅ terverifikasi (63 invariant PASS) |
 | **Pemerintahan** | 4 institusi (REGULATORY/TREASURY/EXECUTIVE/TAX) tiga cabang, pajak otomatis, anggaran | ✅ hidup |
 | **Perusahaan** | 13-state lifecycle (PROPOSED→…→BANKRUPT), pasar desa matching termurah | ✅ hidup |
 | **Warga Villager** | Sensus CENSUS dari entitas dunia nyata, otak LLM per warga, ekonomi dompet, sosialisasi | ✅ 8/8 warga CENSUS NYATA |
@@ -40,7 +40,7 @@ CIVITAS OS adalah **peradaban digital yang hidup tanpa perintah manusia**: ia be
 | **Multi-Server All-in-One** | Registry Bedrock + Java + remote dalam satu kernel: PocketMine-MP **dan** Purpur/vanilla, ping nyata per edisi (RakNet UDP / TCP SLP), start-stop-restart, watchdog | ✅ Bedrock 4-11ms · Java 4-5ms hidup bersamaan |
 | **Self-Life** | Daemon 24/7: watchdog server + denyut peradaban + jadwal backup/sync — hidup **tanpa web app** | ✅ log `backups/daemon.log` |
 | **Self Backup** | Arsip dunia+db+config → tar.gz + manifest sha256 + retensi 7 | ✅ otomatis 6 jam |
-| **Self Sync** | Commit + push otomatis ke **4 remote** (GitHub x3 + GitLab), token transient tak pernah masuk repo | ✅ push terverifikasi |
+| **Self Sync** | Commit + push otomatis ke **4 remote** (GitHub x3 + GitLab), token transient tak pernah masuk repo | ✅ GitHub ×3 terverifikasi `c1f62db` · GitLab menunggu scope `write_repository` token (baca+API-write OK) |
 | **MCP Server** | CIVITAS sebagai **server MCP** 13 tools (stdio) — siap Claude Desktop; fallback bun tanpa web app | ✅ initialize/tools/call |
 | **CLI `civitas`** | status · pulse · doctor · chat · server · backup · sync · tool · config · daemon | ✅ 17 perintah |
 
@@ -161,6 +161,38 @@ census, chat, tool_run, config_get, config_set — kernel tetap bisa diaudit mes
 - Kantor kuant memutuskan pada harga Binance nyata; jika API tak terjangkau ia berstatus `PAUSED` — **tidak pernah memakai harga fiktif**.
 - Setiap panggilan tool/MCP teraudit (OK/DENIED/FAILED) di `CivToolCall`; tidak ada tool hantu.
 - Server Aternos tidak bisa dibangunkan dari luar (butuh sesi pemilik) — dilaporkan apa adanya.
+
+## Referensi & Sumber
+
+Semua keputusan arsitektur berdiri di atas riset berdokumen: **29 berkas riset** tersimpan di [`research/`](research/) (JSON ber-URL, dapat diaudit), dianalisis dalam [`research/RELEVANT_REPOS_16b.md`](research/RELEVANT_REPOS_16b.md) (16 repo kandidat adopsi — bintang terverifikasi GitHub API 2026-09-24) dan [`research/REVIEW_16h1.md`](research/REVIEW_16h1.md) (audit 0-mock). Sumber utama yang membentuk pola CIVITAS OS:
+
+**Pola organisme & agent Minecraft** (diadopsi sebagai *pola*, bukan dependensi):
+- [PrismarineJS/mineflayer](https://github.com/PrismarineJS/mineflayer) — bot Java Edition (dependensi langsung `mineflayer@4.39.0`)
+- [PrismarineJS/bedrock-protocol](https://github.com/PrismarineJS/bedrock-protocol) — protokol Bedrock (dependensi langsung)
+- [mindcraft-bots/mindcraft](https://github.com/mindcraft-bots/mindcraft) — pola "LLM mengusulkan rencana JSON → whitelist fungsi aman" (= LLM mengusulkan, kernel menegakkan)
+- [Microsoft/voyager](https://github.com/Microsoft/voyager) — skill-library terverifikasi + kurikulum otomatis (cikal bakal Capability Graph)
+- Altera **PIANO / Project Sid** ([arXiv:2410.18976](https://arxiv.org/abs/2410.18976)) — modul kognitif konkuren + critic untuk peradaban 1.000+ agent
+- [letta-ai/letta](https://github.com/letta-ai/letta) (MemGPT) — memori self-edited + konsolidasi → desain memori ber-ACL per warga
+- [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) & [crewAI](https://github.com/crewAIInc/crewAI) — pelajaran: loop tanpa anggaran drift; delegasi peran eksplisit
+
+**MCP & protokol tool:**
+- [modelcontextprotocol/typescript-sdk](https://github.com/modelcontextprotocol/typescript-sdk) — SDK resmi MCP (basis registry 13 tools)
+- [vercel/mcp-handler](https://github.com/vercel/mcp-handler) — adaptor HTTP MCP untuk Next.js
+- [opencode.ai/docs/mcp-servers](https://opencode.ai/docs/mcp-servers) · [mem0.ai](https://mem0.ai) · [letta.com](https://www.letta.com) — survei ekosistem & benchmark memori agent
+
+**Operasi server Minecraft** (pola autopaused/watchdog/panel):
+- [itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft-server) — AUTOPAUSE + RCON healthcheck
+- [Crafty-Controller/Crafty-4](https://github.com/Crafty-Controller/Crafty-4) · [MCSManager/MCSManager](https://github.com/MCSManager/MCSManager) — panel multi-server; split panel↔daemon memvalidasi desain `civitas_daemon.sh`
+- [Unitech/pm2](https://github.com/Unitech/pm2) — manajer proses programatik
+- [PocketMine-MP](https://github.com/pmmp/PocketMine-MP) (Bedrock, LGPL) · [Purpur](https://purpurmc.org) (Java) — runtime dunia fisik
+
+**Ilmiah** (inspirasi organisme, bukan klaim):
+- [FlyWire](https://flywire.ai) — konektom otak lalat utuh; [Nature 2024](https://www.nature.com) (betina, 139.255 neuron) & HHMI/Janelia 2026 (jantan, >166.000 neuron)
+- [Virtual Fly Brain](https://www.virtualflybrain.org) + VFB MCP — anatomi/ontologi (asal-usul protokol FlyBrain MCP)
+- [Ink & Switch — Local-first software](https://www.inkandswitch.com/local-first/) — prinsip kepemilikan data
+- [Binance public API](https://developers.binance.com) — harga pasar nyata untuk kantor kuant (anti-harga-fiktif)
+
+**Toolchain:** [Next.js 16](https://nextjs.org) · [Prisma](https://www.prisma.io) · [Bun](https://bun.sh) · [Supabase](https://supabase.com) · [Model Context Protocol](https://modelcontextprotocol.io)
 
 ## Struktur dokumen
 

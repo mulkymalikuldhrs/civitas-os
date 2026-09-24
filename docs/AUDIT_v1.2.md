@@ -143,3 +143,24 @@ CIVITAS OS v1.2 "ORGANISM" **lolos audit penuh**: seluruh komponen yang di manda
 7 limit imun enforced, LLM custom provider via UI, lapisan HERMES) terverifikasi
 nyata — tanpa mock, tanpa klaim kosong, kegagalan dilaporkan jujur. Kondisi siap
 push; satu-satunya penghambat adalah kredensial yang menunggu input pemilik.
+
+## Lampiran — Hasil Push (2026-09-25)
+
+Kredensial dipulihkan pemilik dan disimpan aman (`~/.gitcreds`, chmod 600, di luar repo).
+Strategi: **push inkremental langsung** — skrip orphan-squash lama sengaja TIDAK dipakai
+agar history inkremental (self-sync, organism runtime, audit) tetap utuh di remote.
+
+| Remote | Hasil | SHA |
+|--------|-------|-----|
+| github.com/mulkymalikuldhrs/civitas-os | ✅ push + verifikasi ls-remote | `c1f62db` |
+| github.com/mulkymalikuldhaher/civitas-os | ✅ push + verifikasi ls-remote | `c1f62db` |
+| github.com/dhaher-labs/civitas-os | ✅ push + verifikasi ls-remote | `c1f62db` |
+| gitlab.com/mulkymalikuldhr/civitas-os | ⚠️ git write 403 — token valid (user OK, access_level 50, git read OK, API write OK) namun **scope `write_repository` belum dicentang**; anti-abuse GitLab juga intermiten | `a803b6b` +1 probe commit |
+
+Bukti diagnostik GitLab: `GET /user` 200 · `GET /projects/86823449` 200 · `ls-remote`
+(username:token) 200 · `POST /repository/files` 200 (probe `civitas-sync-probe.txt`) ·
+`git push` 403 (skema `oauth2:` dan `username:token` sama-sama 403 pada receive-pack).
+Kesimpulan: satu-satunya gerbang yang menuntut manusia adalah centang scope di GitLab.
+Setelah aktif: `git push --force-with-lease` (menimpa hanya probe commit diagnostik).
+
+Backup full history: `/home/z/civitas-os-full-history-20260925.bundle` (344 MB, di luar repo).

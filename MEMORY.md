@@ -1,10 +1,10 @@
 # MEMORY.md - Canonical State (FLYBRAIN OS + CIVITAS OS)
 
-Updated: 2026-09-23 (sesi 6) | Agent: Super Z
+Updated: 2026-09-25 (sesi 7) | Agent: Super Z
 
 ## Project
 - **Objective**: Platform otak universal untuk semua tool/AI agent/IoT — memori + kesadaran operasional + gerbang endpoint tunggal — TANPA server backend, data 100% milik user. Nama: **FLYBRAIN OS** (lapisan protokol tetap memakai warisan "FlyBrain MCP").
-- **Phase**: v1.2.2 "GEMBALA" + **CIVITAS OS v0.2 (Task 9–12): Slice 1–8 penuh — tubuh warga (direktif) + pasar desa + cron 24/7 VERIFIED** (invariant 46 PASS; pembelian pasar nyata; klaim bot tp ber-anchor; build 12 route; warga kini otak+dompet+tubuh = autonomously autonomous penuh).
+- **Phase**: **CIVITAS OS v1.2.1 "ORGANISM"** — General Autonomous Digital Organism Runtime 16 modul (DNA, world model epistemic, loop 14 langkah, mutation worktree A/B, spawner proses nyata, capability graph, imun 7 limit enforced, LLM free-first + custom provider via UI) + audit penuh PASS (`docs/AUDIT_v1.2.md`: tsc 0 · mock 0 · invarian 63/0 · build hijau · selftest end-to-end) + push GitHub ×3 terverifikasi (`c1f62db`). GitLab menunggu scope `write_repository` pada token pemilik.
 
 ## Confirmed Facts (riset 16 kueri, 2026-09-21, sumber primer)
 - Viral Sept 2026: CNS lalat jantan Janelia+Google (3 Sep): >166.000 neuron, ±125 juta sinapsis; WIRED 16 Sep (vibe-coding PitchFly); MindStudio 14 Sep (hobiis).
@@ -30,7 +30,8 @@ Updated: 2026-09-23 (sesi 6) | Agent: Super Z
 - **CIVITAS OS** (sesi 5–6): prisma/schema.prisma (16 model Civ*; +CivVillagerDirective, +CivMarketOffer); src/lib/civos/* (types,money,events,ledger,policy,router,memory,accounts,economy,company,government,runtime,minecraft,seed,state,supabase,settle,expand,villagers,village,**directives**,**market**,mcbot); src/app/api/civos/* (state,heartbeat,action,minecraft,sync,**cron**); UI: PeradabanView (7 sub-tab, DESA: warga+TUBUH+PASAR) + MinecraftView (bridge panel); scripts/{civos_invariants.ts (46),civ_verify.sh,civ_e2e.sh,slice8_probe.ts}; docs/civitas-os/{PRD §9,CANONICAL}.md + docs/adr/ADR-0001..0008; bukti tool-results/civ-0*.png + civ-11/12-slice8.png.
 - **Aplikasi** (root repo): src/lib/flybrain/* (kernel + organism/: brain, loops, constitution, eventBus, organs/×6, quant/×6, selfReflect, creature, creatures, engine) + hooks/useOrganismEngine; src/components/flybrain/* (AppShell + 10 view + 3 kanvas); src/app/api/{mcp,organism/*,civos/*}. Route `/` tunggal.
 - **Dokumen**: /download/flybrain-os/ 00–11 (12 berkas, konvensi [T]/[D]/[H]).
-- **Bukti riset**: /research/*.json (16 kueri) + /upstream/ (kloningan 4 repo pemilik) + screenshot tool-results/ (biosfer-05/06 dll.).
+- **Bukti riset**: /research/*.json (29 kueri ber-URL + RELEVANT_REPOS_16b.md + REVIEW_16h1.md + blueprint PDF) + /upstream/ (kloningan 4 repo pemilik) + screenshot tool-results/ (biosfer-05/06 dll.).
+- **Organism runtime** (sesi 7): src/lib/civos/organism/ (types, store, dna, memory, immune, envprobe, repos, worldmodel, goals, decision, llm, capability, mutation, spawner, loop, index) + scripts/organism_{tick,selftest,bench,child}.ts + API /api/civos/organism (12 aksi) + tab UI 🧬 ORGANISME + docs/AUDIT_v1.2.md.
 - Arsip sesi 1: FlyBrain_MCP_Riset_dan_Blueprint.docx + flybrain-mcp (Python, deprecated).
 
 ## Browser Verification (sesi 3 — BIOSFER, 2026-09-21)
@@ -51,7 +52,8 @@ Updated: 2026-09-23 (sesi 6) | Agent: Super Z
 - Mitra pembayaran penandatangan kwitansi (Fase 4) + konfirmasi tertulis lisensi FlyWire sebelum monetisasi penuh.
 
 ## Next Actions (urut)
-1. **Pemilik: bangunkan server Aternos** dari panel + **beri OP ke CIVITAS-AGENT** → bot auto-join: sensus CENSUS nyata + eksekusi DIREKTIF fisik (tp ber-anchor + relay chat berlabel); uji place-block berikutnya.
-2. **Pemilik: ROTASI kredensial Supabase** (kunci pernah lewat chat) + jangan commit .env.
-3. Revenue eksternal riil: aktifkan EXTERNAL_SETTLEMENT_LIVE + provider nyata (rail teruji penuh via sandbox berlabel; honesty gate 422 aktif).
-4. Deploy Vercel (butuh token pemilik): cron denyut 24/7 `/api/civos/cron` + `/api/organism/cron` jalan otomatis (Hobby=daily; pinger eksternal */5 untuk penuh) + push konsolidasi ke remote git pemilik.
+1. **Pemilik: centang scope `write_repository`** pada token GitLab glpat → push force-with-lease menimpa 1 commit probe diagnostik → 4/4 remote sinkron.
+2. **Pemilik: bangunkan server Aternos** dari panel + **beri OP ke CIVITAS-AGENT** → bot auto-join: sensus CENSUS nyata + eksekusi DIREKTIF fisik; uji place-block berikutnya.
+3. **Pemilik: ROTASI kredensial Supabase** (kunci pernah lewat chat) + jangan commit .env.
+4. Revenue eksternal riil: aktifkan EXTERNAL_SETTLEMENT_LIVE + provider nyata (honesty gate 422 aktif).
+5. Deploy Vercel (butuh token pemilik): cron denyut 24/7 `/api/civos/cron` + `/api/organism/cron`.

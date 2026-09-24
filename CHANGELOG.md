@@ -3,6 +3,32 @@
 Semua perubahan penting proyek ini didokumentasikan di sini.
 Format mengikuti [Keep a Changelog](https://keepachangelog.com/id/1.1.0/); versi mengikuti [SemVer](https://semver.org/lang/id/).
 
+## [1.2.1] — 2026-09-25 · "REFERENSI & AUDIT"
+
+Konsolidasi dokumentasi pasca-audit + referensi sumber riset + deskripsi repo remote.
+
+### Ditambahkan
+- `docs/AUDIT_v1.2.md` — laporan audit & verifikasi penuh: tsc 0 error, 0 mock nyata,
+  selftest organisme end-to-end (mutasi A/B ADOPTED via git worktree, child spawner PID
+  hidup, capability BUILD terverifikasi, tick cycle 13), invarian **63 PASS / 0 FAIL**,
+  production build sukses, review kode 7 limit imun + spawner + LLM UI.
+- README: section **Referensi & Sumber** — 29 berkas riset di `research/` (JSON ber-URL)
+  + 16 repo kandidat (`RELEVANT_REPOS_16b.md`) + sumber utama per kategori (pola agent
+  Minecraft, MCP, operasi server, ilmiah, toolchain) dengan tautan nyata.
+- Deskripsi publik keempat repo remote diset via API (GitHub ×3 + GitLab).
+
+### Diubah
+- README: angka invarian 57 → 63; baris Self Sync kini jujur per remote
+  (GitHub ×3 terverifikasi; GitLab menunggu scope `write_repository` pada token pemilik).
+- `MEMORY.md` diperbarui sesi 7 (fase v1.2 ORGANISM + bukti push), `PRD.md` mendapat blok
+  status verifikasi, `docs/CIVITAS_OS_MASTER.md` versi 1.2.0 + audit di §12 + sejarah §16,
+  `docs/README.md` + `docs/FILE_INDEX.md` (regenerasi filegraph) terindeks ulang.
+
+### Keamanan
+- Token push dipulihkan ke `~/.gitcreds` (chmod 600, di luar repo); push inkremental
+  langsung menggantikan skrip orphan-squash lama agar history utuh; bundle backup
+  full-history 344MB di luar repo.
+
 ## [1.2.0] — 2026-09-25 · "ORGANISM"
 
 Mandat pemilik: General Autonomous Digital Organism (38 poin blueprint) untuk SEMUA role ke depan +

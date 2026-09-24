@@ -56,3 +56,22 @@ Work Log:
 
 Stage Summary:
 - 3/4 remote TERSINKRON penuh + terverifikasi (9151c13). GitLab menunggu SATU aksi pemilik: tambah scope write_repository pada token glpat (atau buat token baru: api + read_repository + write_repository), lalu push force-with-lease dieksekusi.
+
+---
+Task ID: 20
+Agent: main (Super Z)
+Task: "tambahkan deskripsi di repo, update readme dengan referensi sumber, update changelog, update semua *.md, final verify, push ke remotes"
+
+Work Log:
+- Ekstrak 43 URL sumber unik dari 29 berkas riset research/*.json (programatik, bukan karangan).
+- README: section "Referensi & Sumber" (5 kategori: pola organisme/agent MC, MCP, operasi server, ilmiah, toolchain) + invarian 57→63 + baris Self Sync jujur per remote.
+- CHANGELOG: entry [1.2.1] "REFERENSI & AUDIT".
+- MEMORY.md sesi 7: fase v1.2.1 + artifacts organism runtime + Next Actions (GitLab scope #1).
+- PRD.md: blok Status verifikasi (audit 63/0 + push + referensi).
+- MASTER: versi 1.2.1, §12 selftest+audit, §16 sejarah v1.2.0→v1.2.1, §17 atribusi referensi.
+- docs/README.md: baris AUDIT_v1.2 + research/; AUDIT_v1.2.md lampiran hasil push (tabel 4 remote + diagnostik GitLab).
+- FILE_INDEX.md diregenerasi via scripts/filegraph.mjs.
+- Deskripsi repo diset via API ke 4 remote (GitHub ×3 PATCH /repos, GitLab PUT /projects/86823449).
+
+Stage Summary:
+- Dokumentasi v1.2.1 sinkron penuh; referensi nyata ber-URL; audit + push terdokumentasi; final verify + push di entri berikutnya.

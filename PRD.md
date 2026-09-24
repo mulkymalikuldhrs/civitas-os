@@ -20,6 +20,10 @@ Mandat pembeda dari PRD generasi sebelumnya: seluruh sistem kini dibangun di ata
 
 > **Prinsip konstitusi:** *"Jangan hardcode kecerdasan organisme. Hardcode hanya fondasi agar ia bisa hidup."*
 
+> **Status verifikasi (2026-09-25):** audit penuh PASS — [`docs/AUDIT_v1.2.md`](docs/AUDIT_v1.2.md)
+> (tsc 0 error · 0 mock nyata · selftest organisme end-to-end · invarian **63/0** · production build hijau)
+> · push GitHub ×3 terverifikasi · referensi sumber riset: [README §Referensi & Sumber](README.md#referensi--sumber) + [`research/`](research/).
+
 ## 2. Yang Di-hardcode (dan TIDAK)
 
 | Di-hardcode (fondasi) | Dibiarkan hidup (organisme yang memutuskan) |

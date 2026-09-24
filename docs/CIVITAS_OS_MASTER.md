@@ -1,6 +1,6 @@
 # CIVITAS OS — DOKUMEN MASTER (SATU-SATUNYA)
 
-> Versi 1.1.0 "SELF-LIFE" · 2026-09-24 · Developer: **Mulky Malikul Dhaher** <mulkymalikuldhr@mail.com>
+> Versi 1.2.1 "ORGANISM · REFERENSI & AUDIT" · 2026-09-25 · Developer: **Mulky Malikul Dhaher** <mulkymalikuldhr@mail.com>
 > Dokumen ini MERGE semua dokumentasi proyek (PRD, arsitektur, kanonik, roadmap, ekonomi,
 > keamanan, operasional, ADR, API, CLI, MCP, multi-server). Semua tautan historis diarsipkan
 > di `docs/archive/` dan `docs/legacy/` — dokumen inilah satu-satunya sumber kebenaran.
@@ -208,10 +208,14 @@ sumber: DB → env → default, SECRET dimask.
 
 ## 12. PENGUJIAN (jaring tes permanen)
 
-- **Invarian kernel**: `bun scripts/civos_invariants.ts` — 62+ PASS / 0 FAIL
-  (ekonomi, lifecycle, policy, direktif, pasar, guild, chat, config, MCP).
+- **Invarian kernel**: `bun scripts/civos_invariants.ts` — **63 PASS / 0 FAIL**
+  (ekonomi, lifecycle, policy, direktif, pasar, guild, chat, config, MCP, server registry, backup, git-sync).
 - **tsc**: `bunx tsc --noEmit` = 0 error; **lint**: `bun run lint` bersih;
   **build**: `bun run build` hijau.
+- **Selftest organisme**: `bun scripts/organism_selftest.ts` — bukti eksekusi nyata
+  end-to-end: mutasi A/B via git worktree (ADOPTED B=1ms vs A=4.3ms), child spawner
+  (PID hidup + lifecycle jujur), capability BUILD (tulis+eksekusi+verifikasi), tick penuh.
+- **Audit penuh**: [`AUDIT_v1.2.md`](AUDIT_v1.2.md) — 12 area diverifikasi, 0 mock nyata.
 - **E2E dunia nyata**: start Bedrock+Java → ping → bot join → census → direktif → chat
   (bukti di worklog + log server).
 - **Doctor**: 9 cek otomatis kapan pun.
@@ -288,7 +292,11 @@ civitas backup list                  # daftar arsip
 v0.1 kernel → v0.2 guild/toolforge → v1.0.0 "REALITY" (dunia nyata + chat 2 arah) →
 **v1.1.0 "SELF-LIFE"** (multi-server Bedrock+Java+remote all-in-one; self backup; self sync
 4 remote; daemon 24/7; MCP stdio 13 tools; CLI `civitas`; dokumen digabung satu; runtime db
-dikeluarkan dari git publik).
+dikeluarkan dari git publik) → **v1.2.0 "ORGANISM"** (General Autonomous Digital Organism
+Runtime 16 modul; mutation sandbox git-worktree A/B; spawner proses nyata; imun 7 limit
+enforced; capability graph; LLM free-first + custom provider via UI; tab 🧬 ORGANISME) →
+**v1.2.1 "REFERENSI & AUDIT"** (docs/AUDIT_v1.2.md; README §Referensi & Sumber — 29 riset
++ 16 repo kandidat; push GitHub ×3 terverifikasi).
 
 ## 17. KREDIT & LISENSI
 
@@ -298,3 +306,7 @@ dikeluarkan dari git publik).
 - Server online pemilik: Aternos `mulkymalikuldhr.aternos.me:19132` (Bedrock 1.26.51.1,
   invite `add.aternos.org/mulkymalikuldhr`).
 - Dependensi utama: Next.js 16, Prisma, z-ai-web-dev-sdk, PocketMine-MP, Purpur, bedrock-protocol.
+- Referensi sumber riset & pola: README **§Referensi & Sumber** + `research/RELEVANT_REPOS_16b.md`
+  (mineflayer, bedrock-protocol, mindcraft, voyager, PIANO, letta, MCP SDK, mcp-handler,
+  itzg, Crafty-4, MCSManager, pm2, rcon-client) — diadopsi sebagai pola desain, dengan
+  atribusi; kode inti ditulis penuh di repo ini.
