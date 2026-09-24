@@ -44,6 +44,11 @@ interface Body {
     envJson?: string;
     mcpTool?: string;
     args?: Record<string, unknown>;
+    // SLICE 11 — server registry
+    serverId?: string;
+    edition?: string;
+    host?: string;
+    port?: number;
   };
 }
 
@@ -315,6 +320,27 @@ export async function POST(req: NextRequest) {
         if (!["start", "stop", "restart", "status"].includes(act)) return NextResponse.json({ ok: false, error: "params.value = start|stop|restart|status" }, { status: 400 });
         const r = await serverAction(id, act as "start" | "stop" | "restart" | "status");
         return NextResponse.json(r, { status: r.ok ? 200 : 400 });
+      }
+
+      // SLICE 11 — registry editable: tambah/ hapus server (edisi lain, proxy, cluster)
+      case "server_add": {
+        const { upsertServer } = await import("@/lib/civos/servers");
+        const r = await upsertServer({
+          id: (p.serverId ?? "").trim(),
+          label: (p.name ?? p.serverId ?? "").trim(),
+          edition: (p.edition ?? "BEDROCK").trim().toUpperCase() === "JAVA" ? "JAVA" : "BEDROCK",
+          host: (p.host ?? "127.0.0.1").trim(),
+          port: Math.trunc(Number(p.port ?? 0)),
+          managed: false,
+          note: "ditambahkan via UI/API",
+        });
+        return NextResponse.json({ ...r }, { status: r.ok ? 200 : 422 });
+      }
+
+      case "server_remove": {
+        const { removeServer } = await import("@/lib/civos/servers");
+        const r = await removeServer((p.serverId ?? "").trim());
+        return NextResponse.json({ ...r }, { status: r.ok ? 200 : 404 });
       }
 
       case "backup_run": {

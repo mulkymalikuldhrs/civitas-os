@@ -1,44 +1,45 @@
 # FILE INDEX — CIVITAS OS
 
-Dibuat otomatis oleh `scripts/filegraph.mjs` pada 2026-09-23T12:29:46.036Z. **219 file**, **524 sambungan**.
+Dibuat otomatis oleh `scripts/filegraph.mjs` pada 2026-09-24T10:20:35.114Z. **232 file**, **556 sambungan**.
 
 | Grup | Jumlah |
 |---|---|
-| api | 13 |
+| api | 18 |
 | app | 3 |
 | ui-civitas | 16 |
 | ui | 63 |
 | misc | 10 |
-| kernel | 28 |
+| kernel | 30 |
 | lib | 39 |
-| scripts | 24 |
+| scripts | 29 |
 | db | 1 |
-| docs | 20 |
+| docs | 21 |
 | mc-server | 2 |
 
 ## Daftar file
 
 | File | Grup | LOC |
 |---|---|---|
-| docs/adr/ADR-0001-kernel-otoritatif.md | docs | 0 |
-| docs/adr/ADR-0002-llm-router-reflex-first.md | docs | 0 |
-| docs/adr/ADR-0003-crypto-token-desain-saja.md | docs | 0 |
-| docs/adr/ADR-0004-birokrasi-deterministik.md | docs | 0 |
-| docs/adr/ADR-0005-mirror-supabase.md | docs | 0 |
-| docs/adr/ADR-0006-rail-settlement.md | docs | 0 |
-| docs/adr/ADR-0007-villager-ascension.md | docs | 0 |
-| docs/adr/ADR-0008-direktif-tubuh-pasar-cron.md | docs | 0 |
-| docs/adr/ADR-0009-guild-toolforge.md | docs | 0 |
-| docs/civitas-os/ARCHITECTURE.md | docs | 0 |
-| docs/civitas-os/CANONICAL.md | docs | 0 |
-| docs/civitas-os/ECONOMICS.md | docs | 0 |
-| docs/civitas-os/PRD.md | docs | 0 |
-| docs/civitas-os/ROADMAP.md | docs | 0 |
-| docs/civitas-os/SECURITY.md | docs | 0 |
+| docs/archive/adr/ADR-0001-kernel-otoritatif.md | docs | 0 |
+| docs/archive/adr/ADR-0002-llm-router-reflex-first.md | docs | 0 |
+| docs/archive/adr/ADR-0003-crypto-token-desain-saja.md | docs | 0 |
+| docs/archive/adr/ADR-0004-birokrasi-deterministik.md | docs | 0 |
+| docs/archive/adr/ADR-0005-mirror-supabase.md | docs | 0 |
+| docs/archive/adr/ADR-0006-rail-settlement.md | docs | 0 |
+| docs/archive/adr/ADR-0007-villager-ascension.md | docs | 0 |
+| docs/archive/adr/ADR-0008-direktif-tubuh-pasar-cron.md | docs | 0 |
+| docs/archive/adr/ADR-0009-guild-toolforge.md | docs | 0 |
+| docs/archive/ARCHITECTURE.md | docs | 0 |
+| docs/archive/CANONICAL.md | docs | 0 |
+| docs/archive/ECONOMICS.md | docs | 0 |
+| docs/archive/OPERATIONS.md | docs | 0 |
+| docs/archive/PRD.md | docs | 0 |
+| docs/archive/ROADMAP.md | docs | 0 |
+| docs/archive/SECURITY.md | docs | 0 |
+| docs/CIVITAS_OS_MASTER.md | docs | 0 |
 | docs/data/filegraph.json | docs | 0 |
 | docs/FILE_INDEX.md | docs | 0 |
 | docs/legacy/upstream-map.md | docs | 0 |
-| docs/OPERATIONS.md | docs | 0 |
 | docs/README.md | docs | 0 |
 | mc-server/pmmp/plugins/CivitasBridge/plugin.yml | mc-server | 0 |
 | mc-server/pmmp/plugins/CivitasBridge/src/civitas/bridge/Main.php | mc-server | 132 |
@@ -50,32 +51,42 @@ Dibuat otomatis oleh `scripts/filegraph.mjs` pada 2026-09-23T12:29:46.036Z. **21
 | scripts/civ_e2e.sh | scripts | 0 |
 | scripts/civ_verify.sh | scripts | 0 |
 | scripts/civ_verify2.sh | scripts | 0 |
-| scripts/civos_invariants.ts | scripts | 465 |
+| scripts/civitas_daemon.sh | scripts | 0 |
+| scripts/civitas_mcp_stdio.mjs | scripts | 194 |
+| scripts/civitas_selflife_tick.ts | scripts | 18 |
+| scripts/civos_invariants.ts | scripts | 493 |
 | scripts/dl_pmmp.sh | scripts | 0 |
 | scripts/dl_pnx.sh | scripts | 0 |
 | scripts/filegraph.mjs | scripts | 123 |
 | scripts/generate_flybrain_docx.js | scripts | 689 |
 | scripts/guild_probe.ts | scripts | 85 |
+| scripts/java_server.sh | scripts | 0 |
 | scripts/mc_server.sh | scripts | 0 |
 | scripts/package.json | scripts | 0 |
 | scripts/pmmp_server.sh | scripts | 0 |
+| scripts/push_remote.sh | scripts | 0 |
 | scripts/raknet_ping.ts | scripts | 58 |
 | scripts/research_search.sh | scripts | 0 |
 | scripts/research_search2.sh | scripts | 0 |
 | scripts/slice8_probe.ts | scripts | 53 |
-| scripts/test_supabase_real.mjs | scripts | 38 |
+| scripts/test_supabase_real.mjs | scripts | 45 |
 | scripts/verify_biosfer.sh | scripts | 0 |
 | scripts/verify_biosfer2.sh | scripts | 0 |
 | scripts/verify_biosfer3.sh | scripts | 0 |
 | scripts/verify_biosfer4.sh | scripts | 0 |
 | scripts/village_probe.ts | scripts | 45 |
-| src/app/api/civos/action/route.ts | api | 329 |
+| src/app/api/civos/action/route.ts | api | 399 |
+| src/app/api/civos/backup/route.ts | api | 18 |
 | src/app/api/civos/chat/route.ts | api | 17 |
 | src/app/api/civos/cron/route.ts | api | 46 |
 | src/app/api/civos/docs/route.ts | api | 38 |
+| src/app/api/civos/doctor/route.ts | api | 17 |
+| src/app/api/civos/git/route.ts | api | 20 |
 | src/app/api/civos/graph/route.ts | api | 16 |
 | src/app/api/civos/heartbeat/route.ts | api | 28 |
 | src/app/api/civos/minecraft/route.ts | api | 24 |
+| src/app/api/civos/selflife/route.ts | api | 26 |
+| src/app/api/civos/servers/route.ts | api | 31 |
 | src/app/api/civos/state/route.ts | api | 14 |
 | src/app/api/civos/sync/route.ts | api | 19 |
 | src/app/api/mcp/route.ts | api | 468 |
@@ -100,7 +111,7 @@ Dibuat otomatis oleh `scripts/filegraph.mjs` pada 2026-09-23T12:29:46.036Z. **21
 | src/components/civitas/views/GraphView.tsx | ui-civitas | 118 |
 | src/components/civitas/views/GuildView.tsx | ui-civitas | 98 |
 | src/components/civitas/views/MapView.tsx | ui-civitas | 160 |
-| src/components/civitas/views/WorldView.tsx | ui-civitas | 80 |
+| src/components/civitas/views/WorldView.tsx | ui-civitas | 139 |
 | src/components/flybrain/AppShell.tsx | ui | 151 |
 | src/components/flybrain/AtlasCanvas.tsx | ui | 176 |
 | src/components/flybrain/BrainCanvas.tsx | ui | 147 |
@@ -170,7 +181,7 @@ Dibuat otomatis oleh `scripts/filegraph.mjs` pada 2026-09-23T12:29:46.036Z. **21
 | src/lib/civos/accounts.ts | kernel | 21 |
 | src/lib/civos/chat.ts | kernel | 153 |
 | src/lib/civos/company.ts | kernel | 268 |
-| src/lib/civos/config.ts | kernel | 131 |
+| src/lib/civos/config.ts | kernel | 136 |
 | src/lib/civos/console.ts | kernel | 74 |
 | src/lib/civos/directives.ts | kernel | 334 |
 | src/lib/civos/economy.ts | kernel | 159 |
@@ -188,11 +199,13 @@ Dibuat otomatis oleh `scripts/filegraph.mjs` pada 2026-09-23T12:29:46.036Z. **21
 | src/lib/civos/router.ts | kernel | 220 |
 | src/lib/civos/runtime.ts | kernel | 141 |
 | src/lib/civos/seed.ts | kernel | 171 |
+| src/lib/civos/selflife.ts | kernel | 295 |
+| src/lib/civos/servers.ts | kernel | 297 |
 | src/lib/civos/settle.ts | kernel | 88 |
-| src/lib/civos/state.ts | kernel | 200 |
+| src/lib/civos/state.ts | kernel | 205 |
 | src/lib/civos/supabase.ts | kernel | 201 |
 | src/lib/civos/tools.ts | kernel | 517 |
-| src/lib/civos/types.ts | kernel | 225 |
+| src/lib/civos/types.ts | kernel | 232 |
 | src/lib/civos/village.ts | kernel | 441 |
 | src/lib/civos/villagers.ts | kernel | 310 |
 | src/lib/db.ts | lib | 13 |
@@ -271,14 +284,27 @@ Dibuat otomatis oleh `scripts/filegraph.mjs` pada 2026-09-23T12:29:46.036Z. **21
 | src/app/api/civos/action/route.ts | src/lib/civos/tools.ts |
 | src/app/api/civos/action/route.ts | src/lib/civos/types.ts |
 | src/app/api/civos/action/route.ts | src/lib/civos/console.ts |
+| src/app/api/civos/action/route.ts | src/lib/civos/config.ts |
+| src/app/api/civos/action/route.ts | src/lib/civos/servers.ts |
+| src/app/api/civos/action/route.ts | src/lib/civos/servers.ts |
+| src/app/api/civos/action/route.ts | src/lib/civos/servers.ts |
+| src/app/api/civos/action/route.ts | src/lib/civos/selflife.ts |
+| src/app/api/civos/action/route.ts | src/lib/civos/selflife.ts |
+| src/app/api/civos/action/route.ts | src/lib/civos/selflife.ts |
+| src/app/api/civos/backup/route.ts | src/lib/civos/selflife.ts |
 | src/app/api/civos/chat/route.ts | src/lib/civos/chat.ts |
 | src/app/api/civos/cron/route.ts | src/lib/civos/runtime.ts |
+| src/app/api/civos/doctor/route.ts | src/lib/civos/selflife.ts |
+| src/app/api/civos/git/route.ts | src/lib/db.ts |
+| src/app/api/civos/git/route.ts | src/lib/civos/selflife.ts |
 | src/app/api/civos/heartbeat/route.ts | src/lib/civos/runtime.ts |
 | src/app/api/civos/heartbeat/route.ts | src/lib/db.ts |
 | src/app/api/civos/heartbeat/route.ts | src/lib/civos/types.ts |
 | src/app/api/civos/heartbeat/route.ts | src/lib/civos/events.ts |
 | src/app/api/civos/minecraft/route.ts | src/lib/civos/minecraft.ts |
 | src/app/api/civos/minecraft/route.ts | src/lib/civos/config.ts |
+| src/app/api/civos/selflife/route.ts | src/lib/civos/selflife.ts |
+| src/app/api/civos/servers/route.ts | src/lib/civos/servers.ts |
 | src/app/api/civos/state/route.ts | src/lib/civos/state.ts |
 | src/app/api/civos/sync/route.ts | src/lib/civos/supabase.ts |
 | src/app/api/mcp/route.ts | src/lib/flybrain/connectome.ts |
@@ -431,16 +457,3 @@ Dibuat otomatis oleh `scripts/filegraph.mjs` pada 2026-09-23T12:29:46.036Z. **21
 | src/components/ui/sheet.tsx | src/lib/utils.ts |
 | src/components/ui/sidebar.tsx | src/hooks/use-mobile.ts |
 | src/components/ui/sidebar.tsx | src/lib/utils.ts |
-| src/components/ui/sidebar.tsx | src/components/ui/button.tsx |
-| src/components/ui/sidebar.tsx | src/components/ui/input.tsx |
-| src/components/ui/sidebar.tsx | src/components/ui/separator.tsx |
-| src/components/ui/sidebar.tsx | src/components/ui/sheet.tsx |
-| src/components/ui/sidebar.tsx | src/components/ui/skeleton.tsx |
-| src/components/ui/sidebar.tsx | src/components/ui/tooltip.tsx |
-| src/components/ui/skeleton.tsx | src/lib/utils.ts |
-| src/components/ui/slider.tsx | src/lib/utils.ts |
-| src/components/ui/switch.tsx | src/lib/utils.ts |
-| src/components/ui/table.tsx | src/lib/utils.ts |
-| src/components/ui/tabs.tsx | src/lib/utils.ts |
-| src/components/ui/textarea.tsx | src/lib/utils.ts |
-| src/components/ui/toast.tsx | src/lib/utils.ts |

@@ -1,30 +1,36 @@
 {
- "generatedAt": "2026-09-23T12:29:46.036Z",
+ "generatedAt": "2026-09-24T10:20:35.114Z",
  "root": "civitas-os",
  "counts": {
-  "files": 219,
-  "edges": 524,
-  "kernelEdges": 191
+  "files": 232,
+  "edges": 556,
+  "kernelEdges": 219
  },
  "groups": {
-  "api": 13,
+  "api": 18,
   "app": 3,
   "ui-civitas": 16,
   "ui": 63,
   "misc": 10,
-  "kernel": 28,
+  "kernel": 30,
   "lib": 39,
-  "scripts": 24,
+  "scripts": 29,
   "db": 1,
-  "docs": 20,
+  "docs": 21,
   "mc-server": 2
  },
  "nodes": [
   {
    "id": "src/app/api/civos/action/route.ts",
-   "size": 16778,
+   "size": 20086,
    "group": "api",
-   "loc": 329
+   "loc": 399
+  },
+  {
+   "id": "src/app/api/civos/backup/route.ts",
+   "size": 576,
+   "group": "api",
+   "loc": 18
   },
   {
    "id": "src/app/api/civos/chat/route.ts",
@@ -45,6 +51,18 @@
    "loc": 38
   },
   {
+   "id": "src/app/api/civos/doctor/route.ts",
+   "size": 601,
+   "group": "api",
+   "loc": 17
+  },
+  {
+   "id": "src/app/api/civos/git/route.ts",
+   "size": 684,
+   "group": "api",
+   "loc": 20
+  },
+  {
    "id": "src/app/api/civos/graph/route.ts",
    "size": 577,
    "group": "api",
@@ -61,6 +79,18 @@
    "size": 887,
    "group": "api",
    "loc": 24
+  },
+  {
+   "id": "src/app/api/civos/selflife/route.ts",
+   "size": 903,
+   "group": "api",
+   "loc": 26
+  },
+  {
+   "id": "src/app/api/civos/servers/route.ts",
+   "size": 1530,
+   "group": "api",
+   "loc": 31
   },
   {
    "id": "src/app/api/civos/state/route.ts",
@@ -208,9 +238,9 @@
   },
   {
    "id": "src/components/civitas/views/WorldView.tsx",
-   "size": 4699,
+   "size": 9513,
    "group": "ui-civitas",
-   "loc": 80
+   "loc": 139
   },
   {
    "id": "src/components/flybrain/AppShell.tsx",
@@ -628,9 +658,9 @@
   },
   {
    "id": "src/lib/civos/config.ts",
-   "size": 6896,
+   "size": 7544,
    "group": "kernel",
-   "loc": 131
+   "loc": 136
   },
   {
    "id": "src/lib/civos/console.ts",
@@ -735,6 +765,18 @@
    "loc": 171
   },
   {
+   "id": "src/lib/civos/selflife.ts",
+   "size": 15062,
+   "group": "kernel",
+   "loc": 295
+  },
+  {
+   "id": "src/lib/civos/servers.ts",
+   "size": 12535,
+   "group": "kernel",
+   "loc": 297
+  },
+  {
    "id": "src/lib/civos/settle.ts",
    "size": 3842,
    "group": "kernel",
@@ -742,9 +784,9 @@
   },
   {
    "id": "src/lib/civos/state.ts",
-   "size": 6976,
+   "size": 7197,
    "group": "kernel",
-   "loc": 200
+   "loc": 205
   },
   {
    "id": "src/lib/civos/supabase.ts",
@@ -760,9 +802,9 @@
   },
   {
    "id": "src/lib/civos/types.ts",
-   "size": 8878,
+   "size": 9221,
    "group": "kernel",
-   "loc": 225
+   "loc": 232
   },
   {
    "id": "src/lib/civos/village.ts",
@@ -1041,10 +1083,28 @@
    "loc": 0
   },
   {
-   "id": "scripts/civos_invariants.ts",
-   "size": 34085,
+   "id": "scripts/civitas_daemon.sh",
+   "size": 2087,
    "group": "scripts",
-   "loc": 465
+   "loc": 0
+  },
+  {
+   "id": "scripts/civitas_mcp_stdio.mjs",
+   "size": 12151,
+   "group": "scripts",
+   "loc": 194
+  },
+  {
+   "id": "scripts/civitas_selflife_tick.ts",
+   "size": 664,
+   "group": "scripts",
+   "loc": 18
+  },
+  {
+   "id": "scripts/civos_invariants.ts",
+   "size": 36393,
+   "group": "scripts",
+   "loc": 493
   },
   {
    "id": "scripts/dl_pmmp.sh",
@@ -1077,6 +1137,12 @@
    "loc": 85
   },
   {
+   "id": "scripts/java_server.sh",
+   "size": 3825,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
    "id": "scripts/mc_server.sh",
    "size": 1856,
    "group": "scripts",
@@ -1091,6 +1157,12 @@
   {
    "id": "scripts/pmmp_server.sh",
    "size": 1622,
+   "group": "scripts",
+   "loc": 0
+  },
+  {
+   "id": "scripts/push_remote.sh",
+   "size": 6190,
    "group": "scripts",
    "loc": 0
   },
@@ -1120,9 +1192,9 @@
   },
   {
    "id": "scripts/test_supabase_real.mjs",
-   "size": 2836,
+   "size": 2938,
    "group": "scripts",
-   "loc": 38
+   "loc": 45
   },
   {
    "id": "scripts/verify_biosfer.sh",
@@ -1161,116 +1233,122 @@
    "loc": 0
   },
   {
-   "id": "docs/FILE_INDEX.md",
-   "size": 22934,
+   "id": "docs/CIVITAS_OS_MASTER.md",
+   "size": 17503,
    "group": "docs",
    "loc": 0
   },
   {
-   "id": "docs/OPERATIONS.md",
-   "size": 5158,
+   "id": "docs/FILE_INDEX.md",
+   "size": 25242,
    "group": "docs",
    "loc": 0
   },
   {
    "id": "docs/README.md",
-   "size": 2683,
+   "size": 832,
    "group": "docs",
    "loc": 0
   },
   {
-   "id": "docs/adr/ADR-0001-kernel-otoritatif.md",
-   "size": 948,
-   "group": "docs",
-   "loc": 0
-  },
-  {
-   "id": "docs/adr/ADR-0002-llm-router-reflex-first.md",
-   "size": 921,
-   "group": "docs",
-   "loc": 0
-  },
-  {
-   "id": "docs/adr/ADR-0003-crypto-token-desain-saja.md",
-   "size": 788,
-   "group": "docs",
-   "loc": 0
-  },
-  {
-   "id": "docs/adr/ADR-0004-birokrasi-deterministik.md",
-   "size": 1081,
-   "group": "docs",
-   "loc": 0
-  },
-  {
-   "id": "docs/adr/ADR-0005-mirror-supabase.md",
-   "size": 1219,
-   "group": "docs",
-   "loc": 0
-  },
-  {
-   "id": "docs/adr/ADR-0006-rail-settlement.md",
-   "size": 1268,
-   "group": "docs",
-   "loc": 0
-  },
-  {
-   "id": "docs/adr/ADR-0007-villager-ascension.md",
-   "size": 4214,
-   "group": "docs",
-   "loc": 0
-  },
-  {
-   "id": "docs/adr/ADR-0008-direktif-tubuh-pasar-cron.md",
-   "size": 3837,
-   "group": "docs",
-   "loc": 0
-  },
-  {
-   "id": "docs/adr/ADR-0009-guild-toolforge.md",
-   "size": 3450,
-   "group": "docs",
-   "loc": 0
-  },
-  {
-   "id": "docs/civitas-os/ARCHITECTURE.md",
+   "id": "docs/archive/ARCHITECTURE.md",
    "size": 3862,
    "group": "docs",
    "loc": 0
   },
   {
-   "id": "docs/civitas-os/CANONICAL.md",
-   "size": 8963,
+   "id": "docs/archive/CANONICAL.md",
+   "size": 11299,
    "group": "docs",
    "loc": 0
   },
   {
-   "id": "docs/civitas-os/ECONOMICS.md",
+   "id": "docs/archive/ECONOMICS.md",
    "size": 2534,
    "group": "docs",
    "loc": 0
   },
   {
-   "id": "docs/civitas-os/PRD.md",
+   "id": "docs/archive/OPERATIONS.md",
+   "size": 5158,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/archive/PRD.md",
    "size": 12514,
    "group": "docs",
    "loc": 0
   },
   {
-   "id": "docs/civitas-os/ROADMAP.md",
-   "size": 1968,
+   "id": "docs/archive/ROADMAP.md",
+   "size": 3068,
    "group": "docs",
    "loc": 0
   },
   {
-   "id": "docs/civitas-os/SECURITY.md",
+   "id": "docs/archive/SECURITY.md",
    "size": 2121,
    "group": "docs",
    "loc": 0
   },
   {
+   "id": "docs/archive/adr/ADR-0001-kernel-otoritatif.md",
+   "size": 948,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/archive/adr/ADR-0002-llm-router-reflex-first.md",
+   "size": 921,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/archive/adr/ADR-0003-crypto-token-desain-saja.md",
+   "size": 788,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/archive/adr/ADR-0004-birokrasi-deterministik.md",
+   "size": 1081,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/archive/adr/ADR-0005-mirror-supabase.md",
+   "size": 1219,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/archive/adr/ADR-0006-rail-settlement.md",
+   "size": 1268,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/archive/adr/ADR-0007-villager-ascension.md",
+   "size": 4214,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/archive/adr/ADR-0008-direktif-tubuh-pasar-cron.md",
+   "size": 3837,
+   "group": "docs",
+   "loc": 0
+  },
+  {
+   "id": "docs/archive/adr/ADR-0009-guild-toolforge.md",
+   "size": 3450,
+   "group": "docs",
+   "loc": 0
+  },
+  {
    "id": "docs/data/filegraph.json",
-   "size": 74359,
+   "size": 82833,
    "group": "docs",
    "loc": 0
   },
@@ -1324,13 +1402,13 @@
   },
   {
    "id": "package.json",
-   "size": 3282,
+   "size": 3717,
    "group": "misc",
    "loc": 0
   },
   {
    "id": "README.md",
-   "size": 8787,
+   "size": 11307,
    "group": "misc",
    "loc": 0
   }
@@ -1472,6 +1550,46 @@
    "kind": "import"
   },
   {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/action/route.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/backup/route.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
    "from": "src/app/api/civos/chat/route.ts",
    "to": "src/lib/civos/chat.ts",
    "kind": "import"
@@ -1479,6 +1597,21 @@
   {
    "from": "src/app/api/civos/cron/route.ts",
    "to": "src/lib/civos/runtime.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/doctor/route.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/git/route.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/git/route.ts",
+   "to": "src/lib/civos/selflife.ts",
    "kind": "import"
   },
   {
@@ -1509,6 +1642,16 @@
   {
    "from": "src/app/api/civos/minecraft/route.ts",
    "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/selflife/route.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/app/api/civos/servers/route.ts",
+   "to": "src/lib/civos/servers.ts",
    "kind": "import"
   },
   {
@@ -2937,6 +3080,66 @@
    "kind": "import"
   },
   {
+   "from": "src/lib/civos/selflife.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/selflife.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/selflife.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/selflife.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/selflife.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/selflife.ts",
+   "to": "src/lib/civos/runtime.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/selflife.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/servers.ts",
+   "to": "src/lib/db.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/servers.ts",
+   "to": "src/lib/civos/events.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/servers.ts",
+   "to": "src/lib/civos/types.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/servers.ts",
+   "to": "src/lib/civos/minecraft.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/servers.ts",
+   "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
    "from": "src/lib/civos/settle.ts",
    "to": "src/lib/db.ts",
    "kind": "import"
@@ -3044,6 +3247,16 @@
   {
    "from": "src/lib/civos/state.ts",
    "to": "src/lib/civos/config.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "src/lib/civos/state.ts",
+   "to": "src/lib/civos/selflife.ts",
    "kind": "import"
   },
   {
@@ -3752,6 +3965,11 @@
    "kind": "import"
   },
   {
+   "from": "scripts/civitas_selflife_tick.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
    "from": "scripts/civos_invariants.ts",
    "to": "src/lib/db.ts",
    "kind": "import"
@@ -3839,6 +4057,26 @@
   {
    "from": "scripts/civos_invariants.ts",
    "to": "src/lib/civos/chat.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/servers.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/selflife.ts",
+   "kind": "import"
+  },
+  {
+   "from": "scripts/civos_invariants.ts",
+   "to": "src/lib/civos/selflife.ts",
    "kind": "import"
   },
   {
