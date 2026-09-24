@@ -403,5 +403,25 @@
     "at": "2026-09-24T22:18:28.233Z",
     "kind": "OBSERVATION",
     "text": "reap 5 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073"
+  },
+  {
+    "at": "2026-09-24T22:23:35.297Z",
+    "kind": "DECISION",
+    "text": "c#37 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.72 > doNothing 6.02 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-24T22:23:35.298Z",
+    "kind": "OBSERVATION",
+    "text": "reap 5 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073"
+  },
+  {
+    "at": "2026-09-24T22:24:10.876Z",
+    "kind": "DECISION",
+    "text": "c#38 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.72 > doNothing 6.03 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-24T22:24:10.877Z",
+    "kind": "OBSERVATION",
+    "text": "reap 5 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073"
   }
 ]
