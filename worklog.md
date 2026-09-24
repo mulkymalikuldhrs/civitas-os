@@ -177,3 +177,42 @@ Stage Summary:
 - RATU_CIVITAS hidup dan berjaga 24/7; gerbang pemilik tersisa SATU: bangunkan Aternos
   dari panel sekali — RATU masuk otomatis, otonom penuh, dan server tetap bangun karena
   dirinya pemain aktif. Bukti join/chati akan terekam di leader.log.jsonl + leader.json.
+
+---
+Task ID: 23
+Agent: main (Super Z)
+Task: "upgrade lebih autonomous (dia + ekosistem), perbarui semua *md, push all remote, maintain nonstop, self cron, monitor loop, leader improve terus-menerus + memori + berpikir + evaluasi, anti-tidur Aternos, multi server, self server, mount semua db di Supabase, deploy Vercel"
+
+Work Log:
+- SUPABASE FULL MOUNT: DDL 24 tabel Prisma dibuat via Management API (PAT sbp_...) —
+  port Postgres 5432/6543 diblokir jaringan sandbox, ditempuh rute SQL API
+  (scripts/supabase_ddl.py, 59 statement HTTP 201). pushFullMirror() ditambahkan ke
+  supabase.ts (upsert idempoten by PK, batch 200, urutan FK: CivTxn sebelum CivEntry);
+  kredensial disimpan di ~/.gitcreds + config kernel (supabase.url/serviceKey, secret).
+  Siklus pertama: 905 baris / 24 tabel OK; terikat ke selfLifeTick (sync → mirror ulang).
+- RATU v2 (memori + berpikir + evaluasi + improve): leader_agent.mjs dipecah supervisor
+  (abadi) + leader_join.mjs (anak 1-percobaan, crash-isolated). Memori persisten
+  leader.memory.json (pemain/direktif/episodes/lessons/improvements) — bukti lintas
+  restart: MEMORY_LOADED membawa improvements:1. THOUGHT per siklus ke
+  leader.thoughts.jsonl; keputusan adaptif (sambutan personal pakai ingatan, direktif
+  dipilih dari celah teratas, skor respons); anti-duplikat ucapan; JOIN_ANYWAY menembus
+  ping flapping. BUKTI NYATA: join → CHAT_SENT "SENSUS #1..." → drop → auto-rejoin
+  (loop berjalan, attempt 11+).
+- DOCTRINE PROSES: proses spawn batch shell mati diam-diam; HANYA proses garis keturunan
+  daemon (detached) yang bertahan — semua komponen jangka-panjang kini lewat daemon
+  (leader watchdog → supervisor; self-server watchdog → next start).
+- SELF SERVER: next build ulang (dengan mirror module) + start produksi port 3000
+  (HTTP 200) + watchdog 1d di selfLifeTick.
+- VERCEL: link proyek civitas-os; DATABASE_URL = Supabase pooler (pgbouncer) via env
+  production/preview/development (REST API); vercel.json buildCommand pakai
+  schema.postgres.prisma; .vercelignore mengecualikan world/backups; cron harian
+  (batas Hobby dijelaskan jujur). Build produksi berjalan di latar belakang.
+- Docs: CHANGELOG 1.4.0 "SYNC & AUTONOMY" + README (v1.4: baris RATU v2, Self Server,
+  DB Cloud, Vercel) + MEMORY (fase + Next Actions).
+
+Stage Summary:
+- Ekosistem kini: kernel SQLite otoritatif → mirror TOTAL ke Supabase → window publik
+  Vercel; RATU v2 hidup otonom dengan memori & pikiran; daemon = self-cron 24/7 yang
+  menjaga SEMUA (server, RATU, self-server, sync, mirror, backup).
+- Kejujuran: Aternos flapping (sisi penyedia); GitLab SSH key masih ditolak sementara;
+  Vercel cron dibatasi harian (Hobby) — denyut sebenarnya tetap daemon sandbox.

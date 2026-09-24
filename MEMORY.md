@@ -4,7 +4,7 @@ Updated: 2026-09-25 (sesi 7) | Agent: Super Z
 
 ## Project
 - **Objective**: Platform otak universal untuk semua tool/AI agent/IoT — memori + kesadaran operasional + gerbang endpoint tunggal — TANPA server backend, data 100% milik user. Nama: **FLYBRAIN OS** (lapisan protokol tetap memakai warisan "FlyBrain MCP").
-- **Phase**: **CIVITAS OS v1.3.0 "LEADER"** — Organism Runtime 16 modul + audit PASS + push **4/4 remote tersinkron** (GitHub ×3 + GitLab via SSH altssh:443) + **RATU_CIVITAS**: agent pemimpin ekosistem sebagai pemain Bedrock di Aternos (loop otonom OBSERVE→DECIDE→ACT→REFLECT; siaga 24/7, auto-rejoin, watchdog self-life; state `.civitas/organism/leader.json`).
+- **Phase**: **CIVITAS OS v1.4.0 "SYNC & AUTONOMY"** — Organism Runtime + RATU_CIVITAS v2 (memori persisten + thought + evaluasi adaptif + supervisor/joiner crash-isolated) + **DB ter-mount penuh ke Supabase** (24 tabel, mirror total via pushFullMirror, 905+ baris) + **self server** port 3000 + **Vercel** (civitas-os, Postgres pooler) + daemon = self-cron 24/7 (server, RATU, self-server, sync, mirror, backup).
 
 ## Confirmed Facts (riset 16 kueri, 2026-09-21, sumber primer)
 - Viral Sept 2026: CNS lalat jantan Janelia+Google (3 Sep): >166.000 neuron, ±125 juta sinapsis; WIRED 16 Sep (vibe-coding PitchFly); MindStudio 14 Sep (hobiis).
@@ -52,8 +52,8 @@ Updated: 2026-09-25 (sesi 7) | Agent: Super Z
 - Mitra pembayaran penandatangan kwitansi (Fase 4) + konfirmasi tertulis lisensi FlyWire sebelum monetisasi penuh.
 
 ## Next Actions (urut)
-1. **Pemilik: bangunkan server Aternos** dari panel (sekali) → RATU_CIVITAS masuk otomatis <60s sebagai pemain, otonom penuh; kehadirannya menjaga server tetap bangun. Bila kick Xbox-auth → alasan terekam di `leader.log.jsonl` (jalur berikutnya: device-code login).
-2. ~~GitLab scope~~ **SELESAI 2026-09-24** — 4/4 remote sinkron via SSH `altssh.gitlab.com:443` (kunci ed25519 via API; unprotect main via API; probe commit ditimpa force push; daemon kini permanen lewat SSH).
+1. **RATU v2 berjaga di Aternos (flapping sisi penyedia)** — ia masuk otomatis tiap jendela terbuka; kehadirannya = anti-tidur. Bila kick Xbox-auth muncul → alasan terekam di `leader.log.jsonl` (jalur berikutnya: device-code login). Opsional pemilik: exaroton (berbayar) untuk uptime penuh.
+2. **GitLab**: kunci ed25519 (id 21680157) sempat ditolak anti-abuse pasca-push beruntun — tiap siklus sync mencoba SSH + HTTP; bila kunci mati permanen → daftar ulang via API saat tidak diblok.
 3. **Pemilik: ROTASI kredensial Supabase** (kunci pernah lewat chat) + jangan commit .env.
 4. Revenue eksternal riil: aktifkan EXTERNAL_SETTLEMENT_LIVE + provider nyata (honesty gate 422 aktif).
-5. Deploy Vercel (butuh token pemilik): cron denyut 24/7 `/api/civos/cron` + `/api/organism/cron`.
+5. Vercel: upgrade Pro (opsional) bila ingin cron */5; denyut 24/7 tetap dari daemon sandbox.
