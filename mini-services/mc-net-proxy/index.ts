@@ -77,10 +77,17 @@ const server = Bun.serve({
       if (!t) { ws.close(); return; }
       const tcp = net.createConnection({ host: t.host, port: t.port });
       t.tcp = tcp;
+      let bytesToClient = 0;
+      let bytesFromClient = 0;
       tcp.on("data", (buf: Buffer) => {
+        bytesToClient += buf.length;
         try { ws.send(new Uint8Array(buf)); } catch { try { tcp.destroy(); } catch { /* ok */ } }
       });
-      tcp.on("close", () => { try { ws.close(); } catch { /* ok */ } tunnels.delete(token); });
+      tcp.on("close", (hadError: boolean) => {
+        console.log(`[tcp close] ${t.host}:${t.port} hadError=${hadError} toClient=${bytesToClient} fromClient=${(t as Tunnel & { fc?: number }).fc ?? 0}`);
+        try { ws.close(); } catch { /* ok */ }
+        tunnels.delete(token);
+      });
       tcp.on("error", (e) => {
         console.log(`[tcp error] ${t.host}:${t.port} ${e.message.slice(0, 120)}`);
         try { ws.close(); } catch { /* ok */ }
@@ -92,14 +99,15 @@ const server = Bun.serve({
       const t = tunnels.get(token);
       if (!t?.tcp || t.tcp.destroyed) return;
       const buf = typeof data === "string" ? Buffer.from(data, "utf8") : Buffer.from(data as Uint8Array);
+      (t as Tunnel & { fc?: number }).fc = ((t as Tunnel & { fc?: number }).fc ?? 0) + buf.length;
       try { t.tcp.write(buf); } catch { /* tcp error event handles */ }
     },
     close(ws) {
       const token = (ws.data as { token: string }).token;
       const t = tunnels.get(token);
       if (t?.tcp) { try { t.tcp.destroy(); } catch { /* ok */ } }
+      console.log(`[ws close] token=${token.slice(0, 12)}… fromClient=${(t as Tunnel & { fc?: number })?.fc ?? 0}`);
       tunnels.delete(token);
-      console.log(`[socket close] token=${token.slice(0, 12)}…`);
     },
   },
 });

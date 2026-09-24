@@ -42,6 +42,10 @@ webpack(config, (err, stats) => {
   fs.rmSync(OUT, { recursive: true, force: true });
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.cpSync(path.join(PWC, "public"), OUT, { recursive: true });
+  // sisipkan audio guard (headless tanpa codec: decodeAudioData gagal -> jangan crash)
+  const guard = fs.readFileSync("/home/z/my-project/scripts/mc_audio_guard.js", "utf8");
+  const bundlePath = path.join(OUT, "index.js");
+  fs.writeFileSync(bundlePath, guard + fs.readFileSync(bundlePath, "utf8"));
   let total = 0;
   const walk = (d) => {
     for (const f of fs.readdirSync(d)) {
