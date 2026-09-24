@@ -54,5 +54,16 @@
     "lastHeartbeat": "2026-09-24T20:33:26.651Z",
     "cycles": 12,
     "exitCode": null
+  },
+  {
+    "id": "cell_mug0msw073",
+    "name": "observer-mug0msw073",
+    "role": "observer",
+    "kind": "temporary",
+    "purpose": "spawn manual via operator",
+    "pid": 6740,
+    "dir": "/home/z/my-project/.civitas/organism/children/cell_mug0msw073",
+    "spawnedAt": "2026-09-24T21:00:02.881Z",
+    "status": "RUNNING"
   }
 ]

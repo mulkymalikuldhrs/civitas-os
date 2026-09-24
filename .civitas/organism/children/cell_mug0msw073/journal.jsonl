@@ -1,0 +1,3 @@
+{"at":"2026-09-24T21:00:02.928Z","kind":"BORN","pid":6740,"name":"observer-mug0msw073","purpose":"spawn manual via operator"}
+{"at":"2026-09-24T21:00:26.929Z","kind":"REPORT","cycle":3,"rssMb":38,"load1":0.73,"note":"observer-mug0msw073 hidup: siklus 3, RSS 38MB"}
+{"at":"2026-09-24T21:00:50.929Z","kind":"REPORT","cycle":6,"rssMb":38,"load1":1.45,"note":"observer-mug0msw073 hidup: siklus 6, RSS 38MB"}
