@@ -3,6 +3,47 @@
 Semua perubahan penting proyek ini didokumentasikan di sini.
 Format mengikuti [Keep a Changelog](https://keepachangelog.com/id/1.1.0/); versi mengikuti [SemVer](https://semver.org/lang/id/).
 
+## [1.2.0] — 2026-09-25 · "ORGANISM"
+
+Mandat pemilik: General Autonomous Digital Organism (38 poin blueprint) untuk SEMUA role ke depan +
+lapisan HERMES (capability graph, world-state epistemic, evolusi 5 lapis, repo topology, environment
+awareness, hard-constraints philosophy) + Mutation sandbox worktree A/B penuh + Agent Spawner eksekusi
+nyata + wiring dashboard UI + 7 limit imun enforced + LLM custom base URL & API key via UI.
+
+### Ditambahkan — ORGANISM RUNTIME (`src/lib/civos/organism/`)
+- `types.ts` — DNA (core immutable + genome mutable), World Model epistemic, Goal, Decision, ImmuneEvent, MutationRecord (A/B), Capability/Gap, ChildRecord, LoopState.
+- `dna.ts` — kelahiran DNA (`CIVITAS-PRIME`), genome hash, kill switch file, default genome/immune.
+- `store.ts` — persistence `.civitas/organism/*` + event log append-only jsonl + sandbox root.
+- `memory.ts` — memory interface ring-buffer, cap dari DNA (limit #5), `rememberFailure` (Failure is Data).
+- `immune.ts` — **7 limit deklaratif → enforced nyata**: withTimeout, guardRecursion (PAUSE), retry (maxRetries), checkResource RSS (REPAIR gc → KILL), safeFetch (allowlist + timeout), assertToolAllowed, checkKillSwitch.
+- `envprobe.ts` — environment awareness permission-aware (CPU/RAM/disk/proses/iface + `denied[]` jujur).
+- `repos.ts` — repository topology (Repository→Project→Subsystem→Capability→Owner, LOC, deteksi organ duplikat).
+- `worldmodel.ts` — world model dari probe nyata (os, df, ps, **RakNet UDP ping Bedrock**, HTTP health, PID check) + epistemic known/unknown/assumptions/unverified + risks hidup.
+- `goals.ts` — Dynamic Goal Engine tanpa task list; skor = f(genome.weights); strategy registry (guardian/explorer/economist/balanced).
+- `decision.ts` — Decision Engine dengan **do-nothing sah** (bias genome + wellness + energi).
+- `llm.ts` — FREE-FIRST: HEURISTIC deterministik default; REMOTE opsional via config `llm.baseUrl`/`llm.apiKey`/`llm.model` (+fallback heuristic bila remote gagal).
+- `capability.ts` — Capability Graph: registry, verify berkala, `computeGap`, `acquireCapability` BUILD (tulis modul → eksekusi → verifikasi)/DISCOVER (anti organ duplikat)/DELEGATE.
+- `mutation.ts` — Mutation Engine A/B penuh: propose → **git worktree sandbox** → patch B penuh → benchmark nyata (`scripts/organism_bench.ts`) → ADOPT/REJECT + lesson → rollback; core/immune tak tersentuh; commit jejak audit.
+- `spawner.ts` — Agent Spawner eksekusi nyata (proses bun + PID + heartbeat + journal), kill/archive (SIGTERM→SIGKILL), reapDead, merge role, `reconcileComposition` (L5).
+- `loop.ts` — True Autonomous Loop 14 langkah + singleton runtime + kontrol operator (pause/resume/kill/unkill/lock/unlock) + aksi nyata: REPAIR_INFRA (mkfifo/daemon start/probe ulang), MITIGATE_RISK (cleanup disk/gc/adaptasi interval), VERIFY_UNKNOWN (probe nyata → resolve), SPAWN_AGENT, REAP_AGENTS, MUTATE, SELF_REPORT, ACQUIRE_CAPABILITY; refleksi adaptif (timeout berulang → interval naik).
+- `index.ts` — singleton + `getOrganismState`.
+
+### Ditambahkan — Infra & UI
+- `scripts/organism_bench.ts` — benchmark scoring kernel A/B (dataset sintetis deterministik, 400 reps).
+- `scripts/organism_child.ts` — entry organisme anak: siklus mikro + state/heartbeat + journal + stop rules (STOP file/kill switch/maxCycles) + self-kill RSS.
+- `scripts/organism_tick.ts` — tick runner terisolasi (crash tak menjatuhkan daemon).
+- `scripts/organism_selftest.ts` — bukti end-to-end: DNA → mutasi A/B (ADOPTED: A=3.2ms vs B=1ms) → spawn (PID hidup, 9 siklus heartbeat) → capability BUILD → tick penuh → state.
+- `/api/civos/organism` (GET state · POST 12 aksi operator).
+- `views/OrganismView.tsx` — 8 tab: HIDUP (kontrol + genome + konstitusi), WORLD MODEL (sumber daya/infra/risiko/epistemic), TUJUAN, CAPABILITY (+acquire), MUTASI A/B (+rollback), POPULASI (spawn/reap/kill/archive), IMUN, **OTAK LLM** (custom base URL + API key + model, SECRET-masked) + konsol aksi; terdaftar di McShell sebagai tab 🧬 ORGANISME.
+- Config baru: `llm.baseUrl`, `llm.apiKey` (SECRET), `llm.enabled` — free-first tetap default.
+- Daemon: selflife tick kini + organism tick (isolasi subsystem, gagal organisme tak menjatuhkan selflife).
+- `PRD.md` — konstitusi tertulis: fusi peradaban Minecraft + 38 poin organisme + lapisan HERMES.
+
+### Diperbaiki
+- Spawner menimpa DNA root saat menulis DNA anak → kini DNA anak hanya di dir anak (bug kritis ditemukan & diperbaiki lewat selftest).
+- Worktree sandbox kosong bila file belum ter-commit → pipeline commit-then-mutate.
+- Reinstall `mineflayer` (korban rollback sandbox) + rebuild `db/custom.db` via `prisma db push`.
+
 ## [1.1.0] — 2026-09-24 · "SELF-LIFE"
 
 Mandat pemilik: upgrade ekosistem — self server, self backup, self sync, self life,

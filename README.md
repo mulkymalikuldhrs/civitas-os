@@ -7,7 +7,7 @@
 **Sistem operasi peradaban otonom di dalam Minecraft.**
 Warga villager sungguhan · Pemerintahan multi-agen · Ledger double-entry · Guild kerja nyata · Server Bedrock lokal & online.
 
-`v1.1 "SELF-LIFE"` · Next.js 16 · TypeScript · Prisma/SQLite · bedrock-protocol · PocketMine-MP + Purpur · Supabase mirror
+`v1.2 "ORGANISM"` · Next.js 16 · TypeScript · Prisma/SQLite · bedrock-protocol · mineflayer · PocketMine-MP + Purpur · Supabase mirror
 
 </div>
 
@@ -43,6 +43,26 @@ CIVITAS OS adalah **peradaban digital yang hidup tanpa perintah manusia**: ia be
 | **Self Sync** | Commit + push otomatis ke **4 remote** (GitHub x3 + GitLab), token transient tak pernah masuk repo | ✅ push terverifikasi |
 | **MCP Server** | CIVITAS sebagai **server MCP** 13 tools (stdio) — siap Claude Desktop; fallback bun tanpa web app | ✅ initialize/tools/call |
 | **CLI `civitas`** | status · pulse · doctor · chat · server · backup · sync · tool · config · daemon | ✅ 17 perintah |
+
+## Organisme Otonom (L3 — jantung v1.2)
+
+CIVITAS OS kini berdiri di atas **General Autonomous Digital Organism Runtime** — fondasi hidup yang akan dipakai semua role ke depan (villager, government, company, content, admin, quant…). Prinsip konstitusinya:
+
+> *"Jangan hardcode kecerdasan organisme. Hardcode hanya fondasi agar ia bisa hidup."*
+
+Yang di-hardcode HANYA: runtime/lifecycle, sandbox mutasi, protokol tool, interface memori, sistem imun (7 limit deklaratif → **enforced**), kill switch, resource boundary. Selebihnya hidup di **genome** yang bisa bermutasi:
+
+- **DNA** — core immutable + genome mutable (`src/lib/civos/organism/dna.ts`)
+- **World Model** — probe nyata: CPU/RAM/disk/proses, RakNet UDP ping, health HTTP; epistemic first-class: `known / unknown / assumptions / unverified`
+- **True Autonomous Loop** — observe → goals (reward+strategic+feasibility−cost−risk) → decide (**do nothing sah**) → act → evaluate → remember → reflect → capability gap → mutate → rebalance
+- **Mutation Engine A/B** — sandbox **git worktree** nyata, patch B penuh, benchmark nyata (A=3.2ms vs B=1ms → ADOPTED), rollback tersedia; core/immune tidak bisa disentuh mutasi
+- **Agent Spawner** — proses `bun` sungguhan per anak (PID + heartbeat + journal), lifecycle temporary→specialized→archive/kill, merge/reap populasi
+- **Capability Graph** — GOAL → REQUIRED → GAP → BUILD/DISCOVER/DELEGATE → TEST → REGISTER (modul ditulis-eksekusi-verifikasi nyata)
+- **Evolusi 5 lapis** — L1 parameter · L2 strategy · L3 workflow · L4 capability · L5 organization
+- **Free-first** — hidup penuh tanpa LLM berbayar (HEURISTIC); custom **base URL + API key + model** bisa diisi lewat UI (tersimpan sebagai SECRET)
+- **Kontrol manusia** — PAUSE · KILL · LOCK saja, tanpa approval
+
+Bukti eksekusi end-to-end: `bun scripts/organism_selftest.ts` — dan kontrol penuh di dashboard tab **🧬 ORGANISME**.
 
 ## Arsitektur (lima lapis)
 

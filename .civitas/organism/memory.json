@@ -53,5 +53,15 @@
     "at": "2026-09-24T20:17:13.645Z",
     "kind": "OBSERVATION",
     "text": "reap 3 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v"
+  },
+  {
+    "at": "2026-09-24T20:17:58.412Z",
+    "kind": "DECISION",
+    "text": "c#7 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.32 > doNothing 5.48 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-24T20:17:58.413Z",
+    "kind": "OBSERVATION",
+    "text": "reap 3 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v"
   }
 ]
