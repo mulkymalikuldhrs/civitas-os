@@ -1,0 +1,15 @@
+mc-server
+backups
+.civitas
+.civitas-tick.lock
+.next
+node_modules
+research
+prisma/dev.db
+prisma/*.db
+*.db
+*.db-journal
+*.log
+docs/assets
+agent-ctx
+skills

@@ -4,11 +4,11 @@
   "crons": [
     {
       "path": "/api/organism/cron",
-      "schedule": "*/5 * * * *"
+      "schedule": "0 14 * * *"
     },
     {
       "path": "/api/civos/cron",
-      "schedule": "*/5 * * * *"
+      "schedule": "0 15 * * *"
     }
   ]
 }

@@ -3,14 +3,14 @@
   "name": "RATU_CIVITAS",
   "role": "ecosystem-leader",
   "kind": "player-agent",
-  "brain": "v2.1-supervisor+joiner",
+  "brain": "v2-memory-thought-improve",
   "server": "mulkymalikuldhr.aternos.me:19132",
-  "status": "SIAGA",
-  "pid": 11160,
+  "status": "STARTING",
+  "pid": 12049,
   "joinedAt": null,
-  "lastHeartbeat": "2026-09-24T22:06:42.282Z",
+  "lastHeartbeat": "2026-09-24T22:12:39.297Z",
   "cycles": 1,
-  "reconnects": 7,
+  "reconnects": 0,
   "stats": {
     "chatsSent": 1,
     "directivesIssued": 0,
@@ -21,7 +21,7 @@
     "movesAccepted": 0,
     "movesRejected": 0,
     "thoughts": 1,
-    "improvements": 1
+    "improvements": 0
   },
   "position": null,
   "health": null,
