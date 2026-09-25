@@ -92,8 +92,9 @@
     "pid": 24464,
     "dir": "/home/z/my-project/.civitas/organism/children/cell_mug6xv90jz",
     "spawnedAt": "2026-09-24T23:56:36.856Z",
-    "status": "RUNNING",
-    "lastHeartbeat": "2026-09-24T23:59:48.887Z",
-    "cycles": 24
+    "status": "DEAD",
+    "lastHeartbeat": "2026-09-25T00:01:48.887Z",
+    "cycles": 39,
+    "exitCode": null
   }
 ]

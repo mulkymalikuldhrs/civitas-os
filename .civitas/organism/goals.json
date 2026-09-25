@@ -1,6 +1,6 @@
 [
   {
-    "id": "goal_a6bb02",
+    "id": "goal_36a2e7",
     "area": "knowledge",
     "title": "Verifikasi unknown: remote_server_quota",
     "action": "VERIFY_UNKNOWN",
@@ -20,7 +20,7 @@
     "score": 10.821
   },
   {
-    "id": "goal_b329ac",
+    "id": "goal_92b8c5",
     "area": "knowledge",
     "title": "Verifikasi unknown: player_concurrency_peak",
     "action": "VERIFY_UNKNOWN",
@@ -40,7 +40,7 @@
     "score": 10.821
   },
   {
-    "id": "goal_00422b",
+    "id": "goal_2adb49",
     "area": "knowledge",
     "title": "Verifikasi unknown: true_java_uptime_24h",
     "action": "VERIFY_UNKNOWN",
@@ -60,7 +60,26 @@
     "score": 10.821
   },
   {
-    "id": "goal_38998c",
+    "id": "goal_6ad844",
+    "area": "organization",
+    "title": "Spawn agent (0/1 hidup, komposisi genome: observer×1)",
+    "action": "SPAWN_AGENT",
+    "params": {
+      "role": "observer"
+    },
+    "reward": 4,
+    "strategic": 5,
+    "feasibility": 7,
+    "cost": 3,
+    "risk": 2,
+    "novelty": 2,
+    "requiredCapabilities": [
+      "spawn.child"
+    ],
+    "score": 10.222000000000001
+  },
+  {
+    "id": "goal_70fa79",
     "area": "infrastructure",
     "title": "Periksa & pulihkan mc_bedrock (health=0)",
     "action": "REPAIR_INFRA",
@@ -77,22 +96,5 @@
       "probe.env"
     ],
     "score": 9.638
-  },
-  {
-    "id": "goal_ca64e7",
-    "area": "report",
-    "title": "Tulis laporan keadaan diri (self-report)",
-    "action": "SELF_REPORT",
-    "params": {},
-    "reward": 2,
-    "strategic": 3,
-    "feasibility": 8,
-    "cost": 1,
-    "risk": 0,
-    "novelty": 0,
-    "requiredCapabilities": [
-      "llm.brain"
-    ],
-    "score": 9.153
   }
 ]
