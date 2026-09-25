@@ -63,3 +63,4 @@ backups/
 db/custom.db
 db/custom.db-journal
 *.tar.gz
+mc-server/java/plugins/spark/tmp-client/

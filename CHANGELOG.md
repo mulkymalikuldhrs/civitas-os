@@ -3,6 +3,63 @@
 Semua perubahan penting proyek ini didokumentasikan di sini.
 Format mengikuti [Keep a Changelog](https://keepachangelog.com/id/1.1.0/); versi mengikuti [SemVer](https://semver.org/lang/id/).
 
+## [1.5.0] — 2026-09-25 · "CITADEL"
+
+Mandat pemilik: *"1. map semua db yang ada di supabase (semua table, db, column, semuanya) + 2. buat server minecraft kita sendiri (auto sync to all server and auto backup, can restore via ui), hosting di ui langsung... 3. siapkan url server dan port terpampang di ui. 4. perbaiki dan upgrade semuanya... rebuild dan redesign ui agar semuanya berfungsi (real + realtime), bukan simulasi... 5. buat juga di ui ada Minecraft yang asli dengan halamannya tersendiri real, bisa playable dan tersambung ke server asli, dan bisa full screen toggle (auto fit to all device screen)... 6. update all *md and docs... 7. push ke remote dan 8. push ke vercel.. 9. verify everything. 10. final push after everything tested."*
+
+### Ditambahkan
+- **PETA DATABASE PENUH (tab CLOUD DB + `/api/civos/dbmap`)** — introspeksi NYATA
+  Supabase: PostgREST OpenAPI (semua tabel + kolom + tipe + PK) + jumlah baris persis
+  per tabel (`Prefer: count=exact` → Content-Range) + daftar bucket Storage + cermin
+  kernel SQLite (Prisma count per model). **145 tabel awan terpetakan** (termasuk warisan
+  proyek pemilik) + 22 tabel kernel / 3.298 baris; cache KV 60 dtk + tombol segarkan
+  paksa; filter pencarian tabel; ekspansi kolom per tabel di UI. Kredensial kini
+  **disanitasi** (kutip/spasi) + **fallback `.gitcreds`** bila nilai kernel tak sah —
+  akar masalah `OpenAPI HTTP 401` adalah nilai serviceKey placeholder di kernel.
+- **HOSTING SERVER DARI UI (tab SERVER)** — status semua server (Bedrock RakNet ·
+  Java TCP SLP · Aternos remote), start/stop/restart managed, **URL & port terpampang**
+  (IP host nyata via `os.networkInterfaces()`: Java `:25565` · Bedrock `:19132` ·
+  Aternos), info platform + uptime.
+- **BACKUP → AWAN → RESTORE 1-KLIK** — backup lama (tar.gz + manifest sha256) kini
+  **terunggah otomatis ke Supabase Storage** (`civitas-backups`, bucket dibuat idempoten);
+  API backup menerima `action: backup|cloud_upload|restore|cloud_restore` +
+  `scope: worlds|full`; restore nyata: verifikasi sha256 → stop kedua server → ekstrak
+  → start ulang → (full) restart self-server agar Prisma membuka DB baru. **Teruji
+  end-to-end**: backup 553 KB → unggah cloud 0.6 MB → restore worlds → kedua server
+  ONLINE kembali (Bedrock 7 ms, Java 80 ms). Watchdog daemon menambah langkah **2b
+  mc-net-proxy** (jembatan WS→TCP dijaga hidup 24/7).
+- **MINECRAFT ASLI DI BROWSER (tab MAIN MC)** — klien **prismarine-web-client 1.6.0**
+  (PrismarineJS, Protokol Minecraft penuh, versi 1.21.1) dibundel webpack ke
+  `public/mc/` (11.1 MB bundle + worker 3.8 MB + aset 1.21.1 — total 42.5 MB setelah
+  prune 288→42.5 MB) dengan jembatan **mc-net-proxy** (`mini-services/`, port 3010):
+  protokol `net-browserify` (POST `/api/vm/net/connect` → token → WS `/socket`) di-pipe
+  dua arah ke TCP 25565, **whitelist ketat** (127.0.0.1:25565) + batas 8 tunel + TTL
+  15 menit. Patch yang dibutuhkan (semua tersimpan sebagai skrip, idempoten):
+  `net-browserify` https-aware + `XTransformPort` routing; perbaikan bug sintaks
+  destrukturisasi pada paket terpublikasi; **audio guard** (dekode suara gagal pada
+  browser tanpa codec → AudioBuffer sunyi, klien tidak mati); `config.json` default
+  `127.0.0.1:25565` v1.21.1. UI: halaman tersendiri, fullscreen toggle (Fullscreen API)
+  + auto-fit, panduan kendali. **Bukti nyata: `pviewer207 joined the game` di log Paper
+  via tunel WS→TCP; HUD + canvas hidup.**
+- **Uji invariants diperkuat (INV-23e)** — peradaban hidup membuat antrean direktif
+  berisi pekerjaan otonom lain; uji klaim kini mengecek baris uji BILA terklaim, jika
+  tidak klaim SPEAK mana pun harus berlabel `[Nama | code]` — semantik relay tetap
+  teruji secara deterministik. Hasil: **66 PASS / 0 FAIL** (tambah INV-43..44 lama + 2b).
+
+### Diubah
+- Nav dashboard direorganisasi (16 view) — CITADEL · **MAIN MC** · **SERVER** ·
+  **CLOUD DB** · ORGANISME · PETA · WARGA · GUILD · PEMERINTAH · PERUSAHAAN · EKONOMI ·
+  DUNIA · KONFIG · ARSITEK · PUSTAKA · EVENT; versi header v1.5; footer "CITADEL".
+- `.vercelignore` diperluas (upstream, tests, tool-results) — `public/mc/` IKUT
+  ter-deploy agar tab MAIN MC hidup di Vercel; konfigurasi lint mengecualikan
+  `public/mc/`, `mc-server/`, `backups/` (bundle besar — bukan kode untuk dilint).
+
+### Kejujuran
+- Aternos tetap flapping (sisi penyedia, free tier) — statusnya jujur OFFLINE saat tidur.
+- Klien web Minecraft butuh desktop + mouse (pointer-lock); di ponsel belum nyaman —
+  pesan ini tertulis jujur di tab MAIN MC.
+- Vercel Hobby: cron harian; denyut 24/7 tetap dari daemon sandbox.
+
 ## [1.4.0] — 2026-09-25 · "SYNC & AUTONOMY"
 
 Mandat pemilik: *"upgrade menjadi lebih autonomous, termasuk dia dan ekosistem... buat leader itu improve ekosistem terus menerus dan punya memori dan berpikir serta evaluasi yang kurang... mount semua db di supabase, push ke remotes dan vercel... buat agar server yang otomatis tidur tidak akan tidur."*

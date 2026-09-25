@@ -1,0 +1,9 @@
+{"at":"2026-09-24T23:56:36.887Z","kind":"BORN","pid":24464,"name":"observer-mug6xv90jz","purpose":"spawn manual via operator"}
+{"at":"2026-09-24T23:57:00.887Z","kind":"REPORT","cycle":3,"rssMb":39,"load1":1.74,"note":"observer-mug6xv90jz hidup: siklus 3, RSS 39MB"}
+{"at":"2026-09-24T23:57:24.887Z","kind":"REPORT","cycle":6,"rssMb":39,"load1":1.68,"note":"observer-mug6xv90jz hidup: siklus 6, RSS 39MB"}
+{"at":"2026-09-24T23:57:48.887Z","kind":"REPORT","cycle":9,"rssMb":39,"load1":1.11,"note":"observer-mug6xv90jz hidup: siklus 9, RSS 39MB"}
+{"at":"2026-09-24T23:58:12.887Z","kind":"REPORT","cycle":12,"rssMb":39,"load1":0.89,"note":"observer-mug6xv90jz hidup: siklus 12, RSS 39MB"}
+{"at":"2026-09-24T23:58:36.887Z","kind":"REPORT","cycle":15,"rssMb":39,"load1":1.26,"note":"observer-mug6xv90jz hidup: siklus 15, RSS 39MB"}
+{"at":"2026-09-24T23:59:00.887Z","kind":"REPORT","cycle":18,"rssMb":39,"load1":0.83,"note":"observer-mug6xv90jz hidup: siklus 18, RSS 39MB"}
+{"at":"2026-09-24T23:59:24.887Z","kind":"REPORT","cycle":21,"rssMb":39,"load1":0.9,"note":"observer-mug6xv90jz hidup: siklus 21, RSS 39MB"}
+{"at":"2026-09-24T23:59:48.887Z","kind":"REPORT","cycle":24,"rssMb":39,"load1":1.17,"note":"observer-mug6xv90jz hidup: siklus 24, RSS 39MB"}

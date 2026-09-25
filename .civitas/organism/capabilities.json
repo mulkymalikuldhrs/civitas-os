@@ -4,7 +4,7 @@
     "kind": "module",
     "status": "DEGRADED",
     "impl": "/home/z/my-project/.civitas/organism/capabilities/text.hash.mjs",
-    "verifiedAt": "2026-09-24T21:00:06.415Z",
+    "verifiedAt": "2026-09-24T23:56:40.400Z",
     "verifyNote": "impl hilang dari disk",
     "owner": "organism"
   },
@@ -14,7 +14,7 @@
     "status": "AVAILABLE",
     "impl": "src/lib/civos/organism/envprobe.ts",
     "owner": "organism",
-    "verifiedAt": "2026-09-24T23:52:23.463Z",
+    "verifiedAt": "2026-09-24T23:56:42.281Z",
     "verifyNote": "impl tersedia"
   },
   {
@@ -23,7 +23,7 @@
     "status": "AVAILABLE",
     "impl": "src/lib/civos/organism/repos.ts",
     "owner": "organism",
-    "verifiedAt": "2026-09-24T23:52:23.463Z",
+    "verifiedAt": "2026-09-24T23:56:42.281Z",
     "verifyNote": "impl tersedia"
   },
   {
@@ -32,7 +32,7 @@
     "status": "AVAILABLE",
     "impl": "src/lib/civos/organism/worldmodel.ts#raknetPing",
     "owner": "villager-builder",
-    "verifiedAt": "2026-09-24T23:52:23.463Z",
+    "verifiedAt": "2026-09-24T23:56:42.281Z",
     "verifyNote": "impl tersedia"
   },
   {
@@ -41,7 +41,7 @@
     "status": "AVAILABLE",
     "impl": "src/lib/civos/organism/llm.ts",
     "owner": "organism",
-    "verifiedAt": "2026-09-24T23:52:23.463Z",
+    "verifiedAt": "2026-09-24T23:56:42.281Z",
     "verifyNote": "impl tersedia"
   },
   {
@@ -50,7 +50,7 @@
     "status": "AVAILABLE",
     "impl": "src/lib/civos/organism/mutation.ts",
     "owner": "organism",
-    "verifiedAt": "2026-09-24T23:52:23.463Z",
+    "verifiedAt": "2026-09-24T23:56:42.281Z",
     "verifyNote": "impl tersedia"
   },
   {
@@ -59,7 +59,7 @@
     "status": "AVAILABLE",
     "impl": "src/lib/civos/organism/spawner.ts",
     "owner": "organism",
-    "verifiedAt": "2026-09-24T23:52:23.463Z",
+    "verifiedAt": "2026-09-24T23:56:42.281Z",
     "verifyNote": "impl tersedia"
   }
 ]

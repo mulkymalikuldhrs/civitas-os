@@ -270,6 +270,7 @@ civitas backup list                  # daftar arsip
 | 9 | Guild kerja + Toolforge (tool calling + internet nyata) | DONE VERIFIED |
 | 10 | REALITY bridge (server lokal, bot nyata, chat 2 arah, config UI, MCP, kuant nyata) | DONE VERIFIED |
 | 11 | **Self-life: multi-server all-in-one, backup, sync, daemon, MCP stdio, CLI, docs merge** | **DONE VERIFIED** |
+| 11.5 | **v1.5 "CITADEL": peta DB Supabase penuh (145 tabel), hosting UI + URL/port, backup→cloud→restore 1-klik, Minecraft ASLI di browser (WS→TCP), nav 16 view** | **DONE VERIFIED** |
 | 12 | Revenue eksternal riil (rail pembayaran pemilik) | NOT_STARTED — gerbang pemilik |
 | 13 | Eksekusi fisik penuh dunia (build nyata luas) + Aternos uptime | ARMED — butuh OP/uptime |
 
@@ -296,7 +297,12 @@ dikeluarkan dari git publik) → **v1.2.0 "ORGANISM"** (General Autonomous Digit
 Runtime 16 modul; mutation sandbox git-worktree A/B; spawner proses nyata; imun 7 limit
 enforced; capability graph; LLM free-first + custom provider via UI; tab 🧬 ORGANISME) →
 **v1.2.1 "REFERENSI & AUDIT"** (docs/AUDIT_v1.2.md; README §Referensi & Sumber — 29 riset
-+ 16 repo kandidat; push GitHub ×3 terverifikasi).
++ 16 repo kandidat; push GitHub ×3 terverifikasi) → **v1.4.0 "SYNC & AUTONOMY"** (mirror
+total 24 tabel ke Supabase; RATU_CIVITAS v2 memori+berpikir+evaluasi; self server; Vercel
+link) → **v1.5.0 "CITADEL"** (peta DB Supabase 145 tabel realtime di UI; hosting server
+dari UI dengan URL/port terpampang; backup otomatis → Supabase Storage → restore 1-klik
+teruji end-to-end; **klien Minecraft asli di browser** via prismarine-web-client + jembatan
+WS→TCP whitelist — bukti join `pviewer207` di log Paper; nav 16 view; invariants 66/0).
 
 ## 17. KREDIT & LISENSI
 

@@ -4,7 +4,7 @@ Updated: 2026-09-25 (sesi 7) | Agent: Super Z
 
 ## Project
 - **Objective**: Platform otak universal untuk semua tool/AI agent/IoT — memori + kesadaran operasional + gerbang endpoint tunggal — TANPA server backend, data 100% milik user. Nama: **FLYBRAIN OS** (lapisan protokol tetap memakai warisan "FlyBrain MCP").
-- **Phase**: **CIVITAS OS v1.4.0 "SYNC & AUTONOMY"** — Organism Runtime + RATU_CIVITAS v2 (memori persisten + thought + evaluasi adaptif + supervisor/joiner crash-isolated) + **DB ter-mount penuh ke Supabase** (24 tabel, mirror total via pushFullMirror, 905+ baris) + **self server** port 3000 + **Vercel** (civitas-os, Postgres pooler) + daemon = self-cron 24/7 (server, RATU, self-server, sync, mirror, backup).
+- **Phase**: **CIVITAS OS v1.5.0 "CITADEL"** — peta DB Supabase penuh di UI (145 tabel + kolom + PK + baris persis; `/api/civos/dbmap`, cache 60 dtk) + hosting server dari UI (URL/port terpampang, start/stop/restart) + **backup otomatis → Supabase Storage → restore 1-klik** (teruji end-to-end) + **Minecraft ASLI di browser** (prismarine-web-client 1.21.1 + jembatan WS→TCP `mc-net-proxy:3010` whitelist; bukti join `pviewer207` di log Paper) + nav 16 view + warisan v1.4 (mirror 24 tabel, RATU v2, self server, Vercel, daemon 24/7).
 
 ## Confirmed Facts (riset 16 kueri, 2026-09-21, sumber primer)
 - Viral Sept 2026: CNS lalat jantan Janelia+Google (3 Sep): >166.000 neuron, ±125 juta sinapsis; WIRED 16 Sep (vibe-coding PitchFly); MindStudio 14 Sep (hobiis).

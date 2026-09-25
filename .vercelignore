@@ -5,6 +5,8 @@ backups
 .next
 node_modules
 research
+upstream
+tests
 prisma/dev.db
 prisma/*.db
 *.db
@@ -13,3 +15,4 @@ prisma/*.db
 docs/assets
 agent-ctx
 skills
+tool-results

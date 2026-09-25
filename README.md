@@ -7,7 +7,7 @@
 **Sistem operasi peradaban otonom di dalam Minecraft.**
 Warga villager sungguhan · Pemerintahan multi-agen · Ledger double-entry · Guild kerja nyata · Server Bedrock lokal & online.
 
-`v1.4 "SYNC"` · Next.js 16 · TypeScript · Prisma/SQLite + Supabase Postgres mirror · bedrock-protocol · mineflayer · PocketMine-MP + Purpur · Vercel
+`v1.5 "CITADEL"` · Next.js 16 · TypeScript · Prisma/SQLite + Supabase Postgres mirror · bedrock-protocol · mineflayer · Minecraft klien web asli · PocketMine-MP + Purpur · Vercel
 
 </div>
 
@@ -35,7 +35,11 @@ CIVITAS OS adalah **peradaban digital yang hidup tanpa perintah manusia**: ia be
 | **Minecraft World** | RakNet ping (protokol benar), server lokal PocketMine-MP, target Aternos online, bot join | ✅ ping 11ms · bot masuk dunia |
 | **Kuant** | Keputusan pada **harga pasar NYATA** (Binance publik); eksekusi order = gerbang pemilik | ✅ anti-simulasi |
 | **Supabase Mirror** | Cermin event/txn ke PostgreSQL Dhaher Labs + test-suite tabel/kolom/roundtrip | ✅ dengan kredensial via UI |
-| **UI Minecraft** | Dashboard bergaya MC (panel bevel, pixel font, hotbar nav), peta dunia + identitas, 12 view | ✅ otonom (poll 4 dtk) |
+| **UI Minecraft** | Dashboard bergaya MC (panel bevel, pixel font, hotbar nav), peta dunia + identitas, 16 view | ✅ otonom (poll 4 dtk) |
+| **Peta DB Cloud** | **Peta lengkap Supabase di UI**: semua tabel + kolom + tipe + PK + jumlah baris persis (PostgREST OpenAPI + count=exact) + bucket storage + cermin kernel | ✅ 145 tabel / 3.2k+ baris kernel terpetakan realtime |
+| **Hosting dari UI** | Server Minecraft milik sendiri dikelola penuh dari tab SERVER: URL & port terpampang (Java 25565 · Bedrock 19132 · Aternos), start/stop/restart, status ping nyata | ✅ Java + Bedrock hidup bersamaan |
+| **Backup & Restore 1-klik** | Auto-backup 6 jam (tar.gz + sha256) → **unggah otomatis ke Supabase Storage** → restore via UI (dunia saja / penuh) dengan stop-ekstrak-start terverifikasi | ✅ siklus backup→cloud→restore teruji end-to-end |
+| **Minecraft di Browser** | **Klien Minecraft ASLI** (prismarine-web-client, protokol penuh 1.21.1) berjalan di halaman MAIN MC: tersambung ke Paper via jembatan WS→TCP (whitelist), fullscreen toggle + auto-fit semua layar | ✅ bukti: `pviewer207 joined the game` di log Paper |
 | **Konfigurasi** | Semua env/api-key/URL/token/server diatur **via UI tanpa restart** | ✅ secret dimasking |
 | **Multi-Server All-in-One** | Registry Bedrock + Java + remote dalam satu kernel: PocketMine-MP **dan** Purpur/vanilla, ping nyata per edisi (RakNet UDP / TCP SLP), start-stop-restart, watchdog | ✅ Bedrock 4-11ms · Java 4-5ms hidup bersamaan |
 | **Self-Life** | Daemon 24/7: watchdog server + denyut peradaban + jadwal backup/sync — hidup **tanpa web app** | ✅ log `backups/daemon.log` |
@@ -113,6 +117,14 @@ Di dashboard: tab **DUNIA** → `KIRIM BOT` → bot masuk, sensus mengikat ident
 - Nyalakan server dari akun Aternos (gratis tidur otomatis) — bot + sensus + direktif berjalan sama persis.
 
 **3. Konfigurasi apa pun via UI:** tab **KONFIG** — host/port MC, auto-join/summon, jalur konsol lokal, model otak (`glm-4-plus`/`flash`), Supabase URL + service key (teruji: tabel, kolom, roundtrip), flag settlement, URL harga pasar (default Binance), dan registry server MCP (HTTP/STDIO) dengan tombol PROBE.
+
+**4. Main Minecraft langsung dari browser:** tab **MAIN MC** → `MASUK DUNIA` → di layar judul klien: `PLAY → Join a Server` (isian terisi: `127.0.0.1:25565`, versi `1.21.1`) → `Connect`. Klien di halaman itu adalah **klien Minecraft asli** (prismarine-web-client): ia berbicara Protokol Minecraft sungguhan ke server Paper melalui jembatan WS→TCP (`mini-services/mc-net-proxy` port 3010, whitelist `127.0.0.1:25565`). Tombol **FULLSCREEN** menjaga klien memenuhi layar semua perangkat. Butuh desktop + mouse.
+
+```bash
+bun mini-services/mc-net-proxy/index.ts        # jembatan WS→TCP (watchdog daemon menjaga hidup)
+node scripts/build_mc_client.js                # rebuild bundle klien (jika ingin mengubah)
+node scripts/build_viewer_worker.js            # rebuild worker + prune aset per-versi
+```
 
 ## Menjalankan aplikasi
 

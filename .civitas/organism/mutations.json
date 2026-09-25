@@ -96,5 +96,29 @@
     },
     "verdict": "B diterima: 1.2ms vs A 4.6ms (valid=true)",
     "lesson": "mutasi L1_PARAMETER diterima — genome diperbarui; pelajari arah perubahan bobotnya"
+  },
+  {
+    "id": "mut_mug6xrbt2pr",
+    "at": "2026-09-24T23:56:31.770Z",
+    "level": "L1_PARAMETER",
+    "target": "genome.weights",
+    "hypothesis": "Bobot penilaian baru memberi distribusi keputusan lebih sehat tanpa biaya ekstra",
+    "status": "ADOPTED",
+    "aSnapshot": "{\n  \"weights\": {\n    \"reward\": 0.636,\n    \"strategic\": 1.084,\n    \"feasibility\": 0.645,\n    \"costPenalty\": 0.496,\n    \"riskPenalty\": 0.739,\n    \"novelty\": 0.307\n  },\n  \"strategy\": \"balanced-growth\",\n  \"workflow\": {\n    \"intervalMs\": 60000,\n    \"maxGoalsPerCycle\": 5,\n    \"doNothingBias\": 0.35,\n    \"steps\": [\n      \"observe\",\n      \"decide\",\n      \"act\",\n      \"evaluate\",\n      \"reflect\"\n    ]\n  },\n  \"tools\": [\n    \"envprobe\",\n    \"reposcan\",\n    \"mutation\",\n    \"spawner\",\n    \"capability\",\n    \"llm\"\n  ],\n  \"agentComposition\": [\n    {\n      \"role\": \"observer\",\n      \"count\": 1\n    }\n  ]\n}",
+    "bPatch": "{\n  \"weights\": {\n    \"reward\": 0.694,\n    \"strategic\": 1.094,\n    \"feasibility\": 0.625,\n    \"costPenalty\": 0.517,\n    \"riskPenalty\": 0.707,\n    \"novelty\": 0.283\n  },\n  \"strategy\": \"balanced-growth\",\n  \"workflow\": {\n    \"intervalMs\": 60000,\n    \"maxGoalsPerCycle\": 5,\n    \"doNothingBias\": 0.35,\n    \"steps\": [\n      \"observe\",\n      \"decide\",\n      \"act\",\n      \"evaluate\",\n      \"reflect\"\n    ]\n  },\n  \"tools\": [\n    \"envprobe\",\n    \"reposcan\",\n    \"mutation\",\n    \"spawner\",\n    \"capability\",\n    \"llm\"\n  ],\n  \"agentComposition\": [\n    {\n      \"role\": \"observer\",\n      \"count\": 1\n    }\n  ]\n}",
+    "sandbox": "/home/z/my-project/.civitas-sandbox/mut_mug6xrbt2pr",
+    "benchmark": {
+      "aMs": 3.4,
+      "bMs": 1.2,
+      "aValid": true,
+      "bValid": true,
+      "aOutputHash": "cf4172d0e44a36f4",
+      "bOutputHash": "b347642ef7b63b00",
+      "equivalent": false,
+      "goals": 120,
+      "reps": 400
+    },
+    "verdict": "B diterima: 1.2ms vs A 3.4ms (valid=true)",
+    "lesson": "mutasi L1_PARAMETER diterima — genome diperbarui; pelajari arah perubahan bobotnya"
   }
 ]

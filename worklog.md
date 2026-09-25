@@ -216,3 +216,46 @@ Stage Summary:
   menjaga SEMUA (server, RATU, self-server, sync, mirror, backup).
 - Kejujuran: Aternos flapping (sisi penyedia); GitLab SSH key masih ditolak sementara;
   Vercel cron dibatasi harian (Hobby) — denyut sebenarnya tetap daemon sandbox.
+
+---
+Task ID: 24
+Agent: main (Super Z)
+Task: "map semua db di supabase + buat server minecraft sendiri (auto sync, auto backup, restore via UI) + URL/port di UI + rebuild UI real+realtime + Minecraft asli playable di UI fullscreen + update all *md + push remote + push vercel + verify + final push"
+
+Work Log:
+- PETA DB (tab CLOUD DB + /api/civos/dbmap): PostgREST OpenAPI + count=exact (baris
+  persis) + Storage buckets + cermin kernel (Prisma). 145 tabel awan + 22 kernel /
+  3.298 baris. Cache KV 60 dtk + fresh=1. AKAR BUG 401: config supabase.serviceKey
+  kernel berisi placeholder 21 karakter -> sanitasi kutip/spasi + fallback .gitcreds
+  (server-side) + perbaikan nilai kernel (scripts/fix_kernel_sbkey.js).
+- HOSTING UI (tab SERVER): status nyata 3 server + start/stop/restart managed + URL &
+  port terpampang (IP 21.0.4.92:25565/19132 + Aternos) + info platform/uptime.
+- BACKUP->AWAN->RESTORE: storage API Supabase (bucket civitas-backups, upsert, list,
+  download) di supabase.ts; restoreBackup(file, scope worlds|full): sha256 -> stop
+  server -> tar -xzf -> start ulang -> (full) restart self-server; backupToCloud
+  otomatis tiap backup jadwal; action baru backup_cloud_upload/backup_restore/
+  backup_cloud_restore. TERUJI END-TO-END: backup 553KB -> cloud 0.6MB -> restore
+  worlds -> Bedrock 7ms + Java 80ms ONLINE kembali. Watchdog 2b menjaga mc-net-proxy.
+- MINECRAFT ASLI DI BROWSER (tab MAIN MC): prismarine-web-client dibundel webpack
+  (slim minecraft-data -> 2 versi, 99MB->5KB index; worker 61MB->3.8MB; prune aset
+  288->42.5MB) + mini-service mc-net-proxy:3010 (protokol net-browserify: POST
+  /connect token -> WS /socket pipe dua arah TCP 25565, whitelist + maks 8 tunel +
+  TTL 15m). Patch idempoten (scripts/): net-browserify https-aware + XTransformPort
+  routing (kondisi dibuat konstan), fix destrukturisasi rusak paket terpublikasi,
+  audio guard (AudioBuffer sunyi utk browser tanpa codec), config.json default
+  127.0.0.1:25565 v1.21.1. Agent-browser E2E: klien termuat, isian terisi, Connect
+  via gateway (:81) -> Paper log: "pviewer207 joined the game" 23:43:52 (tanpa left),
+  HUD block + canvas hidup. Fullscreen API + auto-fit di UI.
+- UI: nav 16 view (MAIN MC/SERVER/CLOUD DB baru), v1.5 header/footer, eslint ignore
+  bundle. tsc 0; lint pass (1 warning warisan); build produksi 3x; invariants
+  diperkuat (INV-23e deterministik utk antrean hidup) -> 66 PASS / 0 FAIL; selftest
+  organism PASS.
+- Docs: README v1.5 (3 baris fitur baru + §main dari browser), CHANGELOG [1.5.0]
+  penuh, MASTER (roadmap 11.5 + sejarah), MEMORY (fase), .vercelignore diperluas
+  (public/mc IKUT deploy).
+
+Stage Summary:
+- v1.5.0 "CITADEL": semua 10 poin mandat dieksekusi dengan bukti runtime; klien
+  Minecraft browser = protokol nyata (bukan simulasi); restore = operasi nyata
+  terverifikasi; peta DB = introspeksi nyata 145 tabel. Berikutnya: push 4 remote +
+  deploy Vercel + verifikasi akhir + final push.
