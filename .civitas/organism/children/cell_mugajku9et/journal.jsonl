@@ -1,1 +1,3 @@
 {"at":"2026-09-25T01:37:28.663Z","kind":"BORN","pid":333,"name":"observer-mugajku9et","purpose":"spawn manual via operator"}
+{"at":"2026-09-25T01:37:52.663Z","kind":"REPORT","cycle":3,"rssMb":38,"load1":0.65,"note":"observer-mugajku9et hidup: siklus 3, RSS 38MB"}
+{"at":"2026-09-25T01:38:16.664Z","kind":"REPORT","cycle":6,"rssMb":38,"load1":0.47,"note":"observer-mugajku9et hidup: siklus 6, RSS 38MB"}
