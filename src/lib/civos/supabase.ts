@@ -222,6 +222,14 @@ export async function supabaseTest(): Promise<SupabaseTestResult> {
   return { enabled: true, checks, passed: checks.length - failed, failed, at: new Date().toISOString() };
 }
 
+/** Dorong SATU baris KV ke awan (dipakai state.cache agar jendela Vercel segar ≤ 30 dtk). */
+export async function pushKVRow(key: string, value: string): Promise<{ ok: boolean; detail: string }> {
+  const creds = await supabaseCreds();
+  if (!creds.enabled) return { ok: false, detail: "kredensial supabase belum diisi" };
+  const r = await rest(creds, "CivKV", "POST", [{ key, value, updatedAt: new Date().toISOString() }]);
+  return { ok: r.ok, detail: r.ok ? `baris ${key} tersinkron (${(value.length / 1024).toFixed(0)} KB)` : `HTTP ${r.status} ${String(r.data).slice(0, 100)}` };
+}
+
 // ---------- MIRROR TOTAL (v1.4 "SYNC") ----------
 // Mandat pemilik: "mount semua db di supabase" — SELURUH 24 tabel kernel dicerminkan
 // ke Postgres Supabase (upsert idempoten by PK). Kernel SQLite tetap otoritatif;

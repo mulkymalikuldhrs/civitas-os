@@ -96,5 +96,18 @@
     "lastHeartbeat": "2026-09-25T00:01:48.887Z",
     "cycles": 39,
     "exitCode": null
+  },
+  {
+    "id": "cell_mugajku9et",
+    "name": "observer-mugajku9et",
+    "role": "observer",
+    "kind": "temporary",
+    "purpose": "spawn manual via operator",
+    "pid": 333,
+    "dir": "/home/z/my-project/.civitas/organism/children/cell_mugajku9et",
+    "spawnedAt": "2026-09-25T01:37:28.642Z",
+    "status": "RUNNING",
+    "lastHeartbeat": "2026-09-25T01:37:36.664Z",
+    "cycles": 1
   }
 ]

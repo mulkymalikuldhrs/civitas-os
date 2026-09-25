@@ -54,6 +54,21 @@ Mandat pemilik: *"1. map semua db yang ada di supabase (semua table, db, column,
   ter-deploy agar tab MAIN MC hidup di Vercel; konfigurasi lint mengecualikan
   `public/mc/`, `mc-server/`, `backups/` (bundle besar — bukan kode untuk dilint).
 
+### Diubah (lanjutan — penyelesaian jendela awan)
+- **Vercel kini berfungsi penuh**: akar masalah "Can't reach database server" = (a)
+  schema.postgres membaca `SB_DATABASE_URL` (bukan DATABASE_URL) yang berisi hostname
+  pooler lama `aws-0-` (tenant tidak dikenal), dan (b) `DATABASE_URL` produksi kosong.
+  Perbaikan: env `SB_DATABASE_URL`/`DATABASE_URL`/`SB_URL`/`SB_SERVICE_KEY` ditulis ulang
+  ke pooler resmi **aws-1-ap-southeast-1.pooler.supabase.com:6543** (pengambilan via
+  Management API `config/database/pooler`); Prisma tersambung (SELECT 1 OK).
+- **Cache state serverless**: state penuh = puluhan query × latensi pooler → 504 di
+  Vercel. Solusi: `writeStateCache()` (CivKV `state.cache`) ditulis daemon tiap detak
+  (2c) + didorong langsung ke awan (`pushKVRow`) — route `/api/civos/state` menyajikan
+  cache instan (±5 dtk, kesegaran ≤ 30 dtk). Kernel SQLite tetap otoritatif.
+- Deployment produksi: `civitas-3dmwc06fq-...vercel.app` — state 200 (7 org, 16 warga,
+  3258 event), dbmap 145 tabel + bucket `documents`+`civitas-backups`, klien MC 11 MB
+  tersaji.
+
 ### Kejujuran
 - Aternos tetap flapping (sisi penyedia, free tier) — statusnya jujur OFFLINE saat tidur.
 - Klien web Minecraft butuh desktop + mouse (pointer-lock); di ponsel belum nyaman —

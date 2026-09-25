@@ -472,6 +472,16 @@ export async function selfLifeTick(): Promise<SelfLifeResult> {
     const { writeStateCache } = await import("./state");
     const wc = await writeStateCache();
     notes.push(`state cache: ${(wc.bytes / 1024).toFixed(0)} KB tertulis`);
+    // dorong langsung ke awan agar jendela Vercel segar ≤ 30 dtk (non-fatal)
+    try {
+      const { readStateCache } = await import("./state");
+      const { pushKVRow } = await import("./supabase");
+      const fresh = await readStateCache();
+      if (fresh) {
+        const push = await pushKVRow("state.cache", JSON.stringify(fresh));
+        if (!push.ok) notes.push(`state cache awan: ${push.detail}`);
+      }
+    } catch { /* non-fatal — siklus sync berikutnya tetap mencerminkan */ }
   } catch (e) { notes.push(`state cache gagal: ${e instanceof Error ? e.message : "?"}`); }
   // 3) backup sesuai jadwal
   const backupHours = Number((await getConfigValue("backup.intervalHours")) || "6");

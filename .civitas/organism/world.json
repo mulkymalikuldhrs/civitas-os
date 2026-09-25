@@ -1,20 +1,20 @@
 {
-  "at": "2026-09-25T00:38:48.397Z",
+  "at": "2026-09-25T01:37:40.198Z",
   "resources": {
     "cpuCount": 2,
-    "load1": 2.69,
-    "load5": 1.86,
-    "rssMb": 141,
-    "heapMb": 19,
-    "freememMb": 1172,
+    "load1": 0.84,
+    "load5": 0.62,
+    "rssMb": 143,
+    "heapMb": 21,
+    "freememMb": 2180,
     "totalmemMb": 4042,
-    "diskFreeMb": 3919,
-    "uptimeS": 17590
+    "diskFreeMb": 4001,
+    "uptimeS": 21121
   },
   "infrastructure": {
     "web_app": {
       "health": 100,
-      "note": "232ms"
+      "note": "11ms"
     },
     "daemon": {
       "health": 100,
@@ -77,6 +77,12 @@
       "kind": "temporary",
       "alive": false,
       "role": "observer"
+    },
+    {
+      "id": "cell_mugajku9et",
+      "kind": "temporary",
+      "alive": true,
+      "role": "observer"
     }
   ],
   "products": [
@@ -106,14 +112,9 @@
     }
   ],
   "knowledge": {
-    "memoryEntries": 333
+    "memoryEntries": 391
   },
   "risks": [
-    {
-      "key": "cpu_saturated",
-      "level": "MEDIUM",
-      "note": "load1=2.69 > cores=2"
-    },
     {
       "key": "duplicate_organs",
       "level": "LOW",
@@ -121,11 +122,6 @@
     }
   ],
   "experiments": [
-    {
-      "id": "mut_mufytnfo5a2",
-      "status": "REJECTED",
-      "verdict": "benchmark gagal: Command failed: bun /home/z/my-project/.civitas-sandbox/mut_mufytnfo5a2/scripts/organism_bench.ts .civitas/organism/dna."
-    },
     {
       "id": "mut_mufyuean1nz",
       "status": "REJECTED",
@@ -150,73 +146,78 @@
       "id": "mut_mug6xrbt2pr",
       "status": "ADOPTED",
       "verdict": "B diterima: 1.2ms vs A 3.4ms (valid=true)"
+    },
+    {
+      "id": "mut_mugaji026pj",
+      "status": "ADOPTED",
+      "verdict": "B diterima: 1.2ms vs A 3.4ms (valid=true)"
     }
   ],
   "economy": {
-    "cycleCostMs": 3758,
-    "actionsDone": 144,
-    "valueScore": 1560.7769999999957
+    "cycleCostMs": 3719,
+    "actionsDone": 169,
+    "valueScore": 1831.4519999999936
   },
   "epistemic": {
     "known": [
       {
         "key": "runtime",
         "value": "runtime v24.3.0 (1.3.14)",
-        "at": "2026-09-25T00:38:46.643Z",
+        "at": "2026-09-25T01:37:38.376Z",
         "source": "envprobe"
       },
       {
         "key": "cpu",
-        "value": "2 core load1=2.69",
-        "at": "2026-09-25T00:38:46.643Z",
+        "value": "2 core load1=0.84",
+        "at": "2026-09-25T01:37:38.376Z",
         "source": "envprobe"
       },
       {
         "key": "rss_mb",
-        "value": "141",
-        "at": "2026-09-25T00:38:46.643Z",
+        "value": "143",
+        "at": "2026-09-25T01:37:38.376Z",
         "source": "process"
       },
       {
         "key": "disk_free_mb",
-        "value": "3919",
-        "at": "2026-09-25T00:38:46.643Z",
+        "value": "4001",
+        "at": "2026-09-25T01:37:38.376Z",
         "source": "df"
       },
       {
         "key": "web_app",
-        "value": "ok 232ms",
-        "at": "2026-09-25T00:38:46.643Z",
+        "value": "ok 11ms",
+        "at": "2026-09-25T01:37:38.376Z",
         "source": "http"
       },
       {
         "key": "daemon",
         "value": "alive",
-        "at": "2026-09-25T00:38:46.643Z",
+        "at": "2026-09-25T01:37:38.376Z",
         "source": "pidfile"
       },
       {
         "key": "java_console_fifo",
         "value": "present",
-        "at": "2026-09-25T00:38:46.643Z",
+        "at": "2026-09-25T01:37:38.376Z",
         "source": "fs"
       },
       {
         "key": "mc_server_ping",
         "value": "no pong (1801ms)",
-        "at": "2026-09-25T00:38:46.643Z",
+        "at": "2026-09-25T01:37:38.376Z",
         "source": "raknet-udp"
       },
       {
         "key": "memory_entries",
-        "value": "333",
-        "at": "2026-09-25T00:38:46.643Z",
+        "value": "391",
+        "at": "2026-09-25T01:37:38.376Z",
         "source": "memory"
       },
       {
         "key": "capabilities",
-        "value": "6/7 available",
-        "at": "2026-09-25T00:38:46.643Z",
+        "value": "7/7 available",
+        "at": "2026-09-25T01:37:38.376Z",
         "source": "registry"
       }
     ],
