@@ -1473,5 +1473,205 @@
     "at": "2026-09-25T00:21:55.674Z",
     "kind": "OBSERVATION",
     "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:23:55.981Z",
+    "kind": "DECISION",
+    "text": "c#129 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.76 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:23:55.982Z",
+    "kind": "REFLECTION",
+    "text": "c#129: aksi=0 gagal=0 mutasi=6 — dunia: 1 risiko aktif"
+  },
+  {
+    "at": "2026-09-25T00:23:55.983Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:24:35.591Z",
+    "kind": "DECISION",
+    "text": "c#130 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.76 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:24:35.593Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:25:36.928Z",
+    "kind": "DECISION",
+    "text": "c#131 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.76 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:25:36.932Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:26:38.132Z",
+    "kind": "DECISION",
+    "text": "c#132 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.69 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:26:38.133Z",
+    "kind": "REFLECTION",
+    "text": "c#132: aksi=0 gagal=0 mutasi=6 — dunia: 2 risiko aktif"
+  },
+  {
+    "at": "2026-09-25T00:26:38.134Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:27:39.529Z",
+    "kind": "DECISION",
+    "text": "c#133 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.69 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:27:39.530Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:28:40.689Z",
+    "kind": "DECISION",
+    "text": "c#134 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.57 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:28:40.691Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:29:21.483Z",
+    "kind": "DECISION",
+    "text": "c#135 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.65 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:29:21.485Z",
+    "kind": "REFLECTION",
+    "text": "c#135: aksi=0 gagal=0 mutasi=6 — dunia: 1 risiko aktif"
+  },
+  {
+    "at": "2026-09-25T00:29:21.488Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:30:22.193Z",
+    "kind": "DECISION",
+    "text": "c#136 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.74 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:30:22.195Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:31:24.393Z",
+    "kind": "DECISION",
+    "text": "c#137 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.67 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:31:24.395Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:32:25.370Z",
+    "kind": "DECISION",
+    "text": "c#138 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.62 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:32:25.371Z",
+    "kind": "REFLECTION",
+    "text": "c#138: aksi=0 gagal=0 mutasi=6 — dunia: 1 risiko aktif"
+  },
+  {
+    "at": "2026-09-25T00:32:25.374Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:33:26.020Z",
+    "kind": "DECISION",
+    "text": "c#139 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.66 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:33:26.022Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:34:06.265Z",
+    "kind": "DECISION",
+    "text": "c#140 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.59 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:34:06.269Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:35:07.720Z",
+    "kind": "DECISION",
+    "text": "c#141 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.58 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:35:07.721Z",
+    "kind": "REFLECTION",
+    "text": "c#141: aksi=0 gagal=0 mutasi=6 — dunia: 1 risiko aktif"
+  },
+  {
+    "at": "2026-09-25T00:35:07.723Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:36:08.998Z",
+    "kind": "DECISION",
+    "text": "c#142 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.65 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:36:09.000Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:37:10.124Z",
+    "kind": "DECISION",
+    "text": "c#143 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.64 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:37:10.127Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:38:10.563Z",
+    "kind": "DECISION",
+    "text": "c#144 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.63 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:38:10.564Z",
+    "kind": "REFLECTION",
+    "text": "c#144: aksi=0 gagal=0 mutasi=6 — dunia: 1 risiko aktif"
+  },
+  {
+    "at": "2026-09-25T00:38:10.566Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
+  },
+  {
+    "at": "2026-09-25T00:38:50.259Z",
+    "kind": "DECISION",
+    "text": "c#145 PILIH 'Verifikasi unknown: remote_server_quota' skor 10.82 > doNothing 5.63 | hasil: probe raknet jalan: tidak merespons ping; kuota tetap unknown (jujur)"
+  },
+  {
+    "at": "2026-09-25T00:38:50.260Z",
+    "kind": "OBSERVATION",
+    "text": "reap 7 child mati: cell_mufytozz50,cell_mufyufiwc6,cell_mufyvyfy6v,cell_mufzmj4xa,cell_mug0msw073,cell_mug3ngdh7c,cell_mug6xv90jz"
   }
 ]

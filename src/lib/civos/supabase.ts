@@ -27,14 +27,14 @@ function readGitcreds(key: string): string {
 }
 
 export async function supabaseCreds(): Promise<SupabaseCreds> {
-  const url = sanitizeSecret(await getConfigValue("supabase.url")).replace(/\/+$/, "");
+  let url = sanitizeSecret(await getConfigValue("supabase.url")).replace(/\/+$/, "");
   let key = sanitizeSecret(await getConfigValue("supabase.serviceKey"));
   // Ketahanan (v1.5): nilai kernel yang jelas tidak sah (mis. placeholder pendek)
-  // digantikan kredensial pemilik dari .gitcreds — server-side saja.
-  if (key.length < 50) {
-    const alt = readGitcreds("SB_SERVICE_KEY");
-    if (alt.length >= 50) key = alt;
-  }
+  // digantikan kredensial pemilik — urutan: env SB_* (Vercel) → .gitcreds (sandbox).
+  if (key.length < 50) key = sanitizeSecret(process.env.SB_SERVICE_KEY ?? "");
+  if (key.length < 50) key = readGitcreds("SB_SERVICE_KEY");
+  if (!url || url.length < 20) url = sanitizeSecret(process.env.SB_URL ?? "");
+  if (!url || url.length < 20) url = readGitcreds("SB_URL").replace(/\/+$/, "");
   return { url, key, enabled: Boolean(url && key) };
 }
 

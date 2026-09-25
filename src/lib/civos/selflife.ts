@@ -466,6 +466,13 @@ export async function selfLifeTick(): Promise<SelfLifeResult> {
       notes.push(`mc-net-proxy: hidup (HTTP ${res.status})`);
     }
   } catch (e) { notes.push(`mc-net-proxy watchdog gagal: ${e instanceof Error ? e.message : "?"}`); }
+  // 2c) CACHE STATE — tulis snapshot state peradaban untuk jendela serverless (Vercel).
+  // Di sandbox ini murah (SQLite lokal); di awan route /state menyajikannya instan.
+  try {
+    const { writeStateCache } = await import("./state");
+    const wc = await writeStateCache();
+    notes.push(`state cache: ${(wc.bytes / 1024).toFixed(0)} KB tertulis`);
+  } catch (e) { notes.push(`state cache gagal: ${e instanceof Error ? e.message : "?"}`); }
   // 3) backup sesuai jadwal
   const backupHours = Number((await getConfigValue("backup.intervalHours")) || "6");
   const lastB = await db.civKV.findUnique({ where: { key: KV_LAST_BACKUP } });

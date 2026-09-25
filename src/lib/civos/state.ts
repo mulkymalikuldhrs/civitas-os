@@ -202,3 +202,31 @@ export async function civState() {
     serverTime: new Date().toISOString(),
   };
 }
+
+// ---------- v1.5 "CITADEL" — CACHE STATE UNTUK SERVERLESS (VERCEL) ----------
+// State penuh = puluhan query; terhadap Postgres remote (pooler) melebihi batas
+// fungsi serverless. Maka: daemon sandbox menulis cache ke CivKV tiap detak, dan
+// route state menyajikan cache instan — realtime tetap terasa (cache ≤ 30 dtk).
+
+const KV_STATE_CACHE = "state.cache";
+
+export async function writeStateCache(): Promise<{ ok: boolean; bytes: number }> {
+  const state = await civState();
+  const json = JSON.stringify(state);
+  await db.civKV.upsert({
+    where: { key: KV_STATE_CACHE },
+    create: { key: KV_STATE_CACHE, value: json },
+    update: { value: json },
+  });
+  return { ok: true, bytes: json.length };
+}
+
+export async function readStateCache(): Promise<Record<string, unknown> | null> {
+  const row = await db.civKV.findUnique({ where: { key: KV_STATE_CACHE } });
+  if (!row) return null;
+  try {
+    return JSON.parse(row.value) as Record<string, unknown>;
+  } catch {
+    return null;
+  }
+}
