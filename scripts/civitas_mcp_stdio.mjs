@@ -9,7 +9,7 @@
 import { spawn } from "node:child_process";
 
 const BASE = process.env.CIVITAS_URL || "http://127.0.0.1:3000";
-const ROOT = "/home/z/my-project";
+const ROOT = process.cwd();
 
 // ---------- tool registry ----------
 

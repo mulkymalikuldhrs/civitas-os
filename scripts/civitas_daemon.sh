@@ -5,7 +5,7 @@
 # sesuai jadwal config) langsung via bun — TIDAK bergantung pada web app.
 # Plus pengawas web app (curl health) yang dilaporkan jujur ke log.
 set -u
-ROOT="/home/z/my-project"
+ROOT="$(pwd)"
 PIDFILE="$ROOT/.civitas-daemon.pid"
 LOGFILE="$ROOT/backups/daemon.log"
 INTERVAL="${CIVITAS_DAEMON_INTERVAL:-30}"

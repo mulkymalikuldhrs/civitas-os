@@ -63,3 +63,7 @@ backups/
 db/custom.db
 db/custom.db-journal
 *.tar.gz
+
+.gitcreds
+prisma/dev_db/
+.civitas/

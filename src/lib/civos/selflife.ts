@@ -19,12 +19,12 @@ import { getConfigValue } from "./config";
 import { watchdogServers, writeServerStatusCache } from "./servers";
 import { heartbeatTick } from "./runtime";
 
-const ROOT = "/home/z/my-project";
+const ROOT = process.cwd();
 const BACKUP_DIR = path.join(ROOT, "backups");
 const KV_LAST_BACKUP = "selflife.lastBackup";
 const KV_LAST_SYNC = "selflife.lastSync";
 const KV_LIFE = "selflife.lastTick";
-const GITCREDS = "/home/z/.gitcreds";
+const GITCREDS = path.join(process.cwd(), ".gitcreds");
 
 const REMOTES: Array<{ name: string; url: string; tokenKey: string; ssh?: boolean }> = [
   { name: "gh-mulkymalikuldhrs", url: "https://github.com/mulkymalikuldhrs/civitas-os.git", tokenKey: "GH_MULKYMALIKULDHRS" },
@@ -169,7 +169,7 @@ export async function gitSync(): Promise<SyncResult> {
     const tok = tokens[r.tokenKey];
     if (!tok) { remotes.push({ name: r.name, pushed: false, detail: "token tidak ada di .gitcreds — lewati (jujur)" }); continue; }
     const authed = r.ssh ? r.url : r.url.replace("https://", `https://oauth2:${tok}@`);
-    const p = await sh("git", ["push", authed, "main:main"], 180_000, ROOT, r.ssh ? { GIT_SSH: "/home/z/.ssh-tools/sshx.ts" } : undefined);
+    const p = await sh("git", ["push", authed, "main:main"], 180_000, ROOT, r.ssh ? { GIT_SSH: path.join(process.cwd(), "scripts/gitlab_ssh_push.sh") } : undefined);
     remotes.push({ name: r.name, pushed: p.code === 0, detail: p.code === 0 ? "pushed" : (p.err || p.out).split("\n").filter(Boolean).slice(-1)[0]?.slice(0, 160) ?? "gagal" });
   }
   const ok = remotes.some((r) => r.pushed) || (!st.out.trim()); // tanpa perubahan & tanpa push = sinkron

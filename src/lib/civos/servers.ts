@@ -47,7 +47,7 @@ export interface CivServerStatus extends CivServer {
   checkedAt: string;
 }
 
-const ROOT = "/home/z/my-project";
+const ROOT = process.cwd();
 
 export async function defaultServers(): Promise<CivServer[]> {
   const consolePath = (await getConfigValue("mc.localConsolePath")) || `${ROOT}/mc-server/pmmp/console.in`;

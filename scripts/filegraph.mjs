@@ -4,7 +4,7 @@
 import { readdirSync, statSync, readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
 import { join, relative, dirname } from "path";
 
-const ROOT = "/home/z/my-project";
+const ROOT = process.cwd();
 const SCAN_DIRS = ["src", "scripts", "prisma", "docs", "mc-server/pmmp/plugins", "tests"];
 const IGNORE = [/node_modules/, /\.next/, /tool-results/, /download\//, /upload\//, /skills\//, /upstream\//, /\.git/, /agent-ctx/];
 const EXT = /\.(ts|tsx|js|mjs|php|prisma|md|json|yml|yaml|sh|css|properties)$/;

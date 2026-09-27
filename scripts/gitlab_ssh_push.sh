@@ -1,6 +1,9 @@
 #!/bin/bash
 # gitlab_ssh_push.sh — daftarkan SSH key via API GitLab, lalu force push via SSH altssh:443
-source /home/z/.gitcreds
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+if [ -f "${DIR}/.gitcreds" ]; then
+  source "${DIR}/.gitcreds"
+fi
 set -u
 
 KEYFILE="$HOME/.ssh/civitas_gitlab"
@@ -37,14 +40,12 @@ if 'id' in d: print('KEY_ADDED id=' + str(d['id']))
 else: print('KEY_ADD_FAIL: ' + json.dumps(d)[:300])
 "
 
-cd /home/z/my-project
+cd "$DIR"
 export GIT_SSH_COMMAND="ssh -i $KEYFILE -o StrictHostKeyChecking=no -o UserKnownHostsFile=$HOME/.ssh/known_hosts_gitlab -p 443"
 out=$(git push --force "ssh://git@altssh.gitlab.com/mulkymalikuldhr/civitas-os.git" main:main 2>&1)
 rc=$?
 echo "$out" | grep -vE "^remote:|^Resolving|^Enumerating|^Counting|^Compressing|^Writing" | tail -4
 if [ $rc -eq 0 ]; then
   echo "GITLAB_SSH_PUSH_OK"
-  exit 0
 fi
 echo "GITLAB_SSH_PUSH_FAIL rc=$rc"
-exit 1

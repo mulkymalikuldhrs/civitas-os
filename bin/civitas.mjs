@@ -10,7 +10,7 @@
 import { spawn, execFileSync } from "node:child_process";
 
 const BASE = process.env.CIVITAS_URL || "http://127.0.0.1:3000";
-const ROOT = "/home/z/my-project";
+const ROOT = process.cwd();
 const [, , cmd, ...rest] = process.argv;
 
 const C = { dim: "\x1b[2m", g: "\x1b[32m", r: "\x1b[31m", y: "\x1b[33m", b: "\x1b[36m", x: "\x1b[0m", bold: "\x1b[1m" };

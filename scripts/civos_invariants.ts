@@ -30,6 +30,19 @@ async function main() {
   console.log("=== CIVITAS OS — INVARIANT EKONOMI ===");
   const seed = await ensureSeed();
   console.log("seed:", seed.detail);
+  // Ensure prerequisite state for invariants if running on clean seed
+  const { createCensus } = await import("../src/lib/civos/villagers");
+  const activeVillagersCount = await db.civVillager.count({ where: { status: "ACTIVE" } });
+  if (activeVillagersCount === 0) {
+    await createCensus(8, "SIMULASI");
+  }
+  const compAny = await db.civOrg.findFirst({ where: { kind: "COMPANY" } });
+  if (compAny && compAny.lifecycle === "PROPOSED") {
+    await transitionState(compAny.id, "REGISTERED", "prasyarat test");
+    await transitionState(compAny.id, "CAPITALIZED", "prasyarat test");
+    await transitionState(compAny.id, "ACTIVE", "prasyarat test");
+  }
+
 
   // INV-1: ledger seimbang global
   const sides = await db.civEntry.groupBy({ by: ["side"], _sum: { amount: true } });

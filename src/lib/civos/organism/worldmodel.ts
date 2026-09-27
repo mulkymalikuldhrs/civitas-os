@@ -1,3 +1,4 @@
+import * as path from "node:path";
 // ORGANISM · worldmodel.ts — WORLD MODEL = satu-satunya sumber kebenaran
 // organisme (Minecraft hanyalah lapisan embodiment). Semua angka di sini
 // berasal dari probe NYATA: os/df/ps (envprobe), PID check, RakNet UDP ping,
@@ -77,7 +78,7 @@ export async function buildWorldModel(args: {
   } catch { daemonAlive = false; }
 
   const fifoExists = (() => {
-    try { return fs.existsSync("/home/z/my-project/mc-server/pmmp/console.in"); } catch { return false; }
+    try { return fs.existsSync(path.join(process.cwd(), "mc-server/pmmp/console.in")); } catch { return false; }
   })();
 
   // ── children registry nyata ──

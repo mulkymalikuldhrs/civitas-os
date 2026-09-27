@@ -1,3 +1,4 @@
+import * as path from "node:path";
 // ORGANISM · capability.ts — CAPABILITY GRAPH (HERMES).
 // GOAL → REQUIRED CAPABILITIES → AVAILABLE → GAP → ACQUIRE/BUILD/DELEGATE
 // → TEST → REGISTER. Capability hilang bukan alasan diam: organisme
@@ -60,7 +61,7 @@ process.stdout.write(summary);
     kind: "probe",
     code: `// capability java.logscan — ekstrak jejak aktivitas server Java (L4)
 import fs from "node:fs";
-const p = "/home/z/my-project/mc-server/java/logs/latest.log";
+const p = path.join(process.cwd(), "mc-server/java/logs/latest.log");
 try {
   const raw = fs.readFileSync(p, "utf8").split("\\n");
   const joins = raw.filter((l) => l.includes("joined the game")).length;

@@ -1,3 +1,4 @@
+import * as path from "node:path";
 // ORGANISM · loop.ts — TRUE AUTONOMOUS LOOP + Runtime singleton.
 // observe_world → update_world_model → generate_possible_goals → prioritize
 // → decide → execute → evaluate → update_memory → reflect →
@@ -74,7 +75,7 @@ async function actRepairInfra(g: Goal): Promise<string> {
     } catch (e) { return `daemon start gagal: ${(e as Error).message.slice(0, 80)}`; }
   }
   if (target === "java_console") {
-    const fifo = "/home/z/my-project/mc-server/pmmp/console.in";
+    const fifo = path.join(process.cwd(), "mc-server/pmmp/console.in");
     if (!fs.existsSync(fifo)) {
       try {
         fs.mkdirSync(path.dirname(fifo), { recursive: true });
